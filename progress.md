@@ -37,7 +37,7 @@
 - SpellBook 🟢
 - ManaSystem 🟢
 - ElementalSystem 🟢
-- SpellCrafting 🔴
+- SpellCrafting 🟢
 
 ### Sistema de NPCs 🟡
 - NPC (classe base) 🟢
@@ -59,8 +59,8 @@
 ### Alta Prioridade
 1. Implementar sistema de quests
 2. Desenvolver sistema de facções
-3. Criar sistema de IA para NPCs
-4. Implementar sistema de crafting de magias
+3. Finalizar sistema de habilidades
+4. Finalizar sistema de status effects
 
 ### Média Prioridade
 1. Desenvolver sistema de geração de mapas
