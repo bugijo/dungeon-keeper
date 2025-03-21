@@ -43,7 +43,7 @@
 - NPC (classe base) 🟢
 - Dialogue System 🟢
 - Quest System 🟢
-- Faction System 🔴
+- Faction System 🟢
 - AI Behavior 🔴
 - Trading System 🔴
 
@@ -64,9 +64,8 @@
 ## Próximos Passos
 
 ### Alta Prioridade
-1. Criar sistema de facções
-2. Implementar sistema de achievements
-3. Implementar sistema de trading
+1. Implementar sistema de achievements
+2. Implementar sistema de trading
 
 ### Média Prioridade
 1. Implementar sistema de pathfinding
