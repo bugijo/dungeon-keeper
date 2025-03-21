@@ -45,7 +45,7 @@
 - Quest System 🟢
 - Faction System 🟢
 - AI Behavior 🔴
-- Trading System 🔴
+- Trading System 🟢
 
 ### Sistema de Achievements 🟢
 - Achievement (classe base) 🟢
@@ -64,16 +64,17 @@
 ## Próximos Passos
 
 ### Alta Prioridade
-1. Implementar sistema de trading
-
-### Média Prioridade
 1. Implementar sistema de pathfinding
 2. Criar sistema de fog of war
 3. Desenvolver sistema de efeitos ambientais
-4. Implementar sistema de AI para NPCs
+
+### Média Prioridade
+1. Implementar sistema de AI para NPCs
+2. Melhorar sistema de achievements
+3. Expandir sistema de quests
 
 ### Baixa Prioridade
 1. Implementar sistema de customização avançada
 2. Criar sistema de rankings e competições
-3. Adicionar sistema de achievements avançados
-4. Desenvolver sistema de guilds
+3. Desenvolver sistema de guilds
+4. Adicionar sistema de eventos sazonais
