@@ -54,9 +54,9 @@
 - Sistema de categorias 🟢
 - Sistema de tiers 🟢
 
-### Sistema de Mapas 🔴
-- Map Generation 🔴
-- Tile System 🔴
+### Sistema de Mapas 🟡
+- Map Generation 🟢
+- Tile System 🟢
 - Pathfinding 🔴
 - Fog of War 🔴
 - Environmental Effects 🔴
@@ -64,19 +64,19 @@
 ## Próximos Passos
 
 ### Alta Prioridade
-1. Desenvolver sistema de geração de mapas
-2. Implementar sistema de pathfinding
-3. Criar sistema de fog of war
-4. Desenvolver sistema de efeitos ambientais
+1. Implementar sistema de pathfinding
+2. Criar sistema de fog of war
+3. Desenvolver sistema de efeitos ambientais
+4. Implementar sistema de clima
 
 ### Média Prioridade
-1. Implementar sistema de clima
-2. Criar sistema de pets/familiares
-3. Implementar sistema de housing
-4. Adicionar sistema de crafting avançado
+1. Criar sistema de pets/familiares
+2. Implementar sistema de housing
+3. Adicionar sistema de crafting avançado
+4. Desenvolver sistema de eventos dinâmicos
 
 ### Baixa Prioridade
-1. Desenvolver sistema de eventos dinâmicos
-2. Implementar sistema de customização avançada
-3. Criar sistema de rankings e competições
-4. Adicionar sistema de achievements avançados
+1. Implementar sistema de customização avançada
+2. Criar sistema de rankings e competições
+3. Adicionar sistema de achievements avançados
+4. Desenvolver sistema de guilds
