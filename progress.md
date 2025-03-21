@@ -47,12 +47,12 @@
 - AI Behavior 🔴
 - Trading System 🔴
 
-### Sistema de Achievements 🔴
-- Achievement (classe base) 🔴
-- Sistema de progresso 🔴
-- Sistema de recompensas 🔴
-- Sistema de categorias 🔴
-- Sistema de tiers 🔴
+### Sistema de Achievements 🟢
+- Achievement (classe base) 🟢
+- Sistema de progresso 🟢
+- Sistema de recompensas 🟢
+- Sistema de categorias 🟢
+- Sistema de tiers 🟢
 
 ### Sistema de Mapas 🟡
 - Map Generation 🟢
@@ -64,8 +64,7 @@
 ## Próximos Passos
 
 ### Alta Prioridade
-1. Implementar sistema de achievements
-2. Implementar sistema de trading
+1. Implementar sistema de trading
 
 ### Média Prioridade
 1. Implementar sistema de pathfinding
