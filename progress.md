@@ -39,20 +39,20 @@
 - ElementalSystem 🟢
 - SpellCrafting 🟢
 
-### Sistema de NPCs 🟡
+### Sistema de NPCs 🔴
 - NPC (classe base) 🟢
-- Dialogue System 🟢
-- Quest System 🟢
-- Faction System 🟢
+- Dialogue System 🔴
+- Quest System 🔴
+- Faction System 🔴
 - AI Behavior 🔴
-- Trading System 🟢
+- Trading System 🔴
 
-### Sistema de Achievements 🟢
-- Achievement (classe base) 🟢
-- Sistema de progresso 🟢
-- Sistema de recompensas 🟢
-- Sistema de categorias 🟢
-- Sistema de tiers 🟢
+### Sistema de Achievements 🔴
+- Achievement (classe base) 🔴
+- Sistema de progresso 🔴
+- Sistema de recompensas 🔴
+- Sistema de categorias 🔴
+- Sistema de tiers 🔴
 
 ### Sistema de Mapas 🟡
 - Map Generation 🟢
@@ -64,16 +64,16 @@
 ## Próximos Passos
 
 ### Alta Prioridade
+1. Implementar sistema de diálogo
+2. Desenvolver sistema de quests
+3. Criar sistema de facções
+4. Implementar sistema de achievements
+
+### Média Prioridade
 1. Implementar sistema de pathfinding
 2. Criar sistema de fog of war
 3. Desenvolver sistema de efeitos ambientais
-4. Implementar sistema de clima
-
-### Média Prioridade
-1. Criar sistema de pets/familiares
-2. Implementar sistema de housing
-3. Adicionar sistema de crafting avançado
-4. Desenvolver sistema de eventos dinâmicos
+4. Implementar sistema de AI para NPCs
 
 ### Baixa Prioridade
 1. Implementar sistema de customização avançada
