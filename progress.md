@@ -42,7 +42,7 @@
 ### Sistema de NPCs 🟡
 - NPC (classe base) 🟢
 - Dialogue System 🟢
-- Quest System 🔴
+- Quest System 🟢
 - Faction System 🔴
 - AI Behavior 🔴
 - Trading System 🟢
@@ -57,19 +57,19 @@
 ## Próximos Passos
 
 ### Alta Prioridade
-1. Implementar sistema de quests
-2. Desenvolver sistema de facções
-3. Implementar sistema de achievements
-4. Desenvolver sistema de geração de mapas
+1. Desenvolver sistema de facções
+2. Implementar sistema de achievements
+3. Desenvolver sistema de geração de mapas
+4. Implementar sistema de pathfinding
 
 ### Média Prioridade
-1. Implementar sistema de pathfinding
-2. Criar sistema de fog of war
-3. Desenvolver sistema de efeitos ambientais
-4. Implementar sistema de clima
+1. Criar sistema de fog of war
+2. Desenvolver sistema de efeitos ambientais
+3. Implementar sistema de clima
+4. Criar sistema de pets/familiares
 
 ### Baixa Prioridade
-1. Criar sistema de pets/familiares
-2. Implementar sistema de housing
-3. Adicionar sistema de crafting avançado
-4. Desenvolver sistema de eventos dinâmicos
+1. Implementar sistema de housing
+2. Adicionar sistema de crafting avançado
+3. Desenvolver sistema de eventos dinâmicos
+4. Implementar sistema de customização avançada
