@@ -31,12 +31,12 @@
 - Sistema de durabilidade 🟢
 - Sistema de encantamentos 🟢
 
-### Sistema de Magias 🟡
-- Spell (classe base) 🔴
-- SpellEffect 🔴
-- SpellBook 🔴
+### Sistema de Magias 🟢
+- Spell (classe base) 🟢
+- SpellEffect 🟢
+- SpellBook 🟢
 - ManaSystem 🟢
-- ElementalSystem 🔴
+- ElementalSystem 🟢
 - SpellCrafting 🔴
 
 ### Sistema de NPCs 🔴
@@ -57,10 +57,10 @@
 ## Próximos Passos
 
 ### Alta Prioridade
-1. Implementar sistema base de magias
-2. Desenvolver sistema de crafting
-3. Criar sistema de comerciantes
-4. Implementar sistema de NPCs básico
+1. Implementar sistema de crafting
+2. Desenvolver sistema de comerciantes
+3. Criar sistema de NPCs básico
+4. Implementar sistema de crafting de magias
 
 ### Média Prioridade
 1. Desenvolver sistema de quests
