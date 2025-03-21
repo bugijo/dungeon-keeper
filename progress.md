@@ -1,142 +1,75 @@
-# Status do Projeto DK (Dungeon Keeper)
+# Status do Projeto
 
-## Legenda
-🟢 Completo (100% implementado e testado)
-🟡 Em Progresso (Parcialmente implementado)
-🔴 Não Iniciado
-⚠️ Necessita Revisão
+## Core Systems
 
-## Sistemas Core
+### Sistema de Personagens 🟡
+- Classe base de personagem 🟢
+- Sistema de atributos 🟢
+- Sistema de vida e mana 🟢
+- Sistema de experiência 🟢
+- Sistema de inventário básico 🟢
+- Sistema de equipamentos 🟢
+- Sistema de habilidades 🟡
+- Sistema de status effects 🟡
 
-### 1. Sistema de Personagens 🟡
-- [🟡] Character (Modelo base)
-  - [🟢] Atributos básicos
-  - [🟡] Classes e níveis
-    - Pendente: Sistema completo de progressão
-    - Pendente: Habilidades específicas de classe
-  - [🔴] Histórico e background
-    - Pendente: Sistema de histórico
-    - Pendente: Impacto do background nas habilidades
-  - [🔴] Talentos e habilidades
-    - Pendente: Implementação do sistema de talentos
-    - Pendente: Árvore de habilidades
-  - [🟡] Recursos e pontos
-    - Pendente: Sistema de gerenciamento de recursos
+### Sistema de Combate 🟢
+- CombatAction 🟢
+- Initiative 🟢
+- Condition 🟢
+- DamageType 🟢
+- AbilityEffect 🟢
+- CombatState 🟢
+- CombatRound 🟢
 
-### 2. Sistema de Combate 🟡
-- [🟢] Modelos Principais
-  - [🟢] CombatAction (Ações básicas)
-  - [🟢] Initiative (Iniciativa)
-    - Implementado: Sistema completo
-  - [🟢] Condition (Condições)
-    - Implementado: Sistema completo
-  - [🟢] DamageType (Tipos de Dano)
-    - Implementado: Sistema completo
-  - [🟢] AbilityEffect (Efeitos)
-    - Implementado: Sistema completo
-  - [🟢] CombatState (Estado)
-    - Implementado: Sistema completo
-  - [🟢] CombatRound (Rounds)
-    - Implementado: Sistema completo
-    - Implementado: Ações de reação
+### Sistema de Inventário e Itens 🟢
+- Item (classe base) 🟢
+- Equipment (itens equipáveis) 🟢
+- Consumable (itens consumíveis) 🟢
+- Inventory (gerenciamento) 🟢
+- Sistema de crafting 🔴
+- Sistema de comerciantes 🔴
+- Sistema de durabilidade 🟢
+- Sistema de encantamentos 🟢
 
-### 3. Sistema de Inventário e Itens 🟡
-- [🟡] Modelos
-  - [🟡] Item
-    - Implementado: Sistema básico
-    - Pendente: Sistema de raridade
-    - Pendente: Efeitos especiais
-  - [🔴] Equipment
-    - Pendente: Sistema completo
-  - [🟡] Inventory
-    - Implementado: Sistema básico
-    - Pendente: Sistema de peso
-    - Pendente: Organização automática
-  - [🔴] Resource
-    - Pendente: Sistema completo
-  - [🔴] Shop
-    - Pendente: Sistema completo
+### Sistema de Magias 🟡
+- Spell (classe base) 🔴
+- SpellEffect 🔴
+- SpellBook 🔴
+- ManaSystem 🟢
+- ElementalSystem 🔴
+- SpellCrafting 🔴
 
-### 4. Sistema de Magias 🟡
-- [🟡] Modelos
-  - [🟡] Spell
-    - Implementado: Sistema básico
-    - Pendente: Efeitos complexos
-  - [🔴] SpellEffect
-    - Pendente: Sistema completo
-  - [🔴] AbilityRequirement
-    - Pendente: Sistema completo
-  - [🔴] ResourceCost
-    - Pendente: Sistema completo
+### Sistema de NPCs 🔴
+- NPC (classe base) 🔴
+- Dialogue System 🔴
+- Quest System 🔴
+- Faction System 🔴
+- AI Behavior 🔴
+- Trading System 🔴
 
-### 5. Sistema de NPCs 🔴
-- [🔴] Modelos
-  - [🔴] NPC
-    - Pendente: Sistema completo
-  - [🔴] Personality
-    - Pendente: Sistema completo
-  - [🔴] Dialogue
-    - Pendente: Sistema completo
-  - [🔴] Voice
-    - Pendente: Sistema completo
-  - [🔴] Routine
-    - Pendente: Sistema completo
-  - [🔴] Behavior
-    - Pendente: Sistema completo
-  - [🔴] Reaction
-    - Pendente: Sistema completo
-
-### 6. Sistema de Mapas 🔴
-- [🔴] Modelos
-  - [🔴] GameMap
-    - Pendente: Sistema completo
-  - [🔴] MapTile
-    - Pendente: Sistema completo
-  - [🔴] TacticalMap
-    - Pendente: Sistema completo
-  - [🔴] Position
-    - Pendente: Sistema completo
-  - [🔴] TerrainType
-    - Pendente: Sistema completo
-  - [🔴] MapObject
-    - Pendente: Sistema completo
+### Sistema de Mapas 🔴
+- Map Generation 🔴
+- Tile System 🔴
+- Pathfinding 🔴
+- Fog of War 🔴
+- Environmental Effects 🔴
 
 ## Próximos Passos
 
-### 1. Alta Prioridade
-1. Sistema de Personagens
-   - Implementar progressão de nível
-   - Completar sistema de classes
-   - Adicionar histórico e background
+### Alta Prioridade
+1. Implementar sistema base de magias
+2. Desenvolver sistema de crafting
+3. Criar sistema de comerciantes
+4. Implementar sistema de NPCs básico
 
-2. Sistema de Inventário
-   - Implementar sistema de raridade
-   - Adicionar sistema de peso
-   - Criar sistema de equipamentos
+### Média Prioridade
+1. Desenvolver sistema de quests
+2. Implementar sistema de diálogos
+3. Criar sistema de facções
+4. Desenvolver sistema de geração de mapas
 
-3. Sistema de Magias
-   - Implementar efeitos complexos
-   - Adicionar sistema de slots
-   - Criar sistema de requisitos
-
-### 2. Média Prioridade
-1. Sistema de NPCs
-   - Implementar modelo base
-   - Adicionar sistema de personalidade
-   - Criar sistema de diálogos
-
-2. Sistema de Mapas
-   - Implementar modelo base
-   - Adicionar sistema de tiles
-   - Criar sistema tático
-
-### 3. Baixa Prioridade
-1. Interface
-   - Completar telas pendentes
-   - Adicionar feedback visual
-   - Melhorar UX
-
-2. Documentação
-   - Atualizar documentação técnica
-   - Criar guias de usuário
-   - Adicionar exemplos
+### Baixa Prioridade
+1. Implementar sistema de achievements
+2. Desenvolver sistema de clima
+3. Criar sistema de pets/familiares
+4. Implementar sistema de housing
