@@ -47,6 +47,13 @@
 - AI Behavior 🔴
 - Trading System 🟢
 
+### Sistema de Achievements 🟢
+- Achievement (classe base) 🟢
+- Sistema de progresso 🟢
+- Sistema de recompensas 🟢
+- Sistema de categorias 🟢
+- Sistema de tiers 🟢
+
 ### Sistema de Mapas 🔴
 - Map Generation 🔴
 - Tile System 🔴
@@ -57,19 +64,19 @@
 ## Próximos Passos
 
 ### Alta Prioridade
-1. Implementar sistema de achievements
-2. Desenvolver sistema de geração de mapas
-3. Implementar sistema de pathfinding
-4. Criar sistema de fog of war
+1. Desenvolver sistema de geração de mapas
+2. Implementar sistema de pathfinding
+3. Criar sistema de fog of war
+4. Desenvolver sistema de efeitos ambientais
 
 ### Média Prioridade
-1. Desenvolver sistema de efeitos ambientais
-2. Implementar sistema de clima
-3. Criar sistema de pets/familiares
-4. Implementar sistema de housing
+1. Implementar sistema de clima
+2. Criar sistema de pets/familiares
+3. Implementar sistema de housing
+4. Adicionar sistema de crafting avançado
 
 ### Baixa Prioridade
-1. Adicionar sistema de crafting avançado
-2. Desenvolver sistema de eventos dinâmicos
-3. Implementar sistema de customização avançada
-4. Criar sistema de rankings e competições
+1. Desenvolver sistema de eventos dinâmicos
+2. Implementar sistema de customização avançada
+3. Criar sistema de rankings e competições
+4. Adicionar sistema de achievements avançados
