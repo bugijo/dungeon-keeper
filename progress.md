@@ -39,9 +39,9 @@
 - ElementalSystem 🟢
 - SpellCrafting 🟢
 
-### Sistema de NPCs 🔴
+### Sistema de NPCs 🟡
 - NPC (classe base) 🟢
-- Dialogue System 🔴
+- Dialogue System 🟢
 - Quest System 🔴
 - Faction System 🔴
 - AI Behavior 🔴
@@ -64,10 +64,10 @@
 ## Próximos Passos
 
 ### Alta Prioridade
-1. Implementar sistema de diálogo
-2. Desenvolver sistema de quests
-3. Criar sistema de facções
-4. Implementar sistema de achievements
+1. Desenvolver sistema de quests
+2. Criar sistema de facções
+3. Implementar sistema de achievements
+4. Implementar sistema de trading
 
 ### Média Prioridade
 1. Implementar sistema de pathfinding
