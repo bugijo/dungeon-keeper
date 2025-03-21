@@ -54,25 +54,27 @@
 - Sistema de categorias 🟢
 - Sistema de tiers 🟢
 
-### Sistema de Mapas 🟡
+### Sistema de Mapas 🟢
 - Map Generation 🟢
 - Tile System 🟢
 - Pathfinding 🟢
 - Fog of War 🟢
-- Environmental Effects 🔴
+- Environmental Effects 🟢
 
 ## Próximos Passos
 
 ### Alta Prioridade
-1. Desenvolver sistema de efeitos ambientais
-
-### Média Prioridade
 1. Implementar sistema de AI para NPCs
 2. Melhorar sistema de achievements
 3. Expandir sistema de quests
 
-### Baixa Prioridade
+### Média Prioridade
 1. Implementar sistema de customização avançada
 2. Criar sistema de rankings e competições
 3. Desenvolver sistema de guilds
-4. Adicionar sistema de eventos sazonais
+
+### Baixa Prioridade
+1. Adicionar sistema de eventos sazonais
+2. Implementar sistema de conquistas globais
+3. Criar sistema de torneios
+4. Desenvolver sistema de housing
