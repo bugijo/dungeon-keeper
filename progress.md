@@ -2,7 +2,7 @@
 
 ## Core Systems
 
-### Sistema de Personagens 🟡
+### Sistema de Personagens 🟢
 - Classe base de personagem 🟢
 - Sistema de atributos 🟢
 - Sistema de vida e mana 🟢
@@ -10,7 +10,7 @@
 - Sistema de inventário básico 🟢
 - Sistema de equipamentos 🟢
 - Sistema de habilidades 🟢
-- Sistema de status effects 🟡
+- Sistema de status effects 🟢
 
 ### Sistema de Combate 🟢
 - CombatAction 🟢
@@ -59,17 +59,17 @@
 ### Alta Prioridade
 1. Implementar sistema de quests
 2. Desenvolver sistema de facções
-3. Finalizar sistema de status effects
-4. Implementar sistema de achievements
+3. Implementar sistema de achievements
+4. Desenvolver sistema de geração de mapas
 
 ### Média Prioridade
-1. Desenvolver sistema de geração de mapas
-2. Implementar sistema de pathfinding
-3. Criar sistema de fog of war
-4. Desenvolver sistema de efeitos ambientais
+1. Implementar sistema de pathfinding
+2. Criar sistema de fog of war
+3. Desenvolver sistema de efeitos ambientais
+4. Implementar sistema de clima
 
 ### Baixa Prioridade
-1. Desenvolver sistema de clima
-2. Criar sistema de pets/familiares
-3. Implementar sistema de housing
-4. Adicionar sistema de crafting avançado
+1. Criar sistema de pets/familiares
+2. Implementar sistema de housing
+3. Adicionar sistema de crafting avançado
+4. Desenvolver sistema de eventos dinâmicos
