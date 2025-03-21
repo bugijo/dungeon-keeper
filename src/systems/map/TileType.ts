@@ -1,0 +1,11 @@
+export enum TileType {
+  WALL = 'WALL',
+  FLOOR = 'FLOOR',
+  DECORATION = 'DECORATION',
+  DOOR = 'DOOR',
+  STAIRS_UP = 'STAIRS_UP',
+  STAIRS_DOWN = 'STAIRS_DOWN',
+  WATER = 'WATER',
+  LAVA = 'LAVA',
+  TRAP = 'TRAP'
+}
