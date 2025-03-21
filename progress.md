@@ -9,7 +9,7 @@
 - Sistema de experiência 🟢
 - Sistema de inventário básico 🟢
 - Sistema de equipamentos 🟢
-- Sistema de habilidades 🟡
+- Sistema de habilidades 🟢
 - Sistema de status effects 🟡
 
 ### Sistema de Combate 🟢
@@ -59,8 +59,8 @@
 ### Alta Prioridade
 1. Implementar sistema de quests
 2. Desenvolver sistema de facções
-3. Finalizar sistema de habilidades
-4. Finalizar sistema de status effects
+3. Finalizar sistema de status effects
+4. Implementar sistema de achievements
 
 ### Média Prioridade
 1. Desenvolver sistema de geração de mapas
@@ -69,7 +69,7 @@
 4. Desenvolver sistema de efeitos ambientais
 
 ### Baixa Prioridade
-1. Implementar sistema de achievements
-2. Desenvolver sistema de clima
-3. Criar sistema de pets/familiares
-4. Implementar sistema de housing
+1. Desenvolver sistema de clima
+2. Criar sistema de pets/familiares
+3. Implementar sistema de housing
+4. Adicionar sistema de crafting avançado
