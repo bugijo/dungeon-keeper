@@ -57,16 +57,15 @@
 ### Sistema de Mapas 🟡
 - Map Generation 🟢
 - Tile System 🟢
-- Pathfinding 🔴
+- Pathfinding 🟢
 - Fog of War 🔴
 - Environmental Effects 🔴
 
 ## Próximos Passos
 
 ### Alta Prioridade
-1. Implementar sistema de pathfinding
-2. Criar sistema de fog of war
-3. Desenvolver sistema de efeitos ambientais
+1. Criar sistema de fog of war
+2. Desenvolver sistema de efeitos ambientais
 
 ### Média Prioridade
 1. Implementar sistema de AI para NPCs
