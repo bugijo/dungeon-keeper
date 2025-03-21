@@ -26,8 +26,8 @@
 - Equipment (itens equipáveis) 🟢
 - Consumable (itens consumíveis) 🟢
 - Inventory (gerenciamento) 🟢
-- Sistema de crafting 🔴
-- Sistema de comerciantes 🔴
+- Sistema de crafting 🟢
+- Sistema de comerciantes 🟢
 - Sistema de durabilidade 🟢
 - Sistema de encantamentos 🟢
 
@@ -39,13 +39,13 @@
 - ElementalSystem 🟢
 - SpellCrafting 🔴
 
-### Sistema de NPCs 🔴
-- NPC (classe base) 🔴
-- Dialogue System 🔴
+### Sistema de NPCs 🟡
+- NPC (classe base) 🟢
+- Dialogue System 🟢
 - Quest System 🔴
 - Faction System 🔴
 - AI Behavior 🔴
-- Trading System 🔴
+- Trading System 🟢
 
 ### Sistema de Mapas 🔴
 - Map Generation 🔴
@@ -57,16 +57,16 @@
 ## Próximos Passos
 
 ### Alta Prioridade
-1. Implementar sistema de crafting
-2. Desenvolver sistema de comerciantes
-3. Criar sistema de NPCs básico
+1. Implementar sistema de quests
+2. Desenvolver sistema de facções
+3. Criar sistema de IA para NPCs
 4. Implementar sistema de crafting de magias
 
 ### Média Prioridade
-1. Desenvolver sistema de quests
-2. Implementar sistema de diálogos
-3. Criar sistema de facções
-4. Desenvolver sistema de geração de mapas
+1. Desenvolver sistema de geração de mapas
+2. Implementar sistema de pathfinding
+3. Criar sistema de fog of war
+4. Desenvolver sistema de efeitos ambientais
 
 ### Baixa Prioridade
 1. Implementar sistema de achievements
