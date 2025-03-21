@@ -1,18 +1,18 @@
 # Status do Projeto
 
-## Core Systems
+## Sistemas Core
 
-### Sistema de Personagens 🟢
-- Classe base de personagem 🟢
+### Sistema de Personagens
+- Base do personagem 🟢
 - Sistema de atributos 🟢
 - Sistema de vida e mana 🟢
 - Sistema de experiência 🟢
-- Sistema de inventário básico 🟢
-- Sistema de equipamentos 🟢
-- Sistema de habilidades 🟢
-- Sistema de status effects 🟢
+- Inventário 🟢
+- Equipamentos 🟢
+- Skills 🟢
+- Status effects 🟢
 
-### Sistema de Combate 🟢
+### Sistema de Combate
 - CombatAction 🟢
 - Initiative 🟢
 - Condition 🟢
@@ -21,60 +21,60 @@
 - CombatState 🟢
 - CombatRound 🟢
 
-### Sistema de Inventário e Itens 🟢
-- Item (classe base) 🟢
-- Equipment (itens equipáveis) 🟢
-- Consumable (itens consumíveis) 🟢
-- Inventory (gerenciamento) 🟢
+### Sistema de Inventário e Items
+- Classes base de items 🟢
+- Equipamentos 🟢
+- Consumíveis 🟢
+- Gerenciamento de inventário 🟢
 - Sistema de crafting 🟢
-- Sistema de comerciantes 🟢
+- Sistema de trading 🟢
 - Sistema de durabilidade 🟢
 - Sistema de encantamentos 🟢
 
-### Sistema de Magias 🟢
-- Spell (classe base) 🟢
-- SpellEffect 🟢
-- SpellBook 🟢
-- ManaSystem 🟢
-- ElementalSystem 🟢
-- SpellCrafting 🟢
+### Sistema de Magia
+- Classes base de spells 🟢
+- Sistema de efeitos 🟢
+- Spell books 🟢
+- Sistema de mana 🟢
+- Sistema elemental 🟢
+- Spell crafting 🟢
 
-### Sistema de NPCs 🟢
-- NPC (classe base) 🟢
-- Dialogue System 🟢
-- Quest System 🟢
-- Faction System 🟢
-- AI Behavior 🟢
-- Trading System 🟢
+### Sistema de NPCs
+- Base do NPC 🟢
+- Sistema de diálogo 🟢
+- Sistema de quests 🟢
+- Sistema de facções 🟢
+- Sistema de AI 🟢
+- Sistema de trading 🟢
 
-### Sistema de Achievements 🟢
-- Achievement (classe base) 🟢
+### Sistema de Achievements
+- Base do achievement 🟢
 - Sistema de progresso 🟢
 - Sistema de recompensas 🟢
-- Sistema de categorias 🟢
-- Sistema de tiers 🟢
+- Categorias 🟢
+- Tiers 🟢
+- Chains de achievements 🟢
 
-### Sistema de Mapas 🟢
-- Map Generation 🟢
-- Tile System 🟢
+### Sistema de Mapas
+- Geração de mapas 🟢
+- Sistema de tiles 🟢
 - Pathfinding 🟢
-- Fog of War 🟢
-- Environmental Effects 🟢
+- Fog of war 🟢
+- Efeitos ambientais 🟢
 
 ## Próximos Passos
 
 ### Alta Prioridade
-1. Melhorar sistema de achievements
-2. Expandir sistema de quests
-3. Implementar sistema de customização avançada
+- Implementar sistema de save/load ⚪
+- Implementar sistema de configurações ⚪
+- Implementar sistema de UI/UX ⚪
 
 ### Média Prioridade
-1. Criar sistema de rankings e competições
-2. Desenvolver sistema de guilds
-3. Adicionar sistema de eventos sazonais
+- Implementar sistema de som ⚪
+- Implementar sistema de partículas ⚪
+- Implementar sistema de animações ⚪
 
 ### Baixa Prioridade
-1. Implementar sistema de conquistas globais
-2. Criar sistema de torneios
-3. Desenvolver sistema de housing
-4. Adicionar sistema de pets
+- Implementar sistema de modding ⚪
+- Implementar sistema de achievements online ⚪
+- Implementar sistema de rankings ⚪
