@@ -62,10 +62,17 @@
 - Fog of war 🟢
 - Efeitos ambientais 🟢
 
+### Sistema de Save/Load
+- Serialização de estado do jogo 🟢
+- Compressão de dados 🟢
+- Criptografia 🟢
+- Auto-save 🟢
+- Validação de saves 🟢
+- Metadados de save 🟢
+
 ## Próximos Passos
 
 ### Alta Prioridade
-- Implementar sistema de save/load ⚪
 - Implementar sistema de configurações ⚪
 - Implementar sistema de UI/UX ⚪
 
