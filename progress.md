@@ -39,12 +39,12 @@
 - ElementalSystem 🟢
 - SpellCrafting 🟢
 
-### Sistema de NPCs 🟡
+### Sistema de NPCs 🟢
 - NPC (classe base) 🟢
 - Dialogue System 🟢
 - Quest System 🟢
 - Faction System 🟢
-- AI Behavior 🔴
+- AI Behavior 🟢
 - Trading System 🟢
 
 ### Sistema de Achievements 🟢
@@ -64,17 +64,17 @@
 ## Próximos Passos
 
 ### Alta Prioridade
-1. Implementar sistema de AI para NPCs
-2. Melhorar sistema de achievements
-3. Expandir sistema de quests
+1. Melhorar sistema de achievements
+2. Expandir sistema de quests
+3. Implementar sistema de customização avançada
 
 ### Média Prioridade
-1. Implementar sistema de customização avançada
-2. Criar sistema de rankings e competições
-3. Desenvolver sistema de guilds
+1. Criar sistema de rankings e competições
+2. Desenvolver sistema de guilds
+3. Adicionar sistema de eventos sazonais
 
 ### Baixa Prioridade
-1. Adicionar sistema de eventos sazonais
-2. Implementar sistema de conquistas globais
-3. Criar sistema de torneios
-4. Desenvolver sistema de housing
+1. Implementar sistema de conquistas globais
+2. Criar sistema de torneios
+3. Desenvolver sistema de housing
+4. Adicionar sistema de pets
