@@ -1,0 +1,12 @@
+
+{
+  "id": "mock-user-id",
+  "display_name": "Mestre do Jogo",
+  "email": "gm@example.com",
+  "created_at": "2023-01-01T12:00:00Z",
+  "updated_at": "2023-01-01T12:00:00Z",
+  "custom_metadata": {
+    "last_login": "2023-01-01T12:00:00Z",
+    "character_level": 1
+  }
+}

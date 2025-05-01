@@ -1,0 +1,7 @@
+
+export const COLORS = {
+  DUNGEON_PURPLE: "#2b1b36",
+  MAGIC_ACCENT: "#ffd700", 
+  SCROLL_BACKGROUND: "#1a1423",
+  MONSTER_RED: "#8b0000"
+};

@@ -1,0 +1,9 @@
+{
+    "host": "aws-0-sa-east-1.pooler.supabase.com",
+    "port": 6543,
+    "user": "postgres.iilbczoanafeqzjqovjb",
+    "password": "El@1nem@e",
+    "database": "postgres",
+    "ssl": true,
+    "accessToken": "sbp_5bb4b8be35d5bebe8502a129e1a80f1f9a2c7125"
+  }

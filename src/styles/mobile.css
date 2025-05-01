@@ -1,0 +1,119 @@
+
+/* Mobile-specific styles */
+@media (max-width: 320px) {
+  .fantasy-card {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  
+  .sidebar-container {
+    display: none;
+  }
+  
+  .hamburger-menu {
+    display: block;
+  }
+}
+
+@media (min-width: 321px) and (max-width: 768px) {
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}
+
+@media (min-width: 769px) {
+  .sidebar-container {
+    position: fixed;
+    display: flex;
+  }
+  
+  .main-content {
+    margin-left: 250px;
+  }
+}
+
+/* Fixed header and footer for mobile */
+.fixed-nav-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+}
+
+.fixed-nav-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background-color: var(--fantasy-dark);
+  border-top: 1px solid rgba(106, 76, 147, 0.2);
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.scrollable-content {
+  position: fixed;
+  top: 60px; /* Adjust based on your header height */
+  bottom: 60px; /* Adjust based on your footer height */
+  overflow-y: auto;
+  width: 100%;
+  padding-bottom: 80px; /* Extra padding to avoid content being hidden behind the footer */
+}
+
+/* Enhanced touch targets for mobile */
+.mobile-touch-target {
+  position: relative;
+}
+
+.mobile-touch-target:before {
+  content: '';
+  position: absolute;
+  top: -15px;
+  left: -15px;
+  right: -15px;
+  bottom: -15px;
+  z-index: -1;
+}
+
+/* Swipe gesture area */
+.swipe-container {
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Accessibility enhancements */
+[role="header"],
+[role="main"],
+[role="navigation"] {
+  /* Ensure these have proper contrast and semantics */
+  outline: none;
+}
+
+/* Medieval style enhancements for mobile */
+.mobile-medieval-header {
+  background-color: #2b1b36;
+  border-bottom: 2px solid #ffd700;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 15px;
+}
+
+.mobile-medieval-button {
+  background-color: #6a4c93;
+  padding: 15px;
+  border-radius: 8px;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 0 10px #ffd700;
+}
+
+.mobile-medieval-button span {
+  color: white;
+  font-family: 'MedievalSharp', cursive;
+}

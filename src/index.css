@@ -1,0 +1,194 @@
+@import url('https://fonts.googleapis.com/css2?family=MedievalSharp&family=Montserrat:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 225 25% 13%;
+    --foreground: 210 40% 98%;
+
+    --card: 225 25% 16%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 224 71% 4%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 263 60% 50%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 240 21% 25%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 240 4% 26%;
+    --muted-foreground: 217 24% 70%;
+
+    --accent: 275 80% 40%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 240 5% 34%;
+    --input: 240 5% 34%;
+    --ring: 263 60% 50%;
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 225 25% 15%;
+    --sidebar-foreground: 240 5.3% 90%;
+    --sidebar-primary: 263 60% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 275 80% 30%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 240 5% 34%;
+    --sidebar-ring: 263 60% 50%;
+
+    /* Cores específicas RPG */
+    --fantasy-dark: #2b1b36;
+    --fantasy-gold: #ffd700;
+    --fantasy-scroll: #1a1423;
+    --fantasy-red: #8b0000;
+    --fantasy-purple: #6a4c93;
+    --fantasy-stone: #d4d4d8;
+    --fantasy-gem: #9333ea;
+    --fantasy-rare: #38bdf8;
+    --fantasy-legendary: #f59e0b;
+    --fantasy-accent: #b45dd9;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-medievalsharp;
+  }
+}
+
+@layer components {
+  .fantasy-card {
+    @apply bg-card relative overflow-hidden rounded-lg border border-fantasy-purple/20 shadow-md hover:shadow-lg transition-all duration-300 hover:border-fantasy-purple/40 p-4;
+    background: var(--fantasy-dark);
+  }
+  
+  .fantasy-card::before {
+    @apply content-[''] absolute inset-0 bg-card-gradient opacity-50 pointer-events-none;
+  }
+  
+  .fantasy-border {
+    @apply border border-fantasy-purple/30 rounded-md p-0.5 bg-gradient-to-br from-fantasy-purple/10 to-fantasy-purple/5;
+  }
+  
+  .fantasy-button {
+    @apply relative overflow-hidden py-2 px-4 rounded-md font-medievalsharp text-white transition-all;
+  }
+  
+  .fantasy-button.primary {
+    @apply bg-gradient-to-br from-fantasy-purple to-fantasy-accent hover:from-fantasy-accent hover:to-fantasy-purple;
+  }
+  
+  .fantasy-button.secondary {
+    @apply bg-gradient-to-br from-fantasy-gold/80 to-fantasy-gold hover:from-fantasy-gold hover:to-fantasy-gold/80 text-fantasy-dark;
+  }
+  
+  .fantasy-icon {
+    @apply inline-flex items-center justify-center p-1 bg-gradient-to-br from-fantasy-purple/30 to-fantasy-accent/20 rounded-full border border-fantasy-purple/20;
+  }
+  
+  .xp-bar {
+    @apply h-2 rounded-full bg-fantasy-dark overflow-hidden relative border border-fantasy-purple/30;
+  }
+  
+  .xp-progress {
+    @apply h-full bg-gradient-to-r from-fantasy-purple to-fantasy-accent;
+  }
+  
+  .rarity-common {
+    @apply text-gray-300;
+  }
+  
+  .rarity-rare {
+    @apply text-fantasy-rare;
+  }
+  
+  .rarity-epic {
+    @apply text-fantasy-gem;
+  }
+  
+  .rarity-legendary {
+    @apply text-fantasy-legendary;
+  }
+
+  /* Efeitos de brilho */
+  .glow-border {
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.3), 0 0 20px rgba(255, 215, 0, 0.2);
+    animation: pulse-border 2s infinite alternate;
+  }
+
+  .medieval-text-shadow {
+    text-shadow: 0 0 5px rgba(255, 215, 0, 0.7);
+  }
+
+  .dungeon-card {
+    border: 2px solid var(--fantasy-purple);
+    background-color: var(--fantasy-dark);
+    border-radius: 0.5rem;
+    box-shadow: 0 0 15px rgba(106, 76, 147, 0.3);
+    transition: all 0.3s ease;
+  }
+
+  .dungeon-card:hover {
+    border-color: var(--fantasy-gold);
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+  }
+
+  .fog-of-war {
+    position: relative;
+  }
+
+  .fog-of-war::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 5;
+  }
+
+  .draggable-token {
+    cursor: grab;
+    transition: transform 0.2s ease;
+  }
+
+  .draggable-token:active {
+    cursor: grabbing;
+  }
+}
+
+@keyframes pulse-border {
+  0% {
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.3), 0 0 20px rgba(255, 215, 0, 0.2);
+  }
+  100% {
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.5), 0 0 30px rgba(255, 215, 0, 0.3);
+  }
+}
+
+@font-face {
+  font-family: 'MedievalSharp';
+  src: url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
+}
+
+.font-medievalsharp {
+  font-family: 'MedievalSharp', cursive;
+}
