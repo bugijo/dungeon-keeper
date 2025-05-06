@@ -36,6 +36,7 @@ import MapTacticalDemo from './pages/MapTacticalDemo';
 import TacticalMapSystem from './pages/TacticalMapSystem';
 import MapCollection from './pages/MapCollection';
 import SessionScheduler from './pages/SessionScheduler';
+import NpcsView from './pages/NpcsView';
 
 function App() {
   const { session } = useAuth();
@@ -273,6 +274,15 @@ function App() {
           element={
             <ProtectedRoute>
               <SessionScheduler />
+            </ProtectedRoute>
+          }
+        />
+        
+        <Route
+          path="/npcs"
+          element={
+            <ProtectedRoute>
+              <NpcsView />
             </ProtectedRoute>
           }
         />

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Eye, EyeOff, Eraser, Paintbrush, Save, Download, Upload, Settings, Layers, Ruler } from 'lucide-react';
+import { Eye, EyeOff, Eraser, Paintbrush, Save, Download, Upload, Settings, Layers, Ruler, Grid } from 'lucide-react';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
 import { Toggle } from '@/components/ui/toggle';
@@ -55,6 +57,10 @@ const EnhancedFogOfWarController: React.FC<EnhancedFogOfWarControllerProps> = ({
   const [currentTool, setCurrentTool] = useState<'reveal' | 'hide' | 'select' | 'lineOfSight'>('reveal');
   const [fogOpacity, setFogOpacity] = useState(0.7);
   const [fogColor, setFogColor] = useState('#000000');
+  const [snapToGrid, setSnapToGrid] = useState(false);
+  const [edgeBlur, setEdgeBlur] = useState(0);
+  const [transitionSpeed, setTransitionSpeed] = useState(300);
+  const [presets, setPresets] = useState<{id: string, name: string, data: RevealedArea[]}[]>([]);
   
   // Atualizar opacidade da névoa
   const handleOpacityChange = (value: number) => {
@@ -197,6 +203,181 @@ const EnhancedFogOfWarController: React.FC<EnhancedFogOfWarControllerProps> = ({
     toast.success('Configuração de névoa exportada com sucesso!');
   };
   
+  // Aplicar predefinição rápida de tamanho de pincel
+  const applyQuickPreset = (preset: 'small' | 'medium' | 'large') => {
+    let newBrushSize = brushSize;
+    
+    switch (preset) {
+      case 'small':
+        newBrushSize = 1;
+        break;
+      case 'medium':
+        newBrushSize = 3;
+        break;
+      case 'large':
+        newBrushSize = 5;
+        break;
+    }
+    
+    setBrushSize(newBrushSize);
+    toast.success(`Predefinição ${preset} aplicada`);
+  };
+  
+  // Alternar alinhamento ao grid
+  const onToggleSnapToGrid = (value: boolean) => {
+    setSnapToGrid(value);
+    
+    // Enviar atualização para todos os jogadores
+    if (isGameMaster && mapId) {
+      supabase
+        .channel(`fog-updates-${mapId}`)
+        .send({
+          type: 'broadcast',
+          event: 'fog_snap_update',
+          payload: { snapToGrid: value }
+        })
+        .catch(error => {
+          console.error('Erro ao atualizar alinhamento ao grid:', error);
+        });
+    }
+  };
+  
+  // Atualizar suavização de bordas
+  const onEdgeBlurChange = (value: number) => {
+    setEdgeBlur(value);
+    
+    // Enviar atualização para todos os jogadores
+    if (isGameMaster && mapId) {
+      supabase
+        .channel(`fog-updates-${mapId}`)
+        .send({
+          type: 'broadcast',
+          event: 'fog_blur_update',
+          payload: { edgeBlur: value }
+        })
+        .catch(error => {
+          console.error('Erro ao atualizar suavização de bordas:', error);
+        });
+    }
+  };
+  
+  // Atualizar velocidade de transição
+  const onTransitionSpeedChange = (value: number) => {
+    setTransitionSpeed(value);
+    
+    // Enviar atualização para todos os jogadores
+    if (isGameMaster && mapId) {
+      supabase
+        .channel(`fog-updates-${mapId}`)
+        .send({
+          type: 'broadcast',
+          event: 'fog_transition_update',
+          payload: { transitionSpeed: value }
+        })
+        .catch(error => {
+          console.error('Erro ao atualizar velocidade de transição:', error);
+        });
+    }
+  };
+  
+  // Salvar preset
+  const savePreset = async (name: string) => {
+    if (!isGameMaster || !mapId) return;
+    
+    try {
+      const { data, error } = await supabase
+        .from('fog_presets')
+        .insert({
+          map_id: mapId,
+          name: name,
+          data: revealedAreas,
+          created_by: userId
+        })
+        .select()
+        .single();
+        
+      if (error) throw error;
+      
+      if (data) {
+        setPresets(prev => [...prev, data]);
+        toast.success(`Predefinição "${name}" salva com sucesso!`);
+      }
+    } catch (error) {
+      console.error('Erro ao salvar predefinição:', error);
+      toast.error('Não foi possível salvar a predefinição');
+    }
+  };
+  
+  // Carregar preset
+  const loadPreset = async (presetId: string) => {
+    const preset = presets.find(p => p.id === presetId);
+    if (!preset) return;
+    
+    try {
+      // Limpar áreas existentes
+      await supabase
+        .from('map_fog_of_war')
+        .delete()
+        .eq('map_id', mapId);
+      
+      // Adicionar novas áreas
+      const promises = preset.data.map(async (area: RevealedArea) => {
+        const { data } = await supabase
+          .from('map_fog_of_war')
+          .insert({
+            map_id: mapId,
+            game_id: gameId,
+            x: area.x,
+            y: area.y,
+            radius: area.radius,
+            shape: area.shape,
+            points: area.points ? JSON.stringify(area.points) : null,
+            color: area.color || 'rgba(0, 0, 0, 0.7)',
+            opacity: area.opacity || 0.7,
+            created_by: userId
+          })
+          .select()
+          .single();
+          
+        return data;
+      });
+      
+      await Promise.all(promises);
+      
+      // Atualizar estado local
+      onFogUpdate(preset.data);
+      
+      toast.success(`Predefinição "${preset.name}" carregada com sucesso!`);
+    } catch (error) {
+      console.error('Erro ao carregar predefinição:', error);
+      toast.error('Não foi possível carregar a predefinição');
+    }
+  };
+  
+  // Carregar presets do banco de dados
+  useEffect(() => {
+    if (!isGameMaster || !mapId) return;
+    
+    const fetchPresets = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('fog_presets')
+          .select('*')
+          .eq('map_id', mapId);
+          
+        if (error) throw error;
+        
+        if (data) {
+          setPresets(data);
+        }
+      } catch (error) {
+        console.error('Erro ao carregar predefinições:', error);
+      }
+    };
+    
+    fetchPresets();
+  }, [mapId, isGameMaster]);
+  
   // Importar configuração
   const importFogConfig = () => {
     const input = document.createElement('input');
@@ -266,199 +447,251 @@ const EnhancedFogOfWarController: React.FC<EnhancedFogOfWarControllerProps> = ({
   };
 
   return (
-    <div className="bg-fantasy-dark/80 p-3 rounded-md flex flex-col gap-3 max-w-xs">
-      <h3 className="text-fantasy-gold font-medievalsharp text-lg">Controle de Névoa</h3>
+    <div className="p-4 bg-card rounded-lg shadow-md">
+      <h3 className="text-lg font-semibold mb-4">Controles Avançados da Névoa de Guerra</h3>
       
-      {/* Controles de visibilidade */}
-      <div className="flex justify-between items-center">
-        <span className="text-fantasy-stone text-sm">Mostrar Névoa:</span>
-        <Toggle
-          pressed={showFog}
-          onPressedChange={onToggleFog}
-          aria-label="Alternar visibilidade da névoa"
-          className={showFog ? 'bg-fantasy-gold text-fantasy-dark' : 'bg-fantasy-dark/50 text-fantasy-stone'}
-        >
-          {showFog ? <Eye size={16} /> : <EyeOff size={16} />}
-        </Toggle>
+      <div className="space-y-4">
+        {/* Controle de Visibilidade */}
+        <div className="flex items-center justify-between">
+          <span>Mostrar Névoa:</span>
+          <Button
+            variant={showFog ? "default" : "outline"}
+            size="sm"
+            onClick={() => onToggleFog(!showFog)}
+          >
+            {showFog ? <Eye className="h-4 w-4 mr-2" /> : <EyeOff className="h-4 w-4 mr-2" />}
+            {showFog ? "Visível" : "Oculta"}
+          </Button>
+        </div>
+        
+        {/* Controle de Opacidade */}
+        <div className="space-y-2">
+          <div className="flex items-center justify-between">
+            <span>Opacidade:</span>
+            <span>{Math.round(fogOpacity * 100)}%</span>
+          </div>
+          <Slider
+            value={[fogOpacity * 100]}
+            min={0}
+            max={100}
+            step={5}
+            onValueChange={(value) => handleOpacityChange(value[0] / 100)}
+          />
+        </div>
+        
+        {/* Ferramentas de Edição */}
+        <div className="space-y-2">
+          <span>Ferramenta:</span>
+          <div className="flex space-x-2">
+            <Toggle
+              pressed={currentTool === 'reveal'}
+              onClick={() => setCurrentTool('reveal')}
+              aria-label="Revelar Névoa"
+            >
+              <Eye className="h-4 w-4" />
+            </Toggle>
+            <Toggle
+              pressed={currentTool === 'hide'}
+              onClick={() => setCurrentTool('hide')}
+              aria-label="Esconder Névoa"
+            >
+              <EyeOff className="h-4 w-4" />
+            </Toggle>
+            <Toggle
+              pressed={currentTool === 'select'}
+              onClick={() => setCurrentTool('select')}
+              aria-label="Selecionar Área"
+            >
+              <Paintbrush className="h-4 w-4" />
+            </Toggle>
+          </div>
+        </div>
+        
+        {/* Forma do Pincel */}
+        <div className="space-y-2">
+          <span>Forma do Pincel:</span>
+          <Select
+            value={brushShape}
+            onValueChange={(value: 'circle' | 'square' | 'polygon') => setBrushShape(value)}
+          >
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Selecione a forma" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="circle">Círculo</SelectItem>
+              <SelectItem value="square">Quadrado</SelectItem>
+              <SelectItem value="polygon">Polígono</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+        
+        {/* Tamanho do Pincel */}
+        <div className="space-y-2">
+          <div className="flex items-center justify-between">
+            <span>Tamanho do Pincel:</span>
+            <span>{brushSize * gridSize}px</span>
+          </div>
+          <Slider
+            value={[brushSize]}
+            min={1}
+            max={10}
+            step={1}
+            onValueChange={(value) => setBrushSize(value[0])}
+          />
+        </div>
+        
+        {/* Predefinições Rápidas */}
+        <div className="space-y-2">
+          <span>Predefinições Rápidas:</span>
+          <div className="flex space-x-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => applyQuickPreset('small')}
+            >
+              Pequeno
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => applyQuickPreset('medium')}
+            >
+              Médio
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => applyQuickPreset('large')}
+            >
+              Grande
+            </Button>
+          </div>
+        </div>
+        
+        {/* Controles Avançados */}
+        <div className="space-y-4">
+          <h4 className="font-medium">Controles Avançados</h4>
+          
+          {/* Alinhamento ao Grid */}
+          <div className="flex items-center justify-between">
+            <span>Alinhar ao Grid:</span>
+            <Toggle
+              pressed={snapToGrid}
+              onClick={() => onToggleSnapToGrid(!snapToGrid)}
+              aria-label="Alinhar ao Grid"
+            >
+              <Grid className="h-4 w-4" />
+            </Toggle>
+          </div>
+          
+          {/* Suavização de Bordas */}
+          <div className="space-y-2">
+            <div className="flex items-center justify-between">
+              <span>Suavização de Bordas:</span>
+              <span>{edgeBlur}</span>
+            </div>
+            <Slider
+              value={[edgeBlur]}
+              min={0}
+              max={10}
+              step={0.5}
+              onValueChange={(value) => onEdgeBlurChange(value[0])}
+            />
+          </div>
+          
+          {/* Velocidade de Transição */}
+          <div className="space-y-2">
+            <div className="flex items-center justify-between">
+              <span>Velocidade de Transição:</span>
+              <span>{transitionSpeed}ms</span>
+            </div>
+            <Slider
+              value={[transitionSpeed]}
+              min={0}
+              max={1000}
+              step={50}
+              onValueChange={(value) => onTransitionSpeedChange(value[0])}
+            />
+          </div>
+        </div>
+        
+        {/* Botões de Ação */}
+        <div className="pt-2 space-y-2">
+          <Button
+            variant="destructive"
+            size="sm"
+            className="w-full"
+            onClick={clearAllFog}
+          >
+            <Eraser className="h-4 w-4 mr-2" />
+            Limpar Toda a Névoa
+          </Button>
+          
+          {/* Gerenciamento de Predefinições */}
+          <div className="space-y-2">
+            <span>Gerenciar Predefinições:</span>
+            <div className="flex space-x-2">
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button variant="outline" size="sm">
+                    <Save className="h-4 w-4 mr-2" />
+                    Salvar Predefinição
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-80">
+                  <div className="space-y-4">
+                    <h4 className="font-medium">Salvar Configuração Atual</h4>
+                    <div className="space-y-2">
+                      <Label htmlFor="preset-name">Nome da Predefinição</Label>
+                      <Input
+                        id="preset-name"
+                        placeholder="Minha Predefinição"
+                        onChange={(e) => e.target.value}
+                      />
+                    </div>
+                    <Button
+                      onClick={() => {
+                        const input = document.getElementById('preset-name') as HTMLInputElement;
+                        if (input && input.value) {
+                          savePreset(input.value);
+                          input.value = '';
+                        } else {
+                          toast.error('Digite um nome para a predefinição');
+                        }
+                      }}
+                      className="w-full"
+                    >
+                      Salvar
+                    </Button>
+                  </div>
+                </PopoverContent>
+              </Popover>
+              
+              <Select onValueChange={loadPreset}>
+                <SelectTrigger className="w-[180px]">
+                  <SelectValue placeholder="Carregar Predefinição" />
+                </SelectTrigger>
+                <SelectContent>
+                  {presets.map((preset) => (
+                    <SelectItem key={preset.id} value={preset.id}>
+                      {preset.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+          
+          <FogPresetManager
+            mapId={mapId}
+            userId={userId}
+            onPresetSelect={(preset) => {
+              // Implementar lógica para aplicar preset
+              console.log('Preset selecionado:', preset);
+            }}
+          />
+        </div>
       </div>
-      
-      {isGameMaster && (
-        <>
-          {/* Abas de ferramentas */}
-          <Tabs defaultValue="tools" className="w-full">
-            <TabsList className="grid grid-cols-3 mb-2">
-              <TabsTrigger value="tools">Ferramentas</TabsTrigger>
-              <TabsTrigger value="settings">Configurações</TabsTrigger>
-              <TabsTrigger value="presets">Presets</TabsTrigger>
-            </TabsList>
-            
-            {/* Aba de ferramentas */}
-            <TabsContent value="tools" className="space-y-3">
-              <div className="grid grid-cols-2 gap-2">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className={currentTool === 'reveal' ? 'bg-fantasy-gold text-fantasy-dark' : ''}
-                  onClick={() => setCurrentTool('reveal')}
-                >
-                  <Paintbrush size={16} className="mr-1" /> Revelar
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className={currentTool === 'hide' ? 'bg-fantasy-gold text-fantasy-dark' : ''}
-                  onClick={() => setCurrentTool('hide')}
-                >
-                  <Eraser size={16} className="mr-1" /> Esconder
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className={currentTool === 'lineOfSight' ? 'bg-fantasy-gold text-fantasy-dark' : ''}
-                  onClick={() => setCurrentTool('lineOfSight')}
-                >
-                  <Ruler size={16} className="mr-1" /> Visão
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className={currentTool === 'select' ? 'bg-fantasy-gold text-fantasy-dark' : ''}
-                  onClick={() => setCurrentTool('select')}
-                >
-                  <Layers size={16} className="mr-1" /> Selecionar
-                </Button>
-              </div>
-              
-              <div className="space-y-2">
-                <div className="flex justify-between items-center">
-                  <span className="text-fantasy-stone text-sm">Forma:</span>
-                  <div className="flex gap-1">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className={`p-1 h-8 w-8 ${brushShape === 'circle' ? 'bg-fantasy-gold text-fantasy-dark' : ''}`}
-                      onClick={() => setBrushShape('circle')}
-                      title="Círculo"
-                    >
-                      ⭕
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className={`p-1 h-8 w-8 ${brushShape === 'square' ? 'bg-fantasy-gold text-fantasy-dark' : ''}`}
-                      onClick={() => setBrushShape('square')}
-                      title="Quadrado"
-                    >
-                      ⬛
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className={`p-1 h-8 w-8 ${brushShape === 'polygon' ? 'bg-fantasy-gold text-fantasy-dark' : ''}`}
-                      onClick={() => setBrushShape('polygon')}
-                      title="Polígono"
-                    >
-                      🔺
-                    </Button>
-                  </div>
-                </div>
-                
-                <div className="space-y-1">
-                  <div className="flex justify-between">
-                    <span className="text-fantasy-stone text-sm">Tamanho:</span>
-                    <span className="text-fantasy-stone text-sm">{brushSize}</span>
-                  </div>
-                  <Slider
-                    value={[brushSize]}
-                    min={1}
-                    max={10}
-                    step={1}
-                    onValueChange={(value) => setBrushSize(value[0])}
-                    className="w-full"
-                  />
-                </div>
-              </div>
-              
-              <div className="grid grid-cols-2 gap-2">
-                <Button
-                  variant="destructive"
-                  size="sm"
-                  onClick={clearAllFog}
-                >
-                  <Eraser size={16} className="mr-1" /> Limpar Tudo
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={revealAllMap}
-                >
-                  <Eye size={16} className="mr-1" /> Revelar Tudo
-                </Button>
-              </div>
-            </TabsContent>
-            
-            {/* Aba de configurações */}
-            <TabsContent value="settings" className="space-y-3">
-              <div className="space-y-1">
-                <div className="flex justify-between">
-                  <span className="text-fantasy-stone text-sm">Opacidade:</span>
-                  <span className="text-fantasy-stone text-sm">{Math.round(fogOpacity * 100)}%</span>
-                </div>
-                <Slider
-                  value={[fogOpacity]}
-                  min={0.1}
-                  max={1}
-                  step={0.05}
-                  onValueChange={(value) => handleOpacityChange(value[0])}
-                  className="w-full"
-                />
-              </div>
-              
-              <div className="space-y-1">
-                <span className="text-fantasy-stone text-sm">Cor da Névoa:</span>
-                <div className="flex items-center gap-2">
-                  <input
-                    type="color"
-                    value={fogColor}
-                    onChange={(e) => setFogColor(e.target.value)}
-                    className="w-8 h-8 rounded cursor-pointer"
-                  />
-                  <span className="text-fantasy-stone text-sm">{fogColor}</span>
-                </div>
-              </div>
-              
-              <div className="grid grid-cols-2 gap-2">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={exportFogConfig}
-                >
-                  <Download size={16} className="mr-1" /> Exportar
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={importFogConfig}
-                >
-                  <Upload size={16} className="mr-1" /> Importar
-                </Button>
-              </div>
-            </TabsContent>
-            
-            {/* Aba de presets */}
-            <TabsContent value="presets" className="space-y-3">
-              <FogPresetManager
-                mapId={mapId}
-                gameId={gameId}
-                userId={userId}
-                isGameMaster={isGameMaster}
-                currentAreas={revealedAreas}
-                onPresetLoad={handlePresetLoad}
-              />
-            </TabsContent>
-          </Tabs>
-        </>
-      )}
     </div>
   );
 };

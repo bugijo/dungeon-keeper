@@ -1,9 +1,10 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Dices } from 'lucide-react';
-import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
+import { DiceRollService } from '@/services/diceRollService';
+import { DiceRoll } from '@/types/game';
 
 type DiceType = 'd4' | 'd6' | 'd8' | 'd10' | 'd12' | 'd20' | 'd100';
 
@@ -19,6 +20,8 @@ export default function DiceRoller() {
   const [showHistory, setShowHistory] = useState(false);
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [userId, setUserId] = useState<string | null>(null);
+  const [userName, setUserName] = useState<string>('Jogador');
+  const [characterName, setCharacterName] = useState<string | undefined>(undefined);
 
   const rollDice = (diceType: DiceType) => {
     const maxValue = parseInt(diceType.substring(1));
@@ -53,27 +56,44 @@ export default function DiceRoller() {
     const urlParams = new URLSearchParams(window.location.search);
     setSessionId(urlParams.get('sessionId'));
     setUserId(urlParams.get('userId'));
-  
+    
+    // Aqui você poderia buscar o nome do usuário e do personagem de algum contexto
+    // Por exemplo, de um contexto de autenticação ou de personagem
+    
     if (!sessionId) return;
-    // Realtime: ouvir novas rolagens
-    const channel = supabase
-      .channel('dice_rolls')
-      .on('postgres_changes', {
-        event: 'INSERT',
-        schema: 'public',
-        table: 'dice_rolls',
-        filter: `session_id=eq.${sessionId}`
-      }, (payload) => {
-        const roll = payload.new;
+    
+    // Carregar histórico de rolagens
+    const loadDiceRolls = async () => {
+      try {
+        const diceRolls = await DiceRollService.getSessionDiceRolls(sessionId);
+        // Converter para o formato esperado pelo componente
+        const formattedRolls = diceRolls.map(roll => ({
+          type: roll.dice_type as DiceType,
+          value: roll.result,
+          timestamp: new Date(roll.created_at)
+        }));
+        setResults(formattedRolls.slice(0, 10));
+      } catch (error) {
+        console.error('Erro ao carregar histórico de rolagens:', error);
+      }
+    };
+    
+    loadDiceRolls();
+    
+    // Realtime: ouvir novas rolagens usando o serviço
+    const subscription = DiceRollService.subscribeToSessionDiceRolls(sessionId, (roll: DiceRoll) => {
+      // Apenas adicionar ao histórico se não for do usuário atual
+      if (roll.user_id !== userId) {
         setResults(prev => [{
-          type: roll.dice_type,
+          type: roll.dice_type as DiceType,
           value: roll.result,
           timestamp: new Date(roll.created_at)
         }, ...prev].slice(0, 10));
         toast.success(`🎲 ${roll.user_name || 'Jogador'} rolou ${roll.dice_type}: ${roll.result}`);
-      })
-      .subscribe();
-    return () => { supabase.removeChannel(channel); };
+      }
+    });
+    
+    return () => { subscription.unsubscribe(); }
   }, [sessionId]);
 
   return (
@@ -180,18 +200,26 @@ const rollDice = async (diceType: DiceType) => {
   };
   setResults(prev => [newRoll, ...prev].slice(0, 10));
   setSelectedDice(diceType);
-  // Persistir no Supabase
+  
+  // Persistir usando o serviço
   if (sessionId && userId) {
-    await supabase.from('dice_rolls').insert({
-      session_id: sessionId,
-      user_id: userId,
-      dice_type: diceType,
-      result: result,
-      created_at: new Date().toISOString()
-    });
+    try {
+      await DiceRollService.saveDiceRoll({
+        session_id: sessionId,
+        user_id: userId,
+        dice_type: diceType,
+        result: result,
+        user_name: userName,
+        character_name: characterName
+      });
+    } catch (error) {
+      console.error('Erro ao salvar rolagem de dados:', error);
+    }
   }
+  
   // Toast local (fallback)
   toast.success(`🎲 Você rolou ${diceType}: ${result}`);
+  
   // Animação
   const diceElement = document.getElementById('dice-result');
   if (diceElement) {

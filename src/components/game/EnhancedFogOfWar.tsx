@@ -6,6 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useNotificationContext } from '@/contexts/NotificationContext';
 import { supabase } from '@/integrations/supabase/client';
+import { snapToGrid } from '@/utils/fogOfWarUtils';
 
 interface FogPoint {
   x: number;
@@ -38,10 +39,19 @@ const EnhancedFogOfWar: React.FC<EnhancedFogOfWarProps> = ({
   const [brushMode, setBrushMode] = useState<'reveal' | 'hide'>('reveal');
   const [fogOpacity, setFogOpacity] = useState(0.7);
   const [fogColor, setFogColor] = useState('#1a1a1a');
+  const [edgeBlur, setEdgeBlur] = useState(0); // 0-10 para controle de suavização
+  const [transitionSpeed, setTransitionSpeed] = useState(300); // em ms
+  const [snapToGridEnabled, setSnapToGridEnabled] = useState(true);
   const [selectedPreset, setSelectedPreset] = useState<string>('default');
   const [isDrawing, setIsDrawing] = useState(false);
   const [lastPoint, setLastPoint] = useState<{x: number, y: number} | null>(null);
+  const [currentTransition, setCurrentTransition] = useState<{
+    startTime: number;
+    points: FogPoint[];
+    targetPoints: FogPoint[];
+  } | null>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const animationFrameRef = useRef<number | null>(null);
   const { sendNotification } = useNotificationContext();
 
   // Inicializar o canvas e desenhar o fog inicial
@@ -69,8 +79,35 @@ const EnhancedFogOfWar: React.FC<EnhancedFogOfWarProps> = ({
     const channel = supabase
       .channel(`fog-updates-${mapId}`)
       .on('broadcast', { event: 'fog-update' }, (payload) => {
-        if (payload.payload && Array.isArray(payload.payload.fogPoints)) {
-          setFogPoints(payload.payload.fogPoints);
+        if (payload.payload) {
+          const { fogPoints: newFogPoints, settings } = payload.payload as {
+            fogPoints: FogPoint[],
+            settings?: {
+              opacity?: number,
+              color?: string,
+              edgeBlur?: number,
+              transitionSpeed?: number,
+              snapToGrid?: boolean
+            }
+          };
+          
+          if (Array.isArray(newFogPoints)) {
+            // Se tiver velocidade de transição, animar a mudança
+            if (transitionSpeed > 0) {
+              startTransition(fogPoints, newFogPoints);
+            } else {
+              setFogPoints(newFogPoints);
+            }
+          }
+          
+          // Atualizar configurações se fornecidas
+          if (settings) {
+            if (settings.opacity !== undefined) setFogOpacity(settings.opacity);
+            if (settings.color !== undefined) setFogColor(settings.color);
+            if (settings.edgeBlur !== undefined) setEdgeBlur(settings.edgeBlur);
+            if (settings.transitionSpeed !== undefined) setTransitionSpeed(settings.transitionSpeed);
+            if (settings.snapToGrid !== undefined) setSnapToGridEnabled(settings.snapToGrid);
+          }
           
           // Notificar o jogador sobre a atualização do fog
           if (!isGameMaster) {
@@ -90,7 +127,7 @@ const EnhancedFogOfWar: React.FC<EnhancedFogOfWarProps> = ({
     return () => {
       supabase.removeChannel(channel);
     };
-  }, [mapId, isGameMaster]);
+  }, [mapId, isGameMaster, transitionSpeed]);
 
   const redrawFog = () => {
     const canvas = canvasRef.current;
@@ -103,6 +140,13 @@ const EnhancedFogOfWar: React.FC<EnhancedFogOfWarProps> = ({
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     if (!showFog) return;
+    
+    // Aplicar configurações de suavização de bordas
+    if (edgeBlur > 0) {
+      ctx.filter = `blur(${edgeBlur}px)`;
+    } else {
+      ctx.filter = 'none';
+    }
 
     // Desenhar o fog base (cobrindo todo o mapa)
     ctx.fillStyle = fogColor;
@@ -120,8 +164,74 @@ const EnhancedFogOfWar: React.FC<EnhancedFogOfWarProps> = ({
       ctx.fill();
     });
 
-    // Resetar o modo de composição
+    // Resetar o modo de composição e filtros
     ctx.globalCompositeOperation = 'source-over';
+    ctx.filter = 'none';
+  };
+
+  // Gerenciar animações
+  useEffect(() => {
+    if (currentTransition) {
+      const animate = (timestamp: number) => {
+        if (!currentTransition) return;
+        
+        const elapsed = timestamp - currentTransition.startTime;
+        const duration = transitionSpeed;
+        
+        if (elapsed >= duration) {
+          // Transição completa
+          setFogPoints(currentTransition.targetPoints);
+          setCurrentTransition(null);
+        } else {
+          // Calcular pontos intermediários
+          const progress = elapsed / duration;
+          const interpolatedPoints = currentTransition.points.map((startPoint, index) => {
+            const targetPoint = currentTransition.targetPoints[index] || startPoint;
+            
+            return {
+              x: startPoint.x + (targetPoint.x - startPoint.x) * progress,
+              y: startPoint.y + (targetPoint.y - startPoint.y) * progress,
+              radius: startPoint.radius + (targetPoint.radius - startPoint.radius) * progress
+            };
+          });
+          
+          setFogPoints(interpolatedPoints);
+          animationFrameRef.current = requestAnimationFrame(animate);
+        }
+      };
+      
+      animationFrameRef.current = requestAnimationFrame(animate);
+      
+      return () => {
+        if (animationFrameRef.current) {
+          cancelAnimationFrame(animationFrameRef.current);
+        }
+      };
+    }
+  }, [currentTransition, transitionSpeed]);
+
+  // Iniciar uma transição animada entre dois conjuntos de pontos
+  const startTransition = (fromPoints: FogPoint[], toPoints: FogPoint[]) => {
+    // Garantir que os arrays tenham o mesmo tamanho para interpolação
+    const normalizedFromPoints = [...fromPoints];
+    const normalizedToPoints = [...toPoints];
+    
+    // Preencher o array menor com pontos do outro array
+    while (normalizedFromPoints.length < normalizedToPoints.length) {
+      const lastPoint = normalizedFromPoints[normalizedFromPoints.length - 1] || { x: 0, y: 0, radius: 0 };
+      normalizedFromPoints.push({ ...lastPoint });
+    }
+    
+    while (normalizedToPoints.length < normalizedFromPoints.length) {
+      const lastPoint = normalizedToPoints[normalizedToPoints.length - 1] || { x: 0, y: 0, radius: 0 };
+      normalizedToPoints.push({ ...lastPoint });
+    }
+    
+    setCurrentTransition({
+      startTime: performance.now(),
+      points: normalizedFromPoints,
+      targetPoints: normalizedToPoints
+    });
   };
 
   const handleCanvasMouseDown = (e: React.MouseEvent<HTMLCanvasElement>) => {
@@ -129,8 +239,17 @@ const EnhancedFogOfWar: React.FC<EnhancedFogOfWarProps> = ({
 
     setIsDrawing(true);
     const { offsetX, offsetY } = getCanvasCoordinates(e);
-    const gridX = Math.floor(offsetX / gridSize);
-    const gridY = Math.floor(offsetY / gridSize);
+    
+    // Aplicar snap to grid se necessário
+    let gridX, gridY;
+    if (snapToGridEnabled) {
+      const snapped = snapToGrid(offsetX, offsetY, gridSize);
+      gridX = snapped.x / gridSize;
+      gridY = snapped.y / gridSize;
+    } else {
+      gridX = Math.floor(offsetX / gridSize);
+      gridY = Math.floor(offsetY / gridSize);
+    }
     
     setLastPoint({ x: gridX, y: gridY });
     
@@ -142,8 +261,17 @@ const EnhancedFogOfWar: React.FC<EnhancedFogOfWarProps> = ({
     if (!isGameMaster || !isDrawing || !lastPoint) return;
 
     const { offsetX, offsetY } = getCanvasCoordinates(e);
-    const gridX = Math.floor(offsetX / gridSize);
-    const gridY = Math.floor(offsetY / gridSize);
+    
+    // Aplicar snap to grid se necessário
+    let gridX, gridY;
+    if (snapToGridEnabled) {
+      const snapped = snapToGrid(offsetX, offsetY, gridSize);
+      gridX = snapped.x / gridSize;
+      gridY = snapped.y / gridSize;
+    } else {
+      gridX = Math.floor(offsetX / gridSize);
+      gridY = Math.floor(offsetY / gridSize);
+    }
     
     // Evitar atualizar se estiver na mesma célula do grid
     if (gridX === lastPoint.x && gridY === lastPoint.y) return;
@@ -167,7 +295,16 @@ const EnhancedFogOfWar: React.FC<EnhancedFogOfWarProps> = ({
         .send({
           type: 'broadcast',
           event: 'fog-update',
-          payload: { fogPoints }
+          payload: { 
+            fogPoints,
+            settings: {
+              opacity: fogOpacity,
+              color: fogColor,
+              edgeBlur: edgeBlur,
+              transitionSpeed: transitionSpeed,
+              snapToGrid: snapToGridEnabled
+            }
+          }
         })
         .catch(console.error);
     }

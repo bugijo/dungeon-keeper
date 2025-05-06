@@ -6,11 +6,11 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/SupabaseAuthContext';
 import { toast } from 'sonner';
 import LiveSessionMap from '@/components/game/live/LiveSessionMap';
-import ChatPanel from '@/components/game/live/ChatPanel';
 import DicePanel from '@/components/game/live/DicePanel';
 import SessionHeader from '@/components/game/live/SessionHeader';
 import GameMasterPanel from '@/components/game/master/GameMasterPanel';
 import TurnTracker from '@/components/game/live/TurnTracker';
+import AdvancedChatPanel from '@/components/session/AdvancedChatPanel';
 import { Button } from '@/components/ui/button';
 import { MapToken } from '@/types/game';
 import { 
@@ -412,10 +412,20 @@ const LiveSession = () => {
             />
           </div>
           
-          <ChatPanel 
+          <AdvancedChatPanel 
             sessionId={id || ''} 
-            userId={user?.id || ''}
-            participants={participants}
+            userId={user?.id || ''} 
+            username={user?.user_metadata?.name || participants.find(p => p.user_id === user?.id)?.profiles?.display_name || 'Jogador'}
+            isGameMaster={isGameMaster}
+            avatarUrl={user?.user_metadata?.avatar_url}
+            characterName={participants.find(p => p.user_id === user?.id)?.characters?.name}
+            onlineUsers={participants.map(p => ({
+              id: p.user_id,
+              username: p.profiles?.display_name || 'Jogador',
+              character_name: p.characters?.name,
+              is_online: true,
+              is_gm: p.role === 'gm'
+            }))}
           />
 
           {isGameMaster && (

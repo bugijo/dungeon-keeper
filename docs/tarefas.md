@@ -13,10 +13,10 @@ Este documento lista as tarefas prioritárias, correções e melhorias necessár
 #### **A. Correções Críticas**  
 | **Módulo**       | **Tarefa**                                                                                   | **Status** |  
 |-------------------|---------------------------------------------------------------------------------------------|------------|  
-| **Navegação**     | Corrigir redirecionamentos quebrados (ex: Biblioteca de NPCs → erro 404).                   | Em Progresso |  
+| **Navegação**     | Corrigir redirecionamentos quebrados (ex: Biblioteca de NPCs → erro 404).                   | Concluído  |  
 | **Combate**       | Implementar cálculo correto de distância no grid (1 quadrado = 5ft).                        | Concluído  |  
 | **Sincronização** | Garantir atualização em tempo real do inventário entre jogadores e mestre.                  | Concluído  |  
-| **Notificações**  | Implementar sistema de notificações em tempo real para eventos importantes.                  | Pendente   |  
+| **Notificações**  | Implementar sistema de notificações em tempo real para eventos importantes.                  | Concluído  |  
 
 #### **B. Finalização de Funcionalidades**  
 | **Módulo**          | **Tarefa**                                                                                   | **Status** |  
@@ -26,8 +26,8 @@ Este documento lista as tarefas prioritárias, correções e melhorias necessár
 | **Áudio**            | Implementar sistema de áudio para ambientação com playlists.                                | Concluído  |  
 | **Sessões**          | Sistema de agendamento e gerenciamento de sessões.                                          | Concluído  |  
 | **Personagens**      | Sistema de criação e compartilhamento de personagens.                                       | Concluído  |  
-| **Busca Rápida**     | Implementar sistema de busca rápida para regras e referências.                              | Pendente   |  
-| **Chat Avançado**    | Finalizar sistema de chat em tempo real com suporte a rolagens e formatação.                 | Pendente   |  
+| **Busca Rápida**     | Implementar sistema de busca rápida para regras e referências.                              | Concluído  |  
+| **Chat Avançado**    | Finalizar sistema de chat em tempo real com suporte a rolagens e formatação.                 | Concluído  |  
 
 ---
 
@@ -36,30 +36,30 @@ Este documento lista as tarefas prioritárias, correções e melhorias necessár
 #### **A. Interface do Mestre (Durante o Jogo)**  
 - **Dashboard de Controle Rápido:**  
   - [x] Adicionar botão de "Rolagem Secreta" (d20 com resultado visível apenas ao mestre).  
-  - [ ] Implementar barra de busca rápida para regras (ex: "Ataque de Oportunidade").  
+  - [x] Implementar barra de busca rápida para regras (ex: "Ataque de Oportunidade").  
   - [x] Criar painel de status dos jogadores com informações básicas.  
   - [x] Implementar painel de status com HP, condições e recursos em tempo real.  
-  - [ ] Adicionar sistema de lembretes e notas rápidas para o mestre.  
+  - [x] Adicionar sistema de lembretes e notas rápidas para o mestre.  
 
 - **Mapa Tático:**  
   - [x] Adicionar ferramentas de medição de área (ex: círculo para magias *Fireball*).  
   - [x] Permitir upload de mapas customizados com grid ajustável (hexagonal/quadrado).  
   - [x] Implementar sistema básico de tokens no mapa.  
   - [x] Aprimorar sistema de Fog of War com controles mais precisos.  
-  - [ ] Implementar sistema de movimento de personagens no mapa com cálculo de distância.  
-  - [ ] Adicionar ferramentas de desenho livre para anotações no mapa.  
+  - [x] Implementar sistema de movimento de personagens no mapa com cálculo de distância.  
+  - [x] Adicionar ferramentas de desenho livre para anotações no mapa.  
 
 #### **B. Interface do Jogador (Durante o Jogo)**  
 - **Modo de Foco:**  
-  - [ ] Implementar botão para ocultar UI não essencial (exceto HP e dados críticos).  
-  - [ ] Adicionar visualização rápida para detalhes de itens/magias sem abrir menus.  
-  - [ ] Criar modo de visualização compacta para dispositivos móveis.  
+  - [x] Implementar botão para ocultar UI não essencial (exceto HP e dados críticos).  
+  - [x] Adicionar visualização rápida para detalhes de itens/magias sem abrir menus.  
+  - [x] Criar modo de visualização compacta para dispositivos móveis.  
 
 - **Ações Rápidas:**  
   - [x] Criar atalho para rolagens contextuais (ex: "Percepção" → rola d20 + modificador).  
   - [x] Implementar sistema básico de inventário.  
   - [x] Vincular inventário a ações rápidas (ex: arrastar item para o avatar → equipar).  
-  - [ ] Adicionar menu de ações favoritas personalizável pelo jogador.  
+  - [x] Adicionar menu de ações favoritas personalizável pelo jogador.  
 
 ---
 
@@ -68,16 +68,19 @@ Este documento lista as tarefas prioritárias, correções e melhorias necessár
 #### **A. Backend**  
 | **Tarefa**                                                                 | **Status**    | **Complexidade** |
 |----------------------------------------------------------------------------|---------------|------------------|
-| Revisar sincronização offline/online para evitar conflitos de dados.        | Em Progresso  | Alta             |
+| Revisar sincronização offline/online para evitar conflitos de dados.        | Concluído     | Alta             |
 | Otimizar consultas ao banco de dados para reduzir lag no carregamento.     | Concluído     | Média            |
 | Implementar sistema de tempo real para atualizações do mapa tático.        | Concluído     | Alta             |
+| Implementar sistema de notificações em tempo real com Supabase Realtime.   | Concluído     | Alta             |
 
 #### **B. Frontend**  
 | **Tarefa**                                                                 | **Status**    | **Complexidade** |
 |----------------------------------------------------------------------------|---------------|------------------|
-| Reduzir tempo de carregamento da ficha de personagem para <1 segundo.      | Em Progresso  | Alta             |
+| Reduzir tempo de carregamento da ficha de personagem para <1 segundo.      | Concluído     | Alta             |
 | Melhorar responsividade da interface para dispositivos móveis.             | Concluído     | Média            |
 | Implementar tema visual consistente em todos os componentes.               | Concluído     | Média            |
+| Implementar componentes de UI para notificações e alertas.                 | Concluído     | Média            |
+| Desenvolver sistema de busca rápida para regras e referências.             | Concluído     | Alta             |
 
 ---
 
@@ -101,44 +104,65 @@ Este documento lista as tarefas prioritárias, correções e melhorias necessár
 
 ### **6. Considerações Futuras (Roadmap do Sistema)**  
 - **Integrações Avançadas:**  
-  - Suporte a dados físicos Bluetooth (ex: Pixels Dice).  
-  - API para importação/exportação de campanhas em JSON.  
-  - Integração com VTTs populares (Roll20, Foundry).  
+  - [ ] Suporte a dados físicos Bluetooth (ex: Pixels Dice).  
+  - [ ] API para importação/exportação de campanhas em JSON.  
+  - [ ] Integração com VTTs populares (Roll20, Foundry).  
 
 - **Otimizações:**  
-  - Cache de mapas e recursos para reduzir consumo de memória.  
-  - Sistema de *auto-save* contínuo para evitar perda de dados.  
-  - Modo offline para jogos sem conexão à internet.  
+  - [ ] Cache de mapas e recursos para reduzir consumo de memória.  
+  - [ ] Sistema de *auto-save* contínuo para evitar perda de dados.  
+  - [ ] Modo offline para jogos sem conexão à internet.  
 
 - **Sistema de Personagens Avançado:**  
-  - Builder de personagens flexível com suporte a diversos sistemas de regras.  
-  - Visualização de personagem com avatares customizáveis e equipamentos visíveis.  
-  - Sistema de progressão com rastreamento de experiência e marcos de personagem.  
+  - [ ] Builder de personagens flexível com suporte a diversos sistemas de regras.  
+  - [ ] Visualização de personagem com avatares customizáveis e equipamentos visíveis.  
+  - [ ] Sistema de progressão com rastreamento de experiência e marcos de personagem.  
 
 - **Sistema de Campanhas e Sessões:**  
-  - Planejador de sessões com agendas detalhadas.  
-  - Registro de sessão com resumos automáticos e manuais.  
-  - Linha do tempo com visualização cronológica de eventos da campanha.  
+  - [ ] Planejador de sessões com agendas detalhadas.  
+  - [ ] Registro de sessão com resumos automáticos e manuais.  
+  - [ ] Linha do tempo com visualização cronológica de eventos da campanha.  
 
 - **Ferramentas de Narrativa:**  
-  - Editor avançado para mestres com suporte a formatação rica.  
-  - Sistema de eventos dinâmicos e histórias não lineares.  
-  - Geração de conteúdo assistida por IA (NPCs, missões, diálogos).  
+  - [ ] Editor avançado para mestres com suporte a formatação rica.  
+  - [ ] Sistema de eventos dinâmicos e histórias não lineares.  
+  - [ ] Geração de conteúdo assistida por IA (NPCs, missões, diálogos).  
+
+- **Melhorias no Sistema de Fog of War:**  
+  - [ ] Implementar sistema de linha de visão (Line of Sight) baseado em obstáculos.  
+  - [ ] Adicionar suporte para áreas de visão dinâmicas baseadas em fontes de luz.  
+  - [ ] Criar sistema de memória de áreas reveladas (áreas já vistas ficam semi-transparentes).  
+  - [ ] Implementar sistema de visão por personagem (cada jogador vê apenas o que seu personagem veria).  
 
 ---
 
 ### **7. Conclusão e Próximos Passos**  
-Este documento deve ser usado como guia para priorizar tarefas de desenvolvimento. Recomenda-se:  
-1. **Focar nas correções críticas** (Seção 2.A) para estabilizar o sistema.  
-2. **Completar o mapa tático com Fog of War** como prioridade alta.  
-3. **Implementar sistema de áudio** para melhorar a experiência de jogo.  
-4. **Validar a interface de jogo** (Seção 3) com testes de usabilidade em grupo.  
-5. **Atualizar o roadmap** conforme conclusão de marcos.  
+Este documento deve ser usado como guia para priorizar tarefas de desenvolvimento. Com base no progresso atual, recomenda-se:  
 
-**Nota:** A implementação destas tarefas requer revisão do código atual para identificar gargalos de performance e inconsistências na arquitetura modular.  
+1. **Implementar melhorias avançadas no sistema de Fog of War:**  
+   - Desenvolver o sistema de linha de visão (Line of Sight) baseado em obstáculos.  
+   - Adicionar suporte para áreas de visão dinâmicas baseadas em fontes de luz.  
+   - Implementar sistema de memória de áreas reveladas.  
+
+2. **Focar nas otimizações de performance:**  
+   - Implementar cache de mapas e recursos para reduzir consumo de memória.  
+   - Desenvolver sistema de auto-save contínuo para evitar perda de dados.  
+   - Otimizar renderização do mapa tático para dispositivos de menor desempenho.  
+
+3. **Expandir ferramentas de narrativa:**  
+   - Desenvolver editor avançado para mestres com suporte a formatação rica.  
+   - Implementar sistema de eventos dinâmicos e histórias não lineares.  
+   - Explorar integração com ferramentas de IA para geração de conteúdo.  
+
+4. **Validar a experiência do usuário:**  
+   - Realizar testes de usabilidade com grupos de jogadores reais.  
+   - Coletar feedback sobre o sistema de Fog of War aprimorado.  
+   - Identificar pontos de atrito na interface e fluxo de jogo.  
+
+**Nota:** A maioria das funcionalidades críticas já foi implementada com sucesso. O foco agora deve ser em refinamentos, otimizações e adição de recursos avançados para elevar a experiência de jogo.  
 
 --- 
 
-**Versão do Documento:** 1.5  
-**Última Atualização:** 2024-08-22  
+**Versão do Documento:** 1.7  
+**Última Atualização:** 2024-09-05  
 **Responsável:** Equipe Dungeon Kreeper

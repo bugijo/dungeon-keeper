@@ -32,6 +32,14 @@ yarn dev
 supabase start
 ```
 
+### Configuração da OpenAI
+- Obtenha uma chave de API da OpenAI em https://platform.openai.com
+- Configure a variável de ambiente VITE_OPENAI_API_KEY no arquivo .env:
+```bash
+VITE_OPENAI_API_KEY=sua_chave_api_aqui
+```
+- Esta chave é utilizada pelo serviço npcAiService para geração de NPCs com IA.
+
 ### Migrações e Políticas RLS
 - As migrações SQL estão em `supabase/migrations/`.
 - Políticas RLS para segurança das tabelas, incluindo `dice_rolls`, estão em `20240901_rls_policies.sql`.
@@ -39,12 +47,33 @@ supabase start
 ## Diagrama de Arquitetura
 
 ```
-Usuário <-> Frontend React <-> Supabase (Auth, DB, Storage, Edge Functions)
++-------------+     +-------------------+     +-------------------------+
+|             |     |                   |     |                         |
+|   Usuário   | <-> |  Frontend React   | <-> |  Supabase               |
+|             |     |  (Vite + React)   |     |  - Auth                 |
++-------------+     +-------------------+     |  - Database (Postgres)  |
+                    |                   |     |  - Storage              |
+                    |  Componentes:     |     |  - Realtime             |
+                    |  - DiceRoller     |     |  - Edge Functions      |
+                    |  - MapSystem      |     |                         |
+                    |  - NPCGenerator   | <-> |  Tabelas:               |
+                    |  - SessionManager |     |  - sessions             |
+                    +-------------------+     |  - dice_rolls           |
+                            ^                 |  - characters           |
+                            |                 |  - npcs                 |
+                            v                 +-------------------------+
+                    +-------------------+                 ^
+                    |                   |                 |
+                    |  OpenAI API       | <---------------+
+                    |  - GPT-3.5-turbo  |     (Geração de NPCs)
+                    |                   |
+                    +-------------------+
 ```
 
 - **Frontend:** React + Vite
 - **Backend:** Supabase (Postgres, Auth, Storage, Edge Functions)
 - **Realtime:** Supabase Realtime para rolagens de dados e sessões
+- **IA:** OpenAI API para geração de NPCs
 
 ## Endpoints e Tabelas Principais
 

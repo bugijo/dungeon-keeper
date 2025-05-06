@@ -40,6 +40,9 @@ interface FogState {
   fogOpacity: number;
   lineOfSightStart: { x: number; y: number } | null;
   lineOfSightEnd: { x: number; y: number } | null;
+  snapToGrid: boolean;
+  edgeBlur: number;
+  transitionSpeed: number;
 }
 
 const FogOfWar: React.FC<FogOfWarProps> = ({
@@ -66,9 +69,52 @@ const FogOfWar: React.FC<FogOfWarProps> = ({
     polygonPoints: [],
     fogOpacity: 0.7,
     lineOfSightStart: null,
-    lineOfSightEnd: null
+    lineOfSightEnd: null,
+    snapToGrid: false,
+    edgeBlur: 0,
+    transitionSpeed: 300
   });
 
+  /**
+   * Função para alinhar coordenadas ao grid mais próximo
+   * @param x Coordenada X
+   * @param y Coordenada Y
+   * @returns Coordenadas alinhadas ao grid
+   */
+  const snapToGrid = (x: number, y: number) => {
+    if (!fogState.snapToGrid) return { x, y };
+    
+    const snappedX = Math.round(x / gridSize) * gridSize;
+    const snappedY = Math.round(y / gridSize) * gridSize;
+    
+    return { x: snappedX, y: snappedY };
+  };
+  
+  /**
+   * Aplica uma predefinição rápida de tamanho de pincel
+   * @param preset Tamanho predefinido (pequeno, médio, grande)
+   */
+  const applyPreset = (preset: 'small' | 'medium' | 'large') => {
+    let newBrushSize = fogState.brushSize;
+    
+    switch (preset) {
+      case 'small':
+        newBrushSize = gridSize;
+        break;
+      case 'medium':
+        newBrushSize = 3 * gridSize;
+        break;
+      case 'large':
+        newBrushSize = 5 * gridSize;
+        break;
+    }
+    
+    setFogState(prev => ({
+      ...prev,
+      brushSize: newBrushSize
+    }));
+  };
+  
   // Carregar áreas reveladas do banco de dados
   useEffect(() => {
     const fetchRevealedAreas = async () => {

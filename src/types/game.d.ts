@@ -37,3 +37,14 @@ export interface MapToken {
   size: number;
   label?: string; // Mantendo label como opcional
 }
+
+export interface DiceRoll {
+  id: string;
+  user_id: string;
+  session_id: string;
+  dice_type: string;
+  result: number;
+  created_at: string;
+  user_name?: string;
+  character_name?: string;
+}

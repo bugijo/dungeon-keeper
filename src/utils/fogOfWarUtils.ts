@@ -1,6 +1,7 @@
 /**
  * Utilitários para cálculos e manipulação de Fog of War
- * Versão otimizada com suporte a obstáculos dinâmicos e sincronização em tempo real
+ * Versão otimizada com suporte a obstáculos dinâmicos, sincronização em tempo real,
+ * suavização de bordas e alinhamento ao grid
  */
 
 export interface Point {
@@ -76,6 +77,15 @@ export const isPointInObstacle = (point: Point, obstacle: Obstacle): boolean => 
     point.y >= obstacle.y && 
     point.y <= obstacle.y + obstacle.height
   );
+};
+
+/**
+ * Alinha um ponto ao grid mais próximo
+ */
+export const snapToGrid = (x: number, y: number, gridSize: number): Point => {
+  const gridX = Math.round(x / gridSize) * gridSize;
+  const gridY = Math.round(y / gridSize) * gridSize;
+  return { x: gridX, y: gridY };
 };
 
 /**

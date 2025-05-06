@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Dice1, Dice2, Dice3, Dice4, Dice5, Dice6, Dices } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
+import { DiceRollService } from '@/services/diceRollService';
 import { toast } from 'sonner';
 import { DiceRoll } from '@/types/game';
 
@@ -41,34 +42,11 @@ const DicePanel: React.FC<DicePanelProps> = ({
           }
         }
         
-        // Buscar rolagens de dados da sessão
-        const { data, error } = await supabase
-          .from('chat_messages')
-          .select('*')
-          .eq('table_id', sessionId)
-          .eq('type', 'dice')
-          .order('created_at', { ascending: false })
-          .limit(50);
-          
-        if (error) throw error;
-        
-        // Converter para o formato esperado
-        const formattedRolls: DiceRoll[] = data ? data.map(message => {
-          // Cast metadata to the appropriate type with safety checks
-          const metadata = message.metadata as Record<string, any> || {};
-          return {
-            id: message.id,
-            user_id: message.user_id,
-            session_id: message.table_id,
-            dice_type: metadata.dice_type || 'd20',
-            result: metadata.result || 0,
-            created_at: message.created_at,
-            user_name: metadata.user_name || 'Jogador',
-            character_name: metadata.character_name
-          };
-        }) : [];
-        
-        setDiceRolls(formattedRolls);
+        // Buscar rolagens de dados da sessão usando o serviço
+        if (sessionId) {
+          const diceRolls = await DiceRollService.getSessionDiceRolls(sessionId);
+          setDiceRolls(diceRolls);
+        }
       } catch (err) {
         console.error("Erro ao buscar rolagens de dados:", err);
       }
@@ -76,40 +54,21 @@ const DicePanel: React.FC<DicePanelProps> = ({
     
     fetchRolls();
     
-    // Configurar assinatura para novas rolagens
-    const channel = supabase
-      .channel('dice-rolls')
-      .on(
-        'postgres_changes',
-        {
-          event: 'INSERT',
-          schema: 'public',
-          table: 'chat_messages',
-          filter: `table_id=eq.${sessionId} AND type=eq.dice`
-        },
-        (payload) => {
-          const message = payload.new;
-          // Cast metadata safely
-          const metadata = message.metadata as Record<string, any> || {};
-          
-          const newRoll: DiceRoll = {
-            id: message.id,
-            user_id: message.user_id,
-            session_id: message.table_id,
-            dice_type: metadata.dice_type || 'd20',
-            result: metadata.result || 0,
-            created_at: message.created_at,
-            user_name: metadata.user_name || 'Jogador',
-            character_name: metadata.character_name
-          };
-          
-          setDiceRolls(prev => [newRoll, ...prev]);
-        }
-      )
-      .subscribe();
+    // Inscrever para atualizações em tempo real usando o serviço
+    const subscription = DiceRollService.subscribeToSessionDiceRolls(sessionId, (newRoll) => {
+      setDiceRolls(prev => [newRoll, ...prev]);
       
+      // Notificar sobre nova rolagem
+      if (newRoll.user_id !== userId) {
+        toast.success(
+          `🎲 ${newRoll.user_name || 'Jogador'} rolou ${newRoll.dice_type}: ${newRoll.result}`,
+          { duration: 3000 }
+        );
+      }
+    });
+    
     return () => {
-      supabase.removeChannel(channel);
+      subscription.unsubscribe();
     };
   }, [sessionId, userId, participants]);
 
