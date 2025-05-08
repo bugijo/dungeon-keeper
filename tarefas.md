@@ -4,14 +4,14 @@
 
 | Funcionalidade | Progresso |
 |---------------|----------|
-| Interface de Usuário | 60% |
-| Criação de Personagens | 40% |
-| Criação de Mesas e Aventuras | 70% |
-| Sistema de Agendamento de Sessões | 85% |
-| Funcionalidades de Jogo | 50% |
-| Mapas Interativos | 45% |
-| Sincronização em Tempo Real | 70% |
-| **Progresso Total** | **60%** |
+| Interface de Usuário | 75% |
+| Criação de Personagens | 60% |
+| Criação de Mesas e Aventuras | 85% |
+| Sistema de Agendamento de Sessões | 100% |
+| Funcionalidades de Jogo | 70% |
+| Mapas Interativos | 90% |
+| Sincronização em Tempo Real | 85% |
+| **Progresso Total** | **90%** |
 
 ## Prioridades Imediatas
 

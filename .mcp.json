@@ -1,0 +1,27 @@
+{
+  "mcpServers": {
+    "supabase": {
+      "command": "cmd",
+      "args": [
+        "/c",
+        "npx",
+        "-y",
+        "@supabase/mcp-server-supabase@latest",
+        "--access-token",
+        "sbp_5bb4b8be35d5bebe8502a129e1a80f1f9a2c7125",
+        "--host",
+        "aws-0-sa-east-1.pooler.supabase.com",
+        "--port",
+        "6543",
+        "--user",
+        "postgres.iilbczoanafeqzjqovjb",
+        "--password",
+        "El@1nem@e",
+        "--db-name",
+        "postgres",
+        "--ssl",
+        "true"
+      ]
+    }
+  }
+}

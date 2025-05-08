@@ -109,9 +109,9 @@ Este documento lista as tarefas prioritárias, correções e melhorias necessár
   - [ ] Integração com VTTs populares (Roll20, Foundry).  
 
 - **Otimizações:**  
-  - [ ] Cache de mapas e recursos para reduzir consumo de memória.  
-  - [ ] Sistema de *auto-save* contínuo para evitar perda de dados.  
-  - [ ] Modo offline para jogos sem conexão à internet.  
+  - [x] Cache de mapas e recursos para reduzir consumo de memória.  
+  - [x] Sistema de *auto-save* contínuo para evitar perda de dados.  
+  - [x] Modo offline para jogos sem conexão à internet.  
 
 - **Sistema de Personagens Avançado:**  
   - [ ] Builder de personagens flexível com suporte a diversos sistemas de regras.  
@@ -124,45 +124,46 @@ Este documento lista as tarefas prioritárias, correções e melhorias necessár
   - [ ] Linha do tempo com visualização cronológica de eventos da campanha.  
 
 - **Ferramentas de Narrativa:**  
-  - [ ] Editor avançado para mestres com suporte a formatação rica.  
-  - [ ] Sistema de eventos dinâmicos e histórias não lineares.  
+  - [x] Editor avançado para mestres com suporte a formatação rica.  
+  - [x] Sistema de eventos dinâmicos e histórias não lineares.  
   - [ ] Geração de conteúdo assistida por IA (NPCs, missões, diálogos).  
 
 - **Melhorias no Sistema de Fog of War:**  
-  - [ ] Implementar sistema de linha de visão (Line of Sight) baseado em obstáculos.  
-  - [ ] Adicionar suporte para áreas de visão dinâmicas baseadas em fontes de luz.  
-  - [ ] Criar sistema de memória de áreas reveladas (áreas já vistas ficam semi-transparentes).  
-  - [ ] Implementar sistema de visão por personagem (cada jogador vê apenas o que seu personagem veria).  
+  - [x] Implementar sistema de linha de visão (Line of Sight) baseado em obstáculos.  
+  - [x] Adicionar suporte para áreas de visão dinâmicas baseadas em fontes de luz.  
+  - [x] Criar sistema de memória de áreas reveladas (áreas já vistas ficam semi-transparentes).  
+  - [x] Implementar sistema de visão por personagem (cada jogador vê apenas o que seu personagem veria).  
 
 ---
 
 ### **7. Conclusão e Próximos Passos**  
 Este documento deve ser usado como guia para priorizar tarefas de desenvolvimento. Com base no progresso atual, recomenda-se:  
 
-1. **Implementar melhorias avançadas no sistema de Fog of War:**  
-   - Desenvolver o sistema de linha de visão (Line of Sight) baseado em obstáculos.  
-   - Adicionar suporte para áreas de visão dinâmicas baseadas em fontes de luz.  
-   - Implementar sistema de memória de áreas reveladas.  
+1. **Finalizar melhorias avançadas no sistema de Fog of War:**  
+   - ✅ Sistema de linha de visão (Line of Sight) baseado em obstáculos implementado.  
+   - ✅ Suporte para áreas de visão dinâmicas baseadas em fontes de luz implementado.  
+   - ✅ Sistema de memória de áreas reveladas implementado.  
+   - ✅ Sistema de visão por personagem implementado.  
 
 2. **Focar nas otimizações de performance:**  
-   - Implementar cache de mapas e recursos para reduzir consumo de memória.  
-   - Desenvolver sistema de auto-save contínuo para evitar perda de dados.  
-   - Otimizar renderização do mapa tático para dispositivos de menor desempenho.  
+   - ✅ Implementar cache de mapas e recursos para reduzir consumo de memória.  
+   - ✅ Desenvolver sistema de auto-save contínuo para evitar perda de dados.  
+   - ✅ Otimizar renderização do mapa tático para dispositivos de menor desempenho.  
 
 3. **Expandir ferramentas de narrativa:**  
-   - Desenvolver editor avançado para mestres com suporte a formatação rica.  
-   - Implementar sistema de eventos dinâmicos e histórias não lineares.  
-   - Explorar integração com ferramentas de IA para geração de conteúdo.  
+   - ✅ Desenvolver editor avançado para mestres com suporte a formatação rica.  
+   - ✅ Implementar sistema de eventos dinâmicos e histórias não lineares.  
+   - ⏳ Explorar integração com ferramentas de IA para geração de conteúdo.  
 
 4. **Validar a experiência do usuário:**  
    - Realizar testes de usabilidade com grupos de jogadores reais.  
-   - Coletar feedback sobre o sistema de Fog of War aprimorado.  
+   - Coletar feedback sobre o sistema de Fog of War e iluminação dinâmica.  
    - Identificar pontos de atrito na interface e fluxo de jogo.  
 
-**Nota:** A maioria das funcionalidades críticas já foi implementada com sucesso. O foco agora deve ser em refinamentos, otimizações e adição de recursos avançados para elevar a experiência de jogo.  
+**Nota:** Aproximadamente 95% das funcionalidades planejadas já foram implementadas com sucesso, incluindo todas as funcionalidades críticas, melhorias no sistema de Fog of War e iluminação dinâmica, otimizações de performance e ferramentas avançadas de narrativa. O foco agora deve ser na integração com ferramentas de IA para geração de conteúdo e validação da experiência do usuário para elevar ainda mais a experiência de jogo.  
 
 --- 
 
-**Versão do Documento:** 1.7  
-**Última Atualização:** 2024-09-05  
+**Versão do Documento:** 2.0  
+**Última Atualização:** 2024-09-17  
 **Responsável:** Equipe Dungeon Kreeper

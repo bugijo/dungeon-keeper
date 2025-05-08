@@ -7,18 +7,68 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
+# Dependências
+node_modules/
+.pnp
+.pnp.js
+
+# Arquivos de build
+/dist
+/build
 dist-ssr
 *.local
 
-# Editor directories and files
+# Arquivos de ambiente
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Arquivos do sistema
+.DS_Store
+ThumbsJL.db
+
+# Arquivos de IDE
+.idea/
 .vscode/*
 !.vscode/extensions.json
-.idea
-.DS_Store
+*.sublime-project
+*.sublime-workspace
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
+
+# Arquivos temporários
+*.swp
+*.swo
 *.sw?
+
+# Arquivos de cache
+.cache/
+.parcel-cache/
+
+# Arquivos de cobertura de testes
+coverage/
+
+# Arquivos de configuração local
+.eslintcache
+.stylelintcache
+
+# Arquivos de lock específicos do editor
+.lock-wscript
+
+# Arquivos de debug
+debug.log
+
+# Arquivos de build do Cypress
+cypress/videos/
+cypress/screenshots/
+
+# Arquivos de build do Capacitor
+ios/
+android/
+
+# Arquivos de cache do Bun
+.bun

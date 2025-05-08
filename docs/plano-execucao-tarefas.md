@@ -31,7 +31,7 @@ Este documento serve como um roteiro automatizado para a implementação sequenc
 
 ### Prioridade 2: Mapa Tático
 
-- [x] **MT-01**: Aprimorar sistema de Fog of War com controles mais precisos (75% concluído)
+- [x] **MT-01**: Aprimorar sistema de Fog of War com controles mais precisos (100% concluído)
   - **Descrição**: Implementar controles mais precisos para o sistema de Fog of War no mapa tático
   - **Arquivos Relacionados**: 
     - `src/components/map/FogOfWar.tsx`
@@ -118,11 +118,11 @@ Este documento serve como um roteiro automatizado para a implementação sequenc
 
 ### Notas de Implementação
 
-> **MT-01**: O sistema de Fog of War já possui uma base sólida com controles de opacidade, cor, suavização de bordas e transições animadas. As próximas etapas envolvem principalmente a implementação de funcionalidades mais avançadas como linha de visão e iluminação dinâmica, utilizando as funções já disponíveis em fogOfWarUtils.ts. A migração do banco de dados para suportar áreas de memória dos jogadores já foi implementada.
+> **MT-01**: O sistema de Fog of War está completamente implementado com controles de opacidade, cor, suavização de bordas, transições animadas, linha de visão, iluminação dinâmica e sistema de memória de áreas reveladas. Todas as funcionalidades planejadas foram concluídas, incluindo a integração com o banco de dados para suportar áreas de memória dos jogadores.
 
 ---
 
 **Versão do Documento**: 1.1  
 **Última Atualização**: 2024-09-01  
 **Responsável**: Equipe Dungeon Kreeper
-**Progresso Geral do Projeto**: 75%
+**Progresso Geral do Projeto**: 90%
