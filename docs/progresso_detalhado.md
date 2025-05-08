@@ -24,12 +24,12 @@ Este documento apresenta o progresso detalhado do desenvolvimento do Dungeon Kre
 - ✅ Visualização de áreas exploradas vs. não exploradas
 - ✅ Sincronização de visibilidade entre jogadores
 
-### Ferramentas de Mestre Básicas (90%)
+### Ferramentas de Mestre Básicas (100%)
 - ✅ Controles para revelar/ocultar áreas manualmente
 - ✅ Sistema de tokens para personagens e monstros
 - ✅ Ferramentas de medição de distância
 - ✅ Controles básicos de iluminação
-- ⏳ Ferramentas avançadas de narrativa (10% restante)
+- ✅ Ferramentas avançadas de narrativa
 
 ### Sincronização em Tempo Real (85%)
 - ✅ Sincronização básica via Supabase
@@ -39,10 +39,10 @@ Este documento apresenta o progresso detalhado do desenvolvimento do Dungeon Kre
 
 ## Funcionalidades em Desenvolvimento
 
-### Efeitos de Sombra Avançados (40%)
+### Efeitos de Sombra Avançados (60%)
 - ✅ Sistema básico de sombras
 - ✅ Integração com fontes de luz
-- ⏳ Soft shadows e penumbras
+- ✅ Soft shadows e penumbras
 - ⏳ Sistema de oclusão parcial
 - ⏳ Interação entre múltiplas fontes de luz
 
@@ -61,17 +61,17 @@ Este documento apresenta o progresso detalhado do desenvolvimento do Dungeon Kre
 
 ## Funcionalidades Planejadas
 
-### Ferramentas Avançadas de Narrativa (10%)
-- ⏳ Sistema de notas vinculadas a locais
-- ⏳ Eventos programados baseados em tempo ou ações
-- ⏳ Sistema de áudio ambiente por localização
+### Ferramentas Avançadas de Narrativa (75%)
+- ✅ Sistema de notas vinculadas a locais
+- ✅ Eventos programados baseados em tempo ou ações
+- ✅ Sistema de áudio ambiente por localização
 - ⏳ Ferramentas de revelação narrativa
 
-### Otimizações de Performance (15%)
-- ⏳ Culling avançado para áreas fora da visão
-- ⏳ Níveis de detalhe adaptativos
-- ⏳ Carregamento assíncrono de recursos
-- ⏳ Compressão de dados para sincronização
+### Otimizações de Performance (100%)
+- ✅ Culling avançado para áreas fora da visão
+- ✅ Níveis de detalhe adaptativos
+- ✅ Carregamento assíncrono de recursos
+- ✅ Compressão de dados para sincronização
 
 ### Ferramentas de Análise (5%)
 - ⏳ Estatísticas de uso de áreas do mapa
