@@ -14,6 +14,9 @@ export default defineConfig(({ mode }) => ({
     mode === 'development' &&
     componentTagger(),
   ].filter(Boolean),
+  optimizeDeps: {
+    exclude: ['react-dom/client', 'sonner', '@tanstack/react-query'],
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

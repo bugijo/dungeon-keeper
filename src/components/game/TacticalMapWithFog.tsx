@@ -110,7 +110,6 @@ const TacticalMapWithFog = ({
     if (onFogChange) {
       onFogChange([]);
     }
-  }
   };
 
   const handleMapClick = (event: React.MouseEvent<HTMLDivElement>) => {
