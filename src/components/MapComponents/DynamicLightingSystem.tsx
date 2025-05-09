@@ -161,7 +161,7 @@ const DynamicLightingSystem: React.FC<DynamicLightingSystemProps> = ({
       return [];
     }
     
-    let allLightAreas: LightArea[] = [];
+    const allLightAreas: LightArea[] = [];
     
     // Para cada fonte de luz, calcular área iluminada
     for (const light of activeLightSources) {

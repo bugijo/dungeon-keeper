@@ -268,7 +268,7 @@ export function useAudioSystem() {
       return;
     }
     
-    let tracks = [...playlist.tracks];
+    const tracks = [...playlist.tracks];
     
     // Shuffle if requested
     if (shuffle) {

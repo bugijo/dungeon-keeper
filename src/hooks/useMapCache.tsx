@@ -290,8 +290,8 @@ export const useMapCache = (options: MapCacheOptions = {}) => {
     
     // Remover itens até que o cache esteja abaixo do limite
     let currentSize = totalCacheSize;
-    let updatedMaps = [...sortedMaps];
-    let updatedResources = [...sortedResources];
+    const updatedMaps = [...sortedMaps];
+    const updatedResources = [...sortedResources];
     
     // Primeiro remover recursos (menos críticos)
     while (currentSize > (cacheOptions.maxCacheSize! * 1024 * 1024) && updatedResources.length > 0) {

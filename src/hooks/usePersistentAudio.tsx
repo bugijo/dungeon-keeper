@@ -181,7 +181,7 @@ export function usePersistentAudio() {
       if (!prev.playlists[playlistId]) return prev;
       
       // Stop all other playlists if this is "combat" type
-      let otherPlaylists = {...prev.playlists};
+      const otherPlaylists = {...prev.playlists};
       if (playlistId === 'combat' && !prev.playlists[playlistId].isPlaying) {
         // When starting combat, pause other playlists
         Object.keys(otherPlaylists).forEach(id => {

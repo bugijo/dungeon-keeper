@@ -318,7 +318,7 @@ const IntegratedFogOfWarSystem: React.FC<IntegratedFogOfWarSystemProps> = ({
     if (!currentPosition) return;
     
     // Áreas visíveis por linha de visão direta
-    let areas: RevealedArea[] = [];
+    const areas: RevealedArea[] = [];
     
     if (lineOfSightEnabled) {
       const visiblePoints = calculateVisibleArea(

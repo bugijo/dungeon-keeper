@@ -107,7 +107,7 @@ const DicePanel: React.FC<DicePanelProps> = ({
     
     try {
       // Rolar os dados
-      let results: number[] = [];
+      const results: number[] = [];
       for (let i = 0; i < count; i++) {
         results.push(Math.floor(Math.random() * sides) + 1);
       }

@@ -1,5 +1,5 @@
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react-swc";
+import react from "@vitejs/plugin-react";
 import path from "path";
 import { componentTagger } from "lovable-tagger";
 
@@ -15,7 +15,7 @@ export default defineConfig(({ mode }) => ({
     componentTagger(),
   ].filter(Boolean),
   optimizeDeps: {
-    exclude: ['react-dom/client', 'sonner', '@tanstack/react-query'],
+    include: ['react-dom/client']
   },
   resolve: {
     alias: {
