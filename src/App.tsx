@@ -4,18 +4,18 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { NotificationProvider } from './contexts/NotificationContext';
 import { Toaster } from '@/components/ui/sonner';
 import AppRoutes from './routes';
-import { AuthProvider } from '@/contexts/SupabaseAuthContext';
+// import './index.css'; // Global stylesheet imported in main.tsx
 
 function App() {
   return (
-    <Router>
+    <React.StrictMode>
       <NotificationProvider>
-        <Toaster position="top-right" />
-
-        
-        <AppRoutes />
+        <Router>
+          <AppRoutes />
+          <Toaster richColors />
+        </Router>
       </NotificationProvider>
-    </Router>
+    </React.StrictMode>
   );
 }
 

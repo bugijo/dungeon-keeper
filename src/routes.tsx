@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from './contexts/SupabaseAuthContext';
 
 // Páginas principais
+import TestPage from './pages/TestPage'; // Adicionar import para a página de teste
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -52,6 +53,7 @@ const AppRoutes = () => {
   return (
     <Routes>
       {/* Rotas públicas */}
+      <Route path="/test" element={<TestPage />} />
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
