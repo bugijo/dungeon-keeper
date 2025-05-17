@@ -1,0 +1,42 @@
+/* Ajustes de layout para quando a barra superior e lateral estiverem presentes */
+body.with-sidebar {
+    padding-left: 0; /* Removido padding fixo */
+}
+
+.page-container.with-sidebar {
+    margin-left: 0; /* Remove margem adicional quando a sidebar já está presente */
+    max-width: 1200px; /* Limita a largura máxima do conteúdo */
+    margin: 0 auto; /* Centraliza o conteúdo */
+}
+
+/* Ajustes para responsividade */
+@media (max-width: 768px) {
+    body.with-sidebar {
+        padding-left: 0; /* Remove o padding em telas pequenas */
+    }
+    
+    .sidebar {
+        transform: translateX(-100%); /* Esconde a sidebar em telas pequenas */
+        transition: transform 0.3s ease;
+    }
+    
+    .sidebar.active {
+        transform: translateX(0); /* Mostra a sidebar quando ativa */
+    }
+    
+    /* Botão para mostrar/esconder a sidebar em telas pequenas */
+    .menu-hamburger {
+        display: flex !important;
+    }
+}
+
+/* Ajuste para quando ambas as barras estiverem presentes */
+.main-content {
+    width: 100%;
+    transition: margin-left 0.3s ease;
+}
+
+/* Animação para o menu hamburger */
+.menu-hamburger.active i {
+    transform: rotate(90deg);
+}

@@ -96,25 +96,25 @@ export const CharacterSheet = ({ character }: CharacterSheetProps) => {
   const handleHitPointChange = (amount: number) => {
     // Lógica para gerenciar pontos de vida temporários e atuais
     if (amount > 0) {
-      setCurrentHitPoints(prev => Math.min(prev + amount, character.hitPoints.max));
+      setCurrentHitPoints((prev: number) => Math.min(prev + amount, character.hitPoints.max));
     } else {
       const absAmount = Math.abs(amount);
       if (tempHitPoints > 0) {
         if (tempHitPoints >= absAmount) {
-          setTempHitPoints(prev => prev - absAmount);
+          setTempHitPoints((prev: number) => prev - absAmount);
         } else {
           const remaining = absAmount - tempHitPoints;
           setTempHitPoints(0);
-          setCurrentHitPoints(prev => Math.max(0, prev - remaining));
+          setCurrentHitPoints((prev: number) => Math.max(0, prev - remaining));
         }
       } else {
-        setCurrentHitPoints(prev => Math.max(0, prev - absAmount));
+        setCurrentHitPoints((prev: number) => Math.max(0, prev - absAmount));
       }
     }
   };
 
   const handleDeathSave = (type: 'success' | 'failure', value: boolean) => {
-    setDeathSaves(prev => {
+    setDeathSaves((prev: { successes: number; failures: number }) => {
       const newSaves = { ...prev };
       if (type === 'success') {
         newSaves.successes = value 
@@ -192,7 +192,7 @@ export const CharacterSheet = ({ character }: CharacterSheetProps) => {
               <div className="fantasy-border p-3">
                 <h3 className="text-center font-medievalsharp text-fantasy-purple mb-2">Atributos Principais</h3>
                 <div className="grid grid-cols-3 gap-2">
-                  {character.stats.map((stat, index) => (
+                  {character.stats.map((stat: Stat, index: number) => (
                     <div key={index} className="text-center">
                       <div className="w-14 h-14 mx-auto rounded-full border-2 border-fantasy-purple/50 bg-fantasy-dark/30 flex items-center justify-center">
                         <span className="text-xl font-medievalsharp text-fantasy-gold">{stat.value}</span>
@@ -213,7 +213,7 @@ export const CharacterSheet = ({ character }: CharacterSheetProps) => {
                 <h3 className="text-center font-medievalsharp text-fantasy-purple mb-2">Perícias</h3>
                 <ScrollArea className="h-[200px]">
                   <div className="space-y-2">
-                    {character.skills.map((skill, index) => (
+                    {character.skills.map((skill: Skill, index: number) => (
                       <div key={index} className="flex justify-between items-center">
                         <div className="flex items-center gap-2">
                           <div className={`w-3 h-3 rounded-full ${skill.proficient ? 'bg-fantasy-gold' : 'bg-fantasy-dark/50'}`}></div>
@@ -323,7 +323,7 @@ export const CharacterSheet = ({ character }: CharacterSheetProps) => {
                       <div>
                         <p className="text-sm mb-1">Sucessos</p>
                         <div className="flex gap-2">
-                          {[1, 2, 3].map(i => (
+                          {[1, 2, 3].map((i: number) => (
                             <div 
                               key={`success-${i}`}
                               className={`w-6 h-6 rounded-full border border-green-500 cursor-pointer flex items-center justify-center
@@ -338,7 +338,7 @@ export const CharacterSheet = ({ character }: CharacterSheetProps) => {
                       <div>
                         <p className="text-sm mb-1">Falhas</p>
                         <div className="flex gap-2">
-                          {[1, 2, 3].map(i => (
+                          {[1, 2, 3].map((i: number) => (
                             <div 
                               key={`failure-${i}`}
                               className={`w-6 h-6 rounded-full border border-red-500 cursor-pointer flex items-center justify-center
@@ -365,7 +365,7 @@ export const CharacterSheet = ({ character }: CharacterSheetProps) => {
                 <h3 className="text-center font-medievalsharp text-fantasy-purple mb-2">Itens</h3>
                 <ScrollArea className="h-[250px]">
                   <div className="space-y-2">
-                    {character.inventory.map((item, index) => (
+                    {character.inventory.map((item: Item, index: number) => (
                       <div key={index} className="bg-fantasy-dark/30 p-2 rounded-md">
                         <div className="flex justify-between">
                           <span className="font-medium">{item.name}</span>
@@ -422,20 +422,21 @@ export const CharacterSheet = ({ character }: CharacterSheetProps) => {
               <div className="fantasy-border p-3">
                 <h3 className="text-center font-medievalsharp text-fantasy-purple mb-2">Espaços de Magia</h3>
                 <div className="space-y-3">
-                  {character.spells.slots.map((slot, index) => (
+                  {character.spells.slots.map((slot: { level: number; used: number; total: number }, index: number) => (
                     <div key={index}>
                       <div className="flex justify-between text-sm">
                         <span>Nível {slot.level}</span>
                         <span>{slot.used}/{slot.total}</span>
                       </div>
                       <div className="flex gap-1 mt-1">
-                        {Array.from({ length: slot.total }).map((_, i) => (
+                        {Array.from({ length: slot.total }).map((_, i: number) => (
                           <div 
                             key={`slot-${index}-${i}`}
                             className={`w-5 h-5 rounded-full ${i < slot.used ? 'bg-fantasy-dark/70' : 'bg-fantasy-purple/30'} 
                             border border-fantasy-purple/50 cursor-pointer`}
-                            onClick={() => {
+                            onClick={(): void => {
                               // Lógica para usar/recuperar espaço de magia
+                              // Exemplo: handleSpellSlotToggle(index, i)
                             }}
                           ></div>
                         ))}
@@ -450,13 +451,18 @@ export const CharacterSheet = ({ character }: CharacterSheetProps) => {
                 <h3 className="text-center font-medievalsharp text-fantasy-purple mb-2">Magias Conhecidas</h3>
                 <ScrollArea className="h-[250px]">
                   <div className="space-y-3">
-                    {character.spells.known.map((spell, index) => (
+                    {character.spells.known.map((spell: Spell, index: number) => (
                       <div key={index} className="bg-fantasy-dark/30 p-2 rounded-md">
                         <div className="flex justify-between items-start">
-                          <span className="font-medium">{spell.name}</span>
-                          <span className="text-xs bg-fantasy-purple/20 text-fantasy-purple px-2 py-0.5 rounded-full">
-                            Nível {spell.level === 0 ? 'Truque' : spell.level}
-                          </span>
+                          <div>
+                            <span className="font-medium">{spell.name}</span>
+                            <span className="text-xs ml-2 bg-fantasy-purple/20 text-fantasy-purple px-2 py-0.5 rounded-full">
+                              Nível {spell.level}
+                            </span>
+                          </div>
+                          <button className="text-xs fantasy-button primary p-1" onClick={(): void => { /* Preparar Magia */ }}>
+                            Preparar
+                          </button>
                         </div>
                         <p className="text-xs text-fantasy-stone mt-1">{spell.description}</p>
                         <div className="grid grid-cols-2 gap-x-2 gap-y-1 mt-2 text-xs">
@@ -488,8 +494,8 @@ export const CharacterSheet = ({ character }: CharacterSheetProps) => {
               <div className="fantasy-border p-3">
                 <h3 className="text-center font-medievalsharp text-fantasy-purple mb-2">Características e Traços</h3>
                 <ScrollArea className="h-[250px]">
-                  <div className="space-y-3">
-                    {character.features.map((feature, index) => (
+                  <div className="space-y-2">
+                    {character.features.map((feature: Feature, index: number) => (
                       <div key={index} className="bg-fantasy-dark/30 p-2 rounded-md">
                         <div className="flex justify-between">
                           <span className="font-medium">{feature.name}</span>
@@ -545,3 +551,5 @@ export const CharacterSheet = ({ character }: CharacterSheetProps) => {
 };
 
 export default CharacterSheet;
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any

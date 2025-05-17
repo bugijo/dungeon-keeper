@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dungeon Keeper - Inventário</title>
+    <link rel="stylesheet" href="home_static.css"> <!-- Reutilizando o CSS da home por enquanto -->
+    <link rel="stylesheet" href="inventario_static.css">
+    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Script para incluir os componentes (topbar e sidebar) -->
+    <script src="./include-all-components.js"></script>
+</head>
+<body>
+    <!-- A barra superior será carregada automaticamente pelo script include-topbar.js -->
+    <div class="page-container"> <!-- Container para o conteúdo principal -->
+        <div class="main-content">
+            <header class="main-header">
+                <h1>Bolsa de Tesouros</h1>
+            </header>
+
+            <main class="inventory-container">
+                <div class="inventory-section">
+                    <h2><i class="fas fa-dice-d20"></i> Meus Jogos</h2>
+                    <div class="inventory-grid">
+                        <!-- Exemplo de item de jogo -->
+                        <div class="inventory-item">
+                            <img src="./images/placeholder.svg" alt="Capa do Jogo">
+                            <h4>A Lenda do Herói Esquecido</h4>
+                            <p>Mestre: AventureiroMestre</p>
+                            <button class="btn btn-secondary">Acessar Jogo</button>
+                        </div>
+                        <!-- Adicionar mais jogos aqui -->
+                    </div>
+                </div>
+
+                <div class="inventory-section">
+                    <h2><i class="fas fa-trophy"></i> Meus Troféus</h2>
+                    <div class="inventory-grid">
+                        <!-- Exemplo de troféu -->
+                        <div class="inventory-item trophy-item">
+                            <i class="fas fa-shield-alt fa-3x"></i>
+                            <h4>Primeira Vitória</h4>
+                            <p>Conquistado em: 20/07/2024</p>
+                        </div>
+                        <!-- Adicionar mais troféus aqui -->
+                    </div>
+                </div>
+
+                <div class="inventory-section">
+                    <h2><i class="fas fa-scroll"></i> Meus Itens Criados</h2>
+                    <div class="inventory-grid">
+                        <!-- Exemplo de item -->
+                        <div class="inventory-item">
+                            <img src="./images/placeholder.svg" alt="Espada Lendária">
+                            <h4>Espada Lendária da Aurora</h4>
+                            <p>Tipo: Arma</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="inventory-section">
+                    <h2><i class="fas fa-users"></i> Meus NPCs Criados</h2>
+                     <div class="inventory-grid">
+                        <!-- Exemplo de NPC -->
+                        <div class="inventory-item">
+                            <img src="./images/placeholder.svg" alt="Elara, a Sábia">
+                            <h4>Elara, a Sábia</h4>
+                            <p>Raça: Elfa</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="inventory-section">
+                    <h2><i class="fas fa-map-marked-alt"></i> Meus Mapas Criados</h2>
+                    <div class="inventory-grid">
+                        <!-- Exemplo de Mapa -->
+                        <div class="inventory-item">
+                            <img src="./images/placeholder.svg" alt="Floresta Sussurrante">
+                            <h4>Floresta Sussurrante</h4>
+                            <p>Dimensões: 30x30</p>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- Barra de navegação inferior para Mobile -->
+        <nav class="bottom-nav">
+            <a href="home_static.html" class="bottom-nav-item"><i class="fas fa-home"></i><span>Home</span></a>
+            <a href="mesas.html" class="bottom-nav-item"><i class="fas fa-table-cells"></i><span>Mesas</span></a>
+            <a href="missoes.html" class="bottom-nav-item"><i class="fas fa-tasks"></i><span>Missões</span></a>
+            <a href="inventario.html" class="bottom-nav-item active"><i class="fas fa-briefcase"></i><span>Inventário</span></a>
+            <a href="loja.html" class="bottom-nav-item"><i class="fas fa-store"></i><span>Loja</span></a>
+            <a href="creations_static.html" class="bottom-nav-item"><i class="fas fa-magic"></i><span>Criações</span></a>
+        </nav>
+    </div>
+</body>
+</html>

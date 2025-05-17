@@ -1,0 +1,244 @@
+body {
+    font-family: 'MedievalSharp', cursive, sans-serif;
+    background-color: #2b1b36; /* fantasy-dark */
+    background-image: url('./images/background-login.webp'); /* Adicionando uma imagem de fundo temática */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: #d4d4d8; /* fantasy-stone */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.login-container {
+    background-color: rgba(26, 20, 35, 0.85); /* fantasy-scroll com transparência */
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7), 0 0 15px rgba(106, 76, 147, 0.5); /* Sombra mais pronunciada e com cor */
+    width: 100%;
+    max-width: 450px;
+    text-align: center;
+    border: 2px solid #6a4c93; /* fantasy-purple */
+    border-image: linear-gradient(to bottom right, #ffd700, #b45dd9, #6a4c93) 1;
+    backdrop-filter: blur(5px); /* Efeito de vidro fosco */
+}
+
+.login-header h1 {
+    font-family: 'MedievalSharp', cursive;
+    color: #ffd700; /* fantasy-gold */
+    font-size: 2.8em;
+    margin-bottom: 10px;
+}
+
+.login-header p {
+    font-size: 1.1em;
+    color: #d4d4d8; /* fantasy-stone */
+    margin-bottom: 30px;
+}
+
+.login-form .form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.login-form label {
+    display: block;
+    font-size: 0.9em;
+    color: #b45dd9; /* fantasy-accent */
+    margin-bottom: 8px;
+}
+
+.login-form .form-group.password-group {
+    position: relative; /* Necessário para posicionar o botão dentro do grupo */
+}
+
+.login-form input[type="email"],
+.login-form input[type="password"] {
+    padding-right: 15px; /* Ajustado para consistência, botão de olho será absoluto */
+    width: 100%;
+    padding: 12px 15px;
+    background-color: #2b1b36; /* fantasy-dark */
+    border: 1px solid #6a4c93; /* fantasy-purple */
+    border-radius: 6px;
+    color: #d4d4d8; /* fantasy-stone */
+    font-size: 1em;
+    box-sizing: border-box;
+}
+
+/* Este bloco foi removido pois o padding-right será consistente e o botão posicionado absolutamente */
+
+.login-form input[type="email"]:focus,
+.login-form input[type="password"]:focus {
+    outline: none;
+    border-color: #ffd700; /* fantasy-gold */
+    box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.3);
+}
+
+.form-options {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 25px;
+}
+
+.forgot-password {
+    color: #b45dd9; /* fantasy-accent */
+    text-decoration: none;
+    font-size: 0.9em;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+.btn {
+    display: block;
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: 6px;
+    font-size: 1.1em;
+    font-family: 'MedievalSharp', cursive;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    margin-bottom: 15px;
+    border: none;
+}
+
+.btn:active {
+    transform: translateY(1px);
+}
+
+.btn-primary {
+    background-color: #b45dd9; /* fantasy-accent */
+    color: #ffffff; /* Texto mais claro para contraste */
+    border: 1px solid #ffd700; /* Borda dourada */
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2), inset 0 -2px 3px rgba(0,0,0,0.3);
+}
+
+.btn-primary:hover {
+    background-color: #c774e6; /* Mais claro no hover */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3), inset 0 -2px 3px rgba(0,0,0,0.2);
+}
+
+.separator {
+    font-size: 0.9em;
+    color: #d4d4d8; /* fantasy-stone */
+    margin: 20px 0;
+    position: relative;
+}
+
+.separator::before, .separator::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 40%;
+    height: 1px;
+    background-color: #6a4c93; /* fantasy-purple */
+}
+
+.separator::before {
+    left: 0;
+}
+
+.separator::after {
+    right: 0;
+}
+
+.btn-google,
+.btn-facebook {
+    margin-top: 10px;
+    background-color: #2b1b36; /* fantasy-dark */
+    color: #d4d4d8; /* fantasy-stone */
+    border: 1px solid #6a4c93; /* fantasy-purple */
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.btn-google:hover,
+.btn-facebook:hover {
+    background-color: #3c2a4c;
+    border-color: #b45dd9; /* fantasy-accent */
+}
+
+.btn-demo {
+    background-color: #3c2a47; /* Um tom mais escuro que fantasy-scroll */
+    color: #d4d4d8; /* fantasy-stone */
+    border: 1px solid #6a4c93; /* fantasy-purple */
+}
+
+.btn-google:hover,
+.btn-facebook:hover,
+.btn-demo:hover {
+    background-color: #4a3558;
+}
+
+.login-footer {
+    margin-top: 30px;
+    font-size: 0.9em;
+}
+
+.login-footer a {
+    color: #ffd700; /* fantasy-gold */
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.login-footer a:hover {
+    text-decoration: underline;
+    color: #fff0a0; /* Gold mais claro */
+    text-shadow: 0 0 5px #ffd700;
+}
+
+
+.toggle-password-btn {
+    background: transparent;
+    border: none;
+    position: absolute;
+    right: 12px; /* Ajuste para alinhar melhor com o padding do input */
+    top: 70%; /* Mantido o ajuste de 'top' do original, mas pode precisar de revisão dependendo da altura do label */
+    transform: translateY(-50%);
+    cursor: pointer;
+    padding: 0; /* Removido padding para melhor controle do tamanho do ícone */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: auto; /* Ajustado para altura automática baseada no conteúdo */
+}
+
+.toggle-password-btn img {
+    width: 20px; /* Tamanho do ícone */
+    height: 20px;
+    filter: invert(70%) sepia(30%) saturate(500%) hue-rotate(230deg); /* Colore o ícone para combinar */
+    width: 20px;
+    height: 20px;
+    /* Opcional: para mudar a cor do ícone SVG via CSS se ele for inline ou se o SVG permitir */
+    /* filter: invert(70%) sepia(30%) saturate(500%) hue-rotate(230deg) brightness(90%) contrast(90%); */ 
+}
+
+/* Responsividade */
+@media (max-width: 480px) {
+    .login-container {
+        padding: 20px;
+        margin: 10px;
+    }
+
+    .login-header h1 {
+        font-size: 2.2em;
+    }
+
+    .login-header p {
+        font-size: 1em;
+    }
+
+    .btn {
+        font-size: 1em;
+        padding: 10px 12px;
+    }
+}

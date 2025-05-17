@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Teste Simples - Dungeon Kreeper</title>
+  <link rel="stylesheet" href="/teste-styles.css">
+  <script src="https://unpkg.com/@supabase/supabase-js@2.49.4"></script>
+  <style>
+    body {
+      background-color: #0d0d15;
+      color: #e0e0e0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-image: url('/assets/background-pattern.png');
+      background-repeat: repeat;
+      background-size: 200px;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    .fantasy-card {
+      background-color: #1a1a24;
+      border: 2px solid #8a6d3b;
+      border-radius: 8px;
+      padding: 25px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .fantasy-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #8a6d3b, #d4af37, #8a6d3b);
+    }
+    
+    .text-fantasy-gold {
+      color: #d4af37;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+    
+    .text-fantasy-stone {
+      color: #c0c0c0;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-label {
+      display: block;
+      margin-bottom: 8px;
+      color: #d4af37;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+    }
+    
+    .form-input {
+      width: 100%;
+      padding: 12px;
+      background-color: #2a2a3a;
+      border: 1px solid #8a6d3b;
+      border-radius: 4px;
+      color: #ffffff;
+      font-size: 16px;
+      transition: all 0.3s ease;
+    }
+    
+    .form-input:focus {
+      outline: none;
+      border-color: #d4af37;
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.25);
+    }
+    
+    .btn {
+      display: inline-block;
+      padding: 12px 20px;
+      background-color: #8a6d3b;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 14px;
+    }
+    
+    .btn:hover {
+      background-color: #d4af37;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+    
+    .btn:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+    
+    .btn-primary {
+      background-color: #6b46c1;
+      background-image: linear-gradient(135deg, #6b46c1, #805ad5);
+    }
+    
+    .btn-primary:hover {
+      background-color: #805ad5;
+      background-image: linear-gradient(135deg, #805ad5, #9f7aea);
+    }
+    
+    .social-buttons {
+      display: flex;
+      gap: 15px;
+      margin-top: 25px;
+    }
+    
+    .social-btn {
+      flex: 1;
+      padding: 12px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+    
+    .social-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+    
+    .google-btn {
+      background-color: #ea4335;
+      color: white;
+    }
+    
+    .facebook-btn {
+      background-color: #3b5998;
+      color: white;
+    }
+    
+    .links {
+      margin-top: 25px;
+      text-align: center;
+    }
+    
+    .links a {
+      color: #805ad5;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    
+    .links a:hover {
+      text-decoration: underline;
+      color: #d4af37;
+    }
+    
+    .status-message {
+      margin-top: 20px;
+      padding: 12px;
+      border-radius: 4px;
+      text-align: center;
+      font-weight: bold;
+      animation: fadeIn 0.5s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .success {
+      background-color: #2e5a3c;
+      color: white;
+      border-left: 4px solid #4caf50;
+    }
+    
+    .error {
+      background-color: #5a2e2e;
+      color: white;
+      border-left: 4px solid #f44336;
+    }
+    
+    .debug-info {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #2a2a3a;
+      border-radius: 4px;
+      color: #c0c0c0;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      white-space: pre-wrap;
+      overflow-x: auto;
+      border-left: 4px solid #805ad5;
+    }
+    
+    .fantasy-table {
+      background-color: #1a1a24;
+      border: 1px solid #3a3a4a;
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+    
+    .fantasy-table th {
+      background-color: #2a2a3a;
+      color: #d4af37;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 14px;
+    }
+    
+    .fantasy-table tr:hover td {
+      background-color: #2a2a3a;
+    }
+    
+    .table-responsive {
+      overflow-x: auto;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="fantasy-card" style="max-width: 500px; margin: 50px auto;">
+      <div class="text-center" style="margin-bottom: 24px; text-align: center;">
+        <h1 class="text-fantasy-gold" style="font-size: 28px; margin-bottom: 8px;">Dungeon Keeper</h1>
+        <p class="text-fantasy-stone" style="opacity: 0.9;">Teste Simples de Login</p>
+      </div>
+      
+      <form id="login-form">
+        <div class="form-group">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" id="email" class="form-input" placeholder="seu.email@reino.com" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="password" class="form-label">Senha</label>
+          <input type="password" id="password" class="form-input" placeholder="Sua senha secreta" required>
+        </div>
+        
+        <div style="text-align: right; margin-bottom: 16px;">
+          <a href="#" class="text-fantasy-stone" style="font-size: 14px;">Esqueci minha senha</a>
+        </div>
+        
+        <button type="submit" class="btn btn-primary" style="width: 100%;">Entrar no Reino</button>
+      </form>
+      
+      <div class="social-buttons">
+        <button class="social-btn google-btn" id="google-login">Google</button>
+        <button class="social-btn facebook-btn" id="facebook-login">Facebook</button>
+      </div>
+      
+      <div class="links">
+        <p>Novo por aqui? <a href="#">Criar uma conta</a></p>
+        <p><a href="#" id="anonymous-login">Jogar sem conta</a></p>
+      </div>
+      
+      <div id="status-message" class="status-message" style="display: none;"></div>
+      
+      <div id="debug-info" class="debug-info" style="display: none;"></div>
+      
+      <div style="margin-top: 20px; text-align: center;">
+        <button id="test-connection" class="btn">Testar Conexão Supabase</button>
+        <button id="load-users" class="btn" style="margin-left: 10px;">Carregar Usuários</button>
+      </div>
+      
+      <div id="users-table-container" style="margin-top: 20px; display: none;">
+        <h3 class="text-fantasy-gold">Usuários Cadastrados</h3>
+        <div class="table-responsive">
+          <table class="fantasy-table" style="width: 100%; border-collapse: collapse;">
+            <thead>
+              <tr>
+                <th style="text-align: left; padding: 8px; border-bottom: 1px solid #8a6d3b;">ID</th>
+                <th style="text-align: left; padding: 8px; border-bottom: 1px solid #8a6d3b;">Nome</th>
+                <th style="text-align: left; padding: 8px; border-bottom: 1px solid #8a6d3b;">Email</th>
+              </tr>
+            </thead>
+            <tbody id="users-table-body">
+              <!-- Os usuários serão carregados aqui -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    
+    <div style="margin-top: 20px; text-align: center;">
+      <a href="/login-teste.html">Versão Completa</a> | 
+      <a href="/teste-supabase.html">Testar conexão Supabase</a> | 
+      <a href="/testes-index.html">Voltar para índice de testes</a>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const loginForm = document.getElementById('login-form');
+      const googleBtn = document.getElementById('google-login');
+      const facebookBtn = document.getElementById('facebook-login');
+      const anonymousBtn = document.getElementById('anonymous-login');
+      const testConnectionBtn = document.getElementById('test-connection');
+      const statusMessage = document.getElementById('status-message');
+      const debugInfo = document.getElementById('debug-info');
+      
+      // Credenciais do Supabase
+      const supabaseUrl = 'https://iilbczoanafeqzjqovjb.supabase.co';
+      const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlpbGJjem9hbmFmZXF6anFvdmpiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQyMzAzMzEsImV4cCI6MjA1OTgwNjMzMX0.bFE7xLdOURKvfIHIzrTYJPWhCI08SvDhgsen2OwK2_k';
+      
+      // Função para mostrar mensagens de status
+      function showStatus(message, isSuccess) {
+        statusMessage.textContent = message;
+        statusMessage.className = 'status-message ' + (isSuccess ? 'success' : 'error');
+        statusMessage.style.display = 'block';
+      }
+      
+      // Função para mostrar informações de debug
+      function showDebug(title, data) {
+        debugInfo.innerHTML = `<strong>${title}</strong>\n\n${typeof data === 'object' ? JSON.stringify(data, null, 2) : data}`;
+        debugInfo.style.display = 'block';
+      }
+      
+      // Inicializa o cliente Supabase
+      let supabaseClient;
+      try {
+        const { createClient } = window.supabase;
+        supabaseClient = createClient(supabaseUrl, supabaseKey);
+        console.log('Cliente Supabase inicializado');
+      } catch (error) {
+        showStatus(`Erro ao inicializar cliente Supabase: ${error.message}`, false);
+        showDebug('Erro de Inicialização', error);
+        console.error('Erro ao inicializar Supabase:', error);
+      }
+      
+      // Login com email/senha
+      loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        
+        try {
+          showStatus('Tentando fazer login...', true);
+          
+          // Verificar se o cliente Supabase foi inicializado
+          if (!supabaseClient) {
+            throw new Error('Cliente Supabase não inicializado');
+          }
+          
+          console.log('Tentando login com:', { email });
+          
+          const { data, error } = await supabaseClient.auth.signInWithPassword({
+            email,
+            password
+          });
+          
+          if (error) throw error;
+          
+          showStatus('Login bem-sucedido! Redirecionando...', true);
+          showDebug('Resposta de Login', data);
+          console.log('Login bem-sucedido:', data);
+          
+          // Simular redirecionamento após login bem-sucedido
+          setTimeout(() => {
+            window.location.href = '/';
+          }, 2000);
+          
+        } catch (error) {
+          showStatus(`Erro ao fazer login: ${error.message}`, false);
+          showDebug('Erro de Login', error);
+          console.error('Erro de login:', error);
+        }
+      });
+      
+      // Login com Google
+      googleBtn.addEventListener('click', async () => {
+        try {
+          showStatus('Redirecionando para login do Google...', true);
+          
+          // Verificar se o cliente Supabase foi inicializado
+          if (!supabaseClient) {
+            throw new Error('Cliente Supabase não inicializado');
+          }
+          
+          const { data, error } = await supabaseClient.auth.signInWithOAuth({
+            provider: 'google'
+          });
+          
+          if (error) throw error;
+          
+          // O redirecionamento é feito automaticamente pelo Supabase
+          console.log('Redirecionando para Google OAuth:', data);
+          
+        } catch (error) {
+          showStatus(`Erro ao iniciar login com Google: ${error.message}`, false);
+          showDebug('Erro de Login com Google', error);
+          console.error('Erro de login com Google:', error);
+        }
+      });
+      
+      // Login com Facebook
+      facebookBtn.addEventListener('click', async () => {
+        try {
+          showStatus('Redirecionando para login do Facebook...', true);
+          
+          // Verificar se o cliente Supabase foi inicializado
+          if (!supabaseClient) {
+            throw new Error('Cliente Supabase não inicializado');
+          }
+          
+          const { data, error } = await supabaseClient.auth.signInWithOAuth({
+            provider: 'facebook'
+          });
+          
+          if (error) throw error;
+          
+          // O redirecionamento é feito automaticamente pelo Supabase
+          console.log('Redirecionando para Facebook OAuth:', data);
+          
+        } catch (error) {
+          showStatus(`Erro ao iniciar login com Facebook: ${error.message}`, false);
+          showDebug('Erro de Login com Facebook', error);
+          console.error('Erro de login com Facebook:', error);
+        }
+      });
+      
+      // Login anônimo
+      anonymousBtn.addEventListener('click', async () => {
+        try {
+          showStatus('Criando sessão anônima...', true);
+          
+          // Verificar se o cliente Supabase foi inicializado
+          if (!supabaseClient) {
+            throw new Error('Cliente Supabase não inicializado');
+          }
+          
+          const { data, error } = await supabaseClient.auth.signUp({
+            email: `guest_${Date.now()}@example.com`,
+            password: `guest${Math.random().toString(36).substring(2, 10)}`,
+          });
+          
+          if (error) throw error;
+          
+          showStatus('Sessão anônima criada! Redirecionando...', true);
+          showDebug('Sessão Anônima', data);
+          console.log('Sessão anônima criada:', data);
+          
+          // Simular redirecionamento após login bem-sucedido
+          setTimeout(() => {
+            window.location.href = '/';
+          }, 2000);
+          
+        } catch (error) {
+          showStatus(`Erro ao criar sessão anônima: ${error.message}`, false);
+          showDebug('Erro de Sessão Anônima', error);
+          console.error('Erro de sessão anônima:', error);
+        }
+      });
+      
+      // Testar conexão com Supabase
+      testConnectionBtn.addEventListener('click', async () => {
+        try {
+          showStatus('Testando conexão com Supabase...', true);
+          
+          // Verificar se o cliente Supabase foi inicializado
+          if (!supabaseClient) {
+            throw new Error('Cliente Supabase não inicializado');
+          }
+          
+          // Tenta fazer uma operação simples para testar a conexão
+          const { data, error } = await supabaseClient.from('profiles').select('id').limit(1);
+          
+          if (error) throw error;
+          
+          showStatus('Conexão com Supabase estabelecida com sucesso!', true);
+          showDebug('Dados da Conexão', { url: supabaseUrl, data });
+          console.log('Conexão bem-sucedida:', data);
+          
+        } catch (error) {
+          showStatus(`Erro na conexão: ${error.message}`, false);
+          showDebug('Erro de Conexão', error);
+          console.error('Erro na conexão com Supabase:', error);
+        }
+      });
+      
+      // Carregar usuários da tabela profiles
+      const loadUsersBtn = document.getElementById('load-users');
+      const usersTableContainer = document.getElementById('users-table-container');
+      const usersTableBody = document.getElementById('users-table-body');
+      
+      loadUsersBtn.addEventListener('click', async () => {
+        try {
+          showStatus('Carregando usuários do Supabase...', true);
+          
+          // Verificar se o cliente Supabase foi inicializado
+          if (!supabaseClient) {
+            throw new Error('Cliente Supabase não inicializado');
+          }
+          
+          // Buscar usuários da tabela profiles
+          const { data, error } = await supabaseClient.from('profiles').select('id, username, email');
+          
+          if (error) throw error;
+          
+          // Limpar tabela existente
+          usersTableBody.innerHTML = '';
+          
+          if (data && data.length > 0) {
+            // Preencher tabela com os dados dos usuários
+            data.forEach(user => {
+              const row = document.createElement('tr');
+              row.innerHTML = `
+                <td style="padding: 8px; border-bottom: 1px solid #3a3a4a;">${user.id || 'N/A'}</td>
+                <td style="padding: 8px; border-bottom: 1px solid #3a3a4a;">${user.username || 'N/A'}</td>
+                <td style="padding: 8px; border-bottom: 1px solid #3a3a4a;">${user.email || 'N/A'}</td>
+              `;
+              usersTableBody.appendChild(row);
+            });
+            
+            // Mostrar a tabela
+            usersTableContainer.style.display = 'block';
+            showStatus(`${data.length} usuários carregados com sucesso!`, true);
+          } else {
+            // Mostrar mensagem se não houver usuários
+            usersTableBody.innerHTML = `
+              <tr>
+                <td colspan="3" style="padding: 16px; text-align: center;">Nenhum usuário encontrado</td>
+              </tr>
+            `;
+            usersTableContainer.style.display = 'block';
+            showStatus('Nenhum usuário encontrado na tabela profiles', true);
+          }
+          
+          showDebug('Dados dos Usuários', data);
+          
+        } catch (error) {
+          showStatus(`Erro ao carregar usuários: ${error.message}`, false);
+          showDebug('Erro ao Carregar Usuários', error);
+          console.error('Erro ao carregar usuários:', error);
+        }
+      });
+      
+      // Verificar se já existe uma sessão ativa
+      async function checkExistingSession() {
+        try {
+          const { data, error } = await supabaseClient.auth.getSession();
+          
+          if (error) throw error;
+          
+          if (data.session) {
+            showStatus('Você já está logado! Redirecionando...', true);
+            showDebug('Sessão Existente', data.session);
+            console.log('Sessão existente:', data.session);
+            
+            // Simular redirecionamento após detecção de sessão
+            setTimeout(() => {
+              window.location.href = '/';
+            }, 2000);
+          }
+          
+        } catch (error) {
+          console.error('Erro ao verificar sessão:', error);
+        }
+      }
+      
+      // Verificar sessão ao carregar a página
+      if (supabaseClient) {
+        checkExistingSession();
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,302 @@
+/* Estilos específicos para a página de Missões */
+body {
+    font-family: 'MedievalSharp', cursive, sans-serif;
+    padding-left: 270px; /* Adicionado padding-left para a sidebar */
+    box-sizing: border-box; /* Para o padding não aumentar a largura total */
+    margin: 0; /* Garantir que não haja margens padrão */
+    background-color: #2b1b36; /* fantasy-dark */
+    background-image: url('./images/background-form.webp'); /* Imagem de fundo temática */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: #d4d4d8; /* fantasy-stone */
+}
+
+/* Estilo para a animação de recompensa */
+.reward-animation {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.5);
+    background: linear-gradient(135deg, #ffd700, #b45dd9);
+    color: white;
+    padding: 20px 40px;
+    border-radius: 10px;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: center;
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.7);
+    z-index: 1000;
+    opacity: 0;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    font-family: 'MedievalSharp', cursive;
+}
+
+.reward-animation i {
+    color: #ffd700;
+    margin-right: 10px;
+    font-size: 1.2em;
+}
+
+.reward-animation.show {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-size: 1em;
+    font-family: 'MedievalSharp', cursive;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    margin-top: 10px;
+    border: none;
+    text-align: center;
+}
+
+.btn-primary {
+    background-color: #6a4c93; /* fantasy-purple */
+    color: white;
+    border: 1px solid #ffd700; /* fantasy-gold */
+}
+
+.btn-primary:hover {
+    background-color: #523977;
+}
+
+/* Adicionar mais estilos conforme necessário */
+
+.mission-item {
+    background-color: rgba(40, 30, 50, 0.9); /* Cor de fundo levemente transparente */
+    border: 1px solid #6a4c93; /* Borda roxa */
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative; /* Para o posicionamento do "Concluída" */
+}
+
+.mission-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+}
+
+.mission-item h3 {
+    color: #ffd700; /* Dourado para o título da missão */
+    margin-top: 0;
+    margin-bottom: 8px;
+    font-size: 1.3em;
+}
+
+.mission-item h3 i {
+    margin-right: 8px;
+    color: #b45dd9; /* Roxo para o ícone */
+}
+
+.mission-item p {
+    color: #d4d4d8; /* Cinza claro para a descrição */
+    margin-bottom: 10px;
+    font-size: 0.95em;
+}
+
+.mission-item .mission-description {
+    margin-bottom: 15px;
+}
+
+.progress-bar-container {
+    width: 100%;
+    background-color: #2c1d35; /* Fundo da barra de progresso */
+    border-radius: 5px;
+    margin: 15px 0;
+    height: 20px;
+    border: 1px solid #4a3b5e;
+    overflow: hidden; /* Garante que a barra interna respeite o border-radius */
+    position: relative; /* Para posicionar o texto dentro */
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.progress-bar {
+    width: 0; /* Será definido por JS */
+    height: 100%;
+    background: linear-gradient(to right, #ffd700, #ffec80); /* Gradiente dourado para a barra */
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: width 0.8s cubic-bezier(0.22, 1, 0.36, 1); /* Transição mais suave */
+    box-shadow: 0 0 8px rgba(255, 215, 0, 0.5); /* Brilho dourado */
+}
+
+.progress-bar.full {
+    background: linear-gradient(to right, #ffd700, #ffec80, #ffd700); /* Gradiente animado para 100% */
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite linear; /* Animação de brilho quando completo */
+}
+
+@keyframes shimmer {
+    0% { background-position: 100% 0; }
+    100% { background-position: 0 0; }
+}
+
+.progress-text {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    color: #ffffff; /* Texto branco para melhor contraste */
+    font-size: 0.85em;
+    font-weight: bold;
+    text-shadow: 0 0 3px rgba(0,0,0,0.7); /* Sombra para legibilidade */
+    line-height: 20px; /* Centraliza verticalmente */
+    z-index: 1; /* Garante que o texto fique acima da barra */
+}
+
+.mission-reward {
+    font-style: italic;
+    color: #b45dd9; /* Roxo para a recompensa */
+    margin: 15px 0;
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+}
+
+.mission-reward i {
+    color: #ffd700; /* Ícone dourado */
+    margin-right: 8px;
+    font-size: 1.1em;
+}
+
+.reward-item {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 15px;
+    background-color: rgba(106, 76, 147, 0.3);
+    padding: 5px 10px;
+    border-radius: 15px;
+    border: 1px solid rgba(180, 93, 217, 0.3);
+}
+
+.reward-item i {
+    margin-right: 5px;
+}
+
+.reward-gold { color: #ffd700; }
+.reward-gem { color: #00ffff; }
+.reward-xp { color: #ff7f50; }
+.reward-item-special { color: #ff69b4; }
+
+.mission-item.completed {
+    background-color: rgba(58, 90, 64, 0.8); /* Verde escuro com transparência */
+    border-left: 5px solid #4CAF50;
+    border-color: #4a6c5d;
+}
+
+.mission-item.completed h3 {
+    color: #a3b18a; /* Verde claro para o título */
+}
+
+.mission-item.completed p,
+.mission-item.completed .mission-reward {
+    color: #8a9a8f; /* Texto esverdeado */
+    opacity: 0.8;
+}
+
+.mission-item.completed .progress-bar {
+    background: linear-gradient(to right, #52b788, #74c69d); /* Verde para progresso completo */
+    box-shadow: 0 0 8px rgba(82, 183, 136, 0.5); /* Brilho verde */
+}
+
+.mission-item.completed .btn-claim-reward {
+    display: none !important;
+}
+
+.mission-item.completed::after {
+    content: "Concluída";
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: #4CAF50;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.8em;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    font-family: 'MedievalSharp', cursive;
+}
+
+.mission-item.ready-to-claim {
+    background-color: rgba(90, 78, 40, 0.8); /* Dourado escuro com transparência */
+    border-left: 5px solid #ffd700;
+    animation: pulse-border 2s infinite;
+}
+
+@keyframes pulse-border {
+    0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(255, 215, 0, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
+}
+
+.mission-item.ready-to-claim::after {
+    content: "Recompensa Disponível";
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: #ffd700;
+    color: #2b1b36;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.8em;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    font-family: 'MedievalSharp', cursive;
+    animation: pulse-text 1.5s infinite;
+}
+
+@keyframes pulse-text {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+
+.btn-secondary {
+    background-color: #4a3b5e;
+    color: #e0cff0;
+    border: 1px solid #6a4c93;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background-color: #5c4a72;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.btn-claim-reward {
+    background: linear-gradient(to right, #ffd700, #b45dd9); /* Gradiente dourado-roxo */
+    color: #ffffff;
+    border: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+}
+
+.btn-claim-reward:hover {
+    background: linear-gradient(to right, #ffe44d, #c774e6); /* Gradiente mais claro no hover */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.4), 0 0 15px rgba(255, 215, 0, 0.4);
+}
+
+.mission-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+/* --- Media Queries para Responsividade --- */
+@media (max-width: 768px) {
+    body {
+        padding-left: 0; /* Remove o espaço da sidebar em telas menores */
+    }
+}

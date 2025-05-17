@@ -1,0 +1,60 @@
+/* Estilos da Barra Lateral (Sidebar) */
+.sidebar {
+    width: 270px;
+    background-color: rgba(26, 20, 35, 0.85); /* fantasy-scroll com transparência */
+    border-right: 2px solid #6a4c93; /* fantasy-purple */
+    border-image: linear-gradient(to bottom, #ffd700, #b45dd9, #6a4c93) 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Altura total da viewport */
+    position: fixed; /* Fixa a sidebar */
+    left: 0;
+    top: 0;
+    box-shadow: 5px 0 15px rgba(0,0,0,0.5);
+    backdrop-filter: blur(5px); /* Efeito de vidro fosco */
+    z-index: 100; /* Para garantir que a sidebar fique acima de outros conteúdos */
+}
+
+.sidebar-header h3 {
+    font-family: 'MedievalSharp', cursive;
+    color: #ffd700; /* fantasy-gold */
+    font-size: 1.8em;
+    margin-top: 0; /* Removido margin-top para melhor alinhamento */
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.sidebar-nav a {
+    display: flex;
+    align-items: center;
+    gap: 12px; /* Aumentado o gap para melhor espaçamento */
+    color: #d4d4d8; /* fantasy-stone */
+    padding: 12px 15px;
+    text-decoration: none;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+    font-size: 1.1em;
+    font-family: 'MedievalSharp', cursive; /* Adicionado para consistência */
+}
+
+.sidebar-nav a:hover,
+.sidebar-nav a.active {
+    background-color: #6a4c93; /* fantasy-purple */
+    color: #ffffff;
+    transform: translateX(5px); /* Pequeno efeito de deslocamento no hover/active */
+}
+
+.sidebar-nav a i {
+    width: 20px; /* Para alinhar os ícones */
+    text-align: center;
+    font-size: 1em; /* Ajuste para consistência do tamanho do ícone */
+}
+
+/* Responsividade da Sidebar */
+@media (max-width: 768px) {
+    .sidebar {
+        display: none; /* Esconde a sidebar em telas menores */
+    }
+}

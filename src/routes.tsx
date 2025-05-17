@@ -1,94 +1,38 @@
 import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
-import { useAuth } from './contexts/SupabaseAuthContext';
+import { Routes, Route } from 'react-router-dom';
+import App from './App'; 
 
-// Páginas principais
-import TestPage from './pages/TestPage'; // Adicionar import para a página de teste
-import Home from './pages/Home';
+// Importando componentes de página
+import Home from './pages/HomePage';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import NotFound from './pages/NotFound';
-import Tables from './pages/Tables';
-import Character from './pages/Character';
-import CharacterLibrary from './pages/CharacterLibrary';
-import Creations from './pages/Creations';
-import CreationsCollection from './pages/CreationsCollection';
-import CreationRouter from './pages/CreationRouter';
-import MapCollection from './pages/MapCollection';
-import MapsView from './pages/MapsView';
-import ItemsView from './pages/ItemsView';
-import MonstersView from './pages/MonstersView';
-import NpcsView from './pages/NpcsView';
-import StoriesView from './pages/StoriesView';
-import Shop from './pages/Shop';
-import DiceRoller from './pages/DiceRoller';
-import Inventory from './pages/Inventory';
-import InventoryPage from './pages/InventoryPage';
-import Missions from './pages/Missions';
-import TacticalMapSystem from './pages/TacticalMapSystem';
-import TacticalCombat from './pages/TacticalCombat';
-import MapTacticalDemo from './pages/MapTacticalDemo';
-import Session from './pages/Session';
-import LiveSession from './pages/LiveSession';
-import GameMasterView from './pages/GameMasterView';
-import PlayerView from './pages/PlayerView';
-import SessionScheduler from './pages/SessionScheduler';
+import CharacterCreation from './pages/creations/CharacterCreation';
+import CreationsHubPage from './pages/CreationsHubPage'; // Importando a nova página
+import InventoryPage from './pages/InventoryPage'; // Importando a página de Inventário
+import GameTablesPage from './pages/GameTablesPage'; // Importando a página de Mesas de Jogo
+import CreateGameTablePage from './pages/CreateGameTablePage'; // Importando a página de Criação de Mesa de Jogo
+import GameTableDetailPage from './pages/GameTableDetailPage'; // Importando a página de Detalhes da Mesa de Jogo
+// Adicione outras importações de página conforme necessário
 
-// Componente de rota protegida
-const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-  const { user, loading } = useAuth();
-
-  if (loading) {
-    return <div className="loading-screen">Carregando...</div>;
-  }
-
-  if (!user) {
-    return <Navigate to="/login" replace />;
-  }
-
-  return <>{children}</>;
-};
-
-const AppRoutes = () => {
+const AppRoutes: React.FC = () => {
   return (
     <Routes>
-      {/* Rotas públicas */}
-      <Route path="/test" element={<TestPage />} />
-      <Route path="/" element={<Home />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-      
-      {/* Rotas protegidas */}
-      <Route path="/tables" element={<ProtectedRoute><Tables /></ProtectedRoute>} />
-      <Route path="/character/:id" element={<ProtectedRoute><Character /></ProtectedRoute>} />
-      <Route path="/characters" element={<ProtectedRoute><CharacterLibrary /></ProtectedRoute>} />
-      <Route path="/creations" element={<ProtectedRoute><Creations /></ProtectedRoute>} />
-      <Route path="/creations/collection" element={<ProtectedRoute><CreationsCollection /></ProtectedRoute>} />
-      <Route path="/creations/:type" element={<ProtectedRoute><CreationRouter /></ProtectedRoute>} />
-      <Route path="/maps" element={<ProtectedRoute><MapCollection /></ProtectedRoute>} />
-      <Route path="/maps/view" element={<ProtectedRoute><MapsView /></ProtectedRoute>} />
-      <Route path="/items" element={<ProtectedRoute><ItemsView /></ProtectedRoute>} />
-      <Route path="/monsters" element={<ProtectedRoute><MonstersView /></ProtectedRoute>} />
-      <Route path="/npcs" element={<ProtectedRoute><NpcsView /></ProtectedRoute>} />
-      <Route path="/stories" element={<ProtectedRoute><StoriesView /></ProtectedRoute>} />
-      <Route path="/shop" element={<ProtectedRoute><Shop /></ProtectedRoute>} />
-      <Route path="/dice" element={<ProtectedRoute><DiceRoller /></ProtectedRoute>} />
-      <Route path="/inventory" element={<ProtectedRoute><Inventory /></ProtectedRoute>} />
-      <Route path="/inventory/:id" element={<ProtectedRoute><InventoryPage /></ProtectedRoute>} />
-      <Route path="/missions" element={<ProtectedRoute><Missions /></ProtectedRoute>} />
-      <Route path="/tactical-map" element={<ProtectedRoute><TacticalMapSystem /></ProtectedRoute>} />
-      <Route path="/tactical-combat" element={<ProtectedRoute><TacticalCombat /></ProtectedRoute>} />
-      <Route path="/map-demo" element={<ProtectedRoute><MapTacticalDemo /></ProtectedRoute>} />
-      
-      {/* Rotas de sessão */}
-      <Route path="/session/:id" element={<ProtectedRoute><Session /></ProtectedRoute>} />
-      <Route path="/live-session/:id" element={<ProtectedRoute><LiveSession /></ProtectedRoute>} />
-      <Route path="/game-master/:id" element={<ProtectedRoute><GameMasterView /></ProtectedRoute>} />
-      <Route path="/player/:id" element={<ProtectedRoute><PlayerView /></ProtectedRoute>} />
-      <Route path="/session-scheduler" element={<ProtectedRoute><SessionScheduler /></ProtectedRoute>} />
-      
-      {/* Rota 404 */}
-      <Route path="*" element={<NotFound />} />
+      <Route path="/" element={<App />}>
+        {/* Rotas aninhadas que usarão o layout de App */}
+        <Route index element={<Home />} /> {/* Rota padrão para '/' */}
+        <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
+        <Route path="creations" element={<CreationsHubPage />} /> {/* Nova rota para o Hub de Criações */}
+        <Route path="inventory" element={<InventoryPage />} /> {/* Nova rota para o Inventário */}
+        <Route path="tables" element={<GameTablesPage />} /> {/* Nova rota para Mesas de Jogo */}
+        <Route path="tables/create" element={<CreateGameTablePage />} /> {/* Nova rota para Criação de Mesas de Jogo */}
+        <Route path="tables/:id" element={<GameTableDetailPage />} /> {/* Nova rota para Detalhes da Mesa de Jogo */}
+        <Route path="creations/characters" element={<CharacterCreation />} />
+        {/* Adicione outras rotas aqui */}
+        <Route path="*" element={<NotFound />} /> {/* Rota para páginas não encontradas */}]}}}
+
+      </Route>
     </Routes>
   );
 };

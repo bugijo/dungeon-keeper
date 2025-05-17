@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dungeon Keeper - Mesas</title>
+    <link rel="stylesheet" href="home_static.css"> <!-- Reutilizando o CSS da home por enquanto -->
+    <link rel="stylesheet" href="mesas_static.css">
+    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Script para incluir os componentes (topbar e sidebar) -->
+    <script src="./include-all-components.js"></script>
+</head>
+<body>
+    <!-- A barra superior será carregada automaticamente pelo script include-topbar.js -->
+    <div class="page-container"> <!-- Container para o conteúdo principal -->
+        <div class="main-content">
+            <header class="main-header">
+                <h1>Gerenciador de Mesas de RPG</h1>
+            </header>
+            <div class="mesas-controls-top">
+                <div class="search-bar-container">
+                    <input type="text" id="searchMesas" placeholder="Buscar por nome, mestre, gênero...">
+                    <button class="btn btn-search"><i class="fas fa-search"></i> Buscar</button>
+                </div>
+                <button class="btn btn-primary btn-criar-mesa-grande">
+                    <i class="fas fa-plus-circle"></i> Criar Nova Mesa
+                </button>
+            </div>
+
+            <main class="dashboard">
+
+                <div class="mesas-grid">
+                    <!-- Exemplo de Card de Mesa (repetir para cada mesa) -->
+                    <article class="mesa-card">
+                        <img src="https://picsum.photos/seed/mesa1/400/250" alt="Imagem da Mesa Aventura Épica">
+                        <div class="mesa-card-content">
+                            <h3>Aventura Épica nas Montanhas Geladas</h3>
+                            <p class="mesa-meta"><strong>Mestre:</strong> João Mestre RPG</p>
+                            <p class="mesa-description">Uma jornada perigosa em busca de um artefato antigo, enfrentando feras e o clima implacável.</p>
+                            <div class="mesa-tags">
+                                <span class="tag-genero">Fantasia</span>
+                                <span class="tag-sistema">D&D 5e</span>
+                            </div>
+                            <div class="mesa-info">
+                                <span><i class="fas fa-users"></i> 3/5 Jogadores</span>
+                                <span><i class="fas fa-calendar-alt"></i> Sáb, 20:00</span>
+                            </div>
+                            <p class="mesa-id">ID: #MESA123</p>
+                            <button class="btn btn-secondary btn-detalhes">Ver Detalhes</button>
+                        </div>
+                    </article>
+                    
+                    <article class="mesa-card">
+                        <img src="https://picsum.photos/seed/mesa2/400/250" alt="Imagem da Mesa Cyberpunk Nights">
+                        <div class="mesa-card-content">
+                            <h3>Cyberpunk Nights: Contrato Sombrio</h3>
+                            <p class="mesa-meta"><strong>Mestre:</strong> Maria Cyber</p>
+                            <p class="mesa-description">Nas ruas de neon de Neo-Kyoto, um contrato misterioso aguarda mercenários habilidosos.</p>
+                            <div class="mesa-tags">
+                                <span class="tag-genero">Cyberpunk</span>
+                                <span class="tag-sistema">Cyberpunk Red</span>
+                            </div>
+                            <div class="mesa-info">
+                                <span><i class="fas fa-users"></i> 4/4 Jogadores (Cheia)</span>
+                                <span><i class="fas fa-calendar-alt"></i> Sex, 21:00</span>
+                            </div>
+                            <p class="mesa-id">ID: #MESA456</p>
+                            <button class="btn btn-secondary btn-detalhes">Ver Detalhes</button>
+                        </div>
+                    </article>
+                    <!-- Adicionar mais cards conforme necessário -->
+                </div>
+            </main>
+        </div>
+
+        <!-- Barra de navegação inferior para Mobile -->
+        <nav class="bottom-nav">
+            <a href="mesas.html" class="bottom-nav-item active">
+                <i class="fas fa-table-cells"></i>
+                <span>Mesas</span>
+            </a>
+            <a href="missoes.html" class="bottom-nav-item">
+                <i class="fas fa-tasks"></i>
+                <span>Missões</span>
+            </a>
+            <a href="inventario.html" class="bottom-nav-item">
+                <i class="fas fa-briefcase"></i>
+                <span>Inventário</span>
+            </a>
+            <a href="loja.html" class="bottom-nav-item">
+                <i class="fas fa-store"></i>
+                <span>Loja</span>
+            </a>
+             <a href="home_static.html" class="bottom-nav-item">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+        </nav>
+    </div>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dungeon Keeper - Login</title>
+    <link rel="stylesheet" href="login_static.css">
+    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="login-container">
+        <header class="login-header">
+            <h1>Dungeon Keeper</h1>
+            <p>Prepare-se para sua jornada, aventureiro!</p>
+        </header>
+        <form class="login-form">
+            <div class="form-group">
+
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Seu email arcano" required>
+            </div>
+            <div class="form-group password-group">
+                <label for="password">Senha</label>
+                <input type="password" id="password" name="password" placeholder="Sua senha secreta" required>
+                <button type="button" id="togglePassword" class="toggle-password-btn" aria-label="Mostrar ou ocultar senha">
+                    <img src="./icons/eye-slash-fill.svg" alt="Mostrar senha" id="toggleIcon">
+                </button>
+            </div>
+            <div class="form-options">
+                <a href="forgot-password.html" class="forgot-password">Esqueceu sua senha?</a>
+            </div>
+            <button type="submit" class="btn btn-primary">Entrar no Ninho</button>
+            <div class="separator">OU</div>
+            <button type="button" class="btn btn-google">Continuar com Google</button>
+            <button type="button" class="btn btn-facebook">Continuar com Facebook</button>
+            <button type="button" class="btn btn-demo">Modo Demo</button>
+        </form>
+        <footer class="login-footer">
+            <p>Ainda não tem uma conta? <a href="register.html" id="registerLink">Inscreva-se na Guilda</a></p>
+        </footer>
+    </div>
+    <script>
+        const togglePassword = document.getElementById('togglePassword');
+        const password = document.getElementById('password');
+        const toggleIcon = document.getElementById('toggleIcon');
+
+        if (togglePassword && password && toggleIcon) {
+            togglePassword.addEventListener('click', function () {
+                const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                password.setAttribute('type', type);
+                // Altera o ícone e o alt text
+                if (type === 'password') {
+                    toggleIcon.src = './icons/eye-slash-fill.svg';
+                    toggleIcon.alt = 'Mostrar senha';
+                    togglePassword.setAttribute('aria-label', 'Mostrar senha');
+                } else {
+                    toggleIcon.src = './icons/eye-fill.svg';
+                    toggleIcon.alt = 'Ocultar senha';
+                    togglePassword.setAttribute('aria-label', 'Ocultar senha');
+                }
+            });
+        } else {
+            console.error('Elementos do toggle de senha não encontrados.');
+        }
+    </script>
+</body>
+</html>

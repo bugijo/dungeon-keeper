@@ -1,0 +1,331 @@
+/* Estilos específicos para a página de Criações */
+body {
+    font-family: 'MedievalSharp', cursive, sans-serif;
+    padding-left: 270px; /* Adicionado padding-left para a sidebar */
+    box-sizing: border-box; /* Para o padding não aumentar a largura total */
+    margin: 0; /* Garantir que não haja margens padrão */
+    background-color: #2b1b36; /* fantasy-dark */
+    background-image: url('./images/background-form.webp'); /* Imagem de fundo temática */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: #d4d4d8; /* fantasy-stone */
+}
+
+.creations-container {
+    padding: 20px;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.page-header-creations {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: rgba(40, 30, 50, 0.8);
+    border-radius: 8px;
+    border: 1px solid #6a4c93;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.page-header-creations::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('./images/parchment-texture.webp');
+    background-size: cover;
+    opacity: 0.05;
+    pointer-events: none;
+}
+
+.page-header-creations h1 {
+    color: #ffd700; /* Dourado para título principal */
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    font-family: 'MedievalSharp', cursive;
+}
+
+.page-header-creations h2 {
+    color: #b45dd9; /* Roxo claro para subtítulo */
+    font-size: 1.8em;
+    margin-bottom: 15px;
+    font-family: 'MedievalSharp', cursive;
+}
+
+.page-header-creations p {
+    font-family: 'MedievalSharp', cursive;
+    color: #d4d4d8; /* Cinza claro para descrições */
+    font-size: 1.1em;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Estilos do header anterior removidos/comentados pois o novo cabeçalho está em .page-header-creations */
+/*
+header {
+    background-color: rgba(26, 20, 35, 0.85); 
+    color: #ffd700; 
+    padding: 1.5rem 0;
+    text-align: center;
+    border-bottom: 2px solid;
+    border-image-slice: 1;
+    border-image-source: linear-gradient(to right, #ffd700, #b45dd9, #6a4c93);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    backdrop-filter: blur(5px);
+}
+
+header h1 {
+    margin: 0;
+    font-family: 'MedievalSharp', cursive;
+    font-size: 2.5rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+}
+
+header nav a {
+    color: #d4d4d8; 
+    margin: 0 15px;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-family: 'MedievalSharp', cursive;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+header nav a:hover {
+    color: #ffd700; 
+    text-shadow: 0 0 5px #ffd700;
+    text-decoration: none;
+}
+*/
+
+.creations-hub {
+    display: grid; /* Alterado para grid */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Layout responsivo de cards */
+    gap: 25px; /* Espaçamento entre os cards */
+    padding: 0 15px; /* Padding lateral para o grid */
+}
+
+.creation-card {
+    background-color: rgba(40, 30, 50, 0.8); /* Cor de fundo similar a outros cards */
+    border: 2px solid #6a4c93; /* Borda roxa */
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Para o border-radius cortar a imagem */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    position: relative;
+}
+
+.creation-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('./images/parchment-texture.webp');
+    background-size: cover;
+    opacity: 0.05;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.creation-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4);
+    border-color: #ffd700; /* Borda dourada no hover */
+}
+
+.card-image-container {
+    width: 100%;
+    height: 150px; /* Altura da imagem como na captura */
+    overflow: hidden;
+}
+
+.card-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Garante que a imagem cubra o container sem distorcer */
+}
+
+.card-content {
+    padding: 20px;
+    text-align: left; /* Alinhamento à esquerda como na imagem */
+    flex-grow: 1; /* Faz o conteúdo ocupar o espaço restante */
+    display: flex;
+    flex-direction: column;
+}
+
+/* :hover já definido acima */
+
+.card-content h2 {
+    margin-top: 0;
+    margin-bottom: 4px;
+    font-family: 'MedievalSharp', cursive;
+    color: #ffd700; /* Dourado para títulos, consistente com outras páginas */
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    position: relative;
+    z-index: 1;
+}
+
+.card-content h2 i {
+    margin-right: 8px;
+    font-size: 1em;
+    color: #ffd700; /* Dourado para ícones, consistente com o tema */
+}
+
+.card-content p { /* Estilo para todos os parágrafos nos cards */
+    font-family: 'MedievalSharp', cursive;
+    font-size: 0.9em;
+    color: #b45dd9; /* Roxo claro para categorias, consistente com outras páginas */
+    margin-top: 0;
+    margin-bottom: 8px;
+    line-height: 1.4;
+    position: relative;
+    z-index: 1;
+}
+
+.card-description {
+    font-family: 'MedievalSharp', cursive;
+    font-size: 0.9em;
+    color: #d4d4d8 !important; /* Cinza claro para descrições, consistente com outras páginas */
+    line-height: 1.5;
+    margin-bottom: 15px;
+    flex-grow: 1; /* Empurra o botão para baixo */
+    position: relative;
+    z-index: 1;
+}
+
+.btn-create {
+    display: block;
+    width: 100%;
+    background-color: #6a4c93; /* fantasy-purple, consistente com outras páginas */
+    color: white;
+    padding: 10px 15px;
+    text-decoration: none;
+    border-radius: 6px;
+    font-family: 'MedievalSharp', cursive;
+    font-weight: bold;
+    font-size: 1em;
+    border: 1px solid #ffd700; /* Borda dourada, consistente com outras páginas */
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    text-align: center;
+    margin-top: auto;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.btn-create::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,215,0,0.3) 0%, rgba(255,215,0,0) 70%);
+    opacity: 0;
+    transform: scale(0.5);
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    z-index: -1;
+}
+
+.btn-create:hover {
+    background-color: #523977; /* Mais escuro no hover, consistente com outras páginas */
+    transform: translateY(-3px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.btn-create:hover::before {
+    opacity: 1;
+    transform: scale(1);
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: rgba(26, 20, 35, 0.9);
+    color: #d4d4d8;
+    margin-top: 40px;
+    border-top: 2px solid;
+    border-image-slice: 1;
+    border-image-source: linear-gradient(to right, #ffd700, #b45dd9, #6a4c93);
+    font-family: 'MedievalSharp', cursive;
+    box-shadow: 0 -5px 15px rgba(0,0,0,0.3);
+}
+
+/* Media Queries para Responsividade */
+@media (max-width: 768px) {
+    body {
+        padding-left: 0; /* Remove o espaço da sidebar em telas menores */
+    }
+    
+    .creations-hub {
+        grid-template-columns: 1fr; /* Uma coluna em telas pequenas */
+    }
+    
+    .page-header-creations {
+        padding: 15px;
+    }
+    
+    .page-header-creations h1 {
+        font-size: 2em;
+    }
+    
+    .page-header-creations h2 {
+        font-size: 1.5em;
+    }
+}
+
+/* As adaptações anteriores foram incorporadas nos estilos principais acima. */
+
+
+/* --- Media Queries para Responsividade --- */
+@media (max-width: 992px) { /* Ajuste para tablets e telas menores */
+    .creations-hub {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 0;
+    }
+    .creations-container {
+        padding: 15px;
+        padding-left: 15px; /* Reset para mobile, pois a sidebar some */
+    }
+    .page-header-creations h1 {
+        font-size: 1.8rem;
+    }
+    .page-header-creations h2 {
+        font-size: 1.1rem;
+    }
+    .creations-hub {
+        grid-template-columns: 1fr; /* Uma coluna em mobile */
+        gap: 20px;
+        padding: 0;
+    }
+    .card-image-container {
+        height: 140px; /* Altura menor para imagens em mobile */
+    }
+    .card-content h2 {
+        font-size: 1.15rem;
+    }
+    .btn-create {
+        padding: 12px 15px;
+        font-size: 1em;
+    }
+}

@@ -1,23 +1,18 @@
-
 import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
-import { NotificationProvider } from './contexts/NotificationContext';
-import { Toaster } from '@/components/ui/sonner';
-import AppRoutes from './routes';
-// import './index.css'; // Global stylesheet imported in main.tsx
+import { Outlet } from 'react-router-dom';
+import Header from './components/layout/Header'; // Importando o Header
+import './App.css'; // Supondo que você tenha um App.css para estilos globais do App
 
 function App() {
   return (
-    <React.StrictMode>
-      <NotificationProvider>
-        <Router>
-          <AppRoutes />
-          <Toaster richColors />
-        </Router>
-      </NotificationProvider>
-    </React.StrictMode>
+    <div className="App pt-24"> {/* Adicionado padding-top para compensar a altura do Header fixo (h-24) */}
+      <Header /> {/* Renderizando o Header */}
+      <main className="p-4"> {/* Adicionado padding para o conteúdo principal */}
+        <Outlet /> {/* Componentes de rota serão renderizados aqui */}
+      </main>
+      {/* Elementos de layout globais como Footer podem vir aqui */}
+    </div>
   );
 }
 
 export default App;
-

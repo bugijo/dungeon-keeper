@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Teste - Dungeon Kreeper</title>
+  <link rel="stylesheet" href="/teste-styles.css">
+  <script src="https://unpkg.com/@supabase/supabase-js@2.49.4"></script>
+  <style>
+    .fantasy-card {
+      background-color: #1a1a24;
+      border: 2px solid #8a6d3b;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    }
+    
+    .text-fantasy-gold {
+      color: #d4af37;
+    }
+    
+    .text-fantasy-stone {
+      color: #c0c0c0;
+    }
+    
+    .form-group {
+      margin-bottom: 16px;
+    }
+    
+    .form-label {
+      display: block;
+      margin-bottom: 6px;
+      color: #d4af37;
+      font-weight: bold;
+    }
+    
+    .form-input {
+      width: 100%;
+      padding: 10px;
+      background-color: #2a2a3a;
+      border: 1px solid #8a6d3b;
+      border-radius: 4px;
+      color: #ffffff;
+    }
+    
+    .form-input:focus {
+      outline: none;
+      border-color: #d4af37;
+      box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.25);
+    }
+    
+    .btn {
+      display: inline-block;
+      padding: 10px 16px;
+      background-color: #8a6d3b;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+    
+    .btn:hover {
+      background-color: #d4af37;
+    }
+    
+    .btn-primary {
+      background-color: #6b46c1;
+    }
+    
+    .btn-primary:hover {
+      background-color: #805ad5;
+    }
+    
+    .social-buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    
+    .social-btn {
+      flex: 1;
+      padding: 10px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    
+    .google-btn {
+      background-color: #ea4335;
+      color: white;
+    }
+    
+    .facebook-btn {
+      background-color: #3b5998;
+      color: white;
+    }
+    
+    .links {
+      margin-top: 20px;
+      text-align: center;
+    }
+    
+    .links a {
+      color: #805ad5;
+      text-decoration: none;
+    }
+    
+    .links a:hover {
+      text-decoration: underline;
+      color: #d4af37;
+    }
+    
+    .status-message {
+      margin-top: 20px;
+      padding: 10px;
+      border-radius: 4px;
+      text-align: center;
+    }
+    
+    .success {
+      background-color: #2e5a3c;
+      color: white;
+    }
+    
+    .error {
+      background-color: #5a2e2e;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="fantasy-card" style="max-width: 500px; margin: 50px auto;">
+      <div class="text-center" style="margin-bottom: 24px;">
+        <h1 class="text-fantasy-gold" style="font-size: 28px; margin-bottom: 8px;">Dungeon Keeper</h1>
+        <p class="text-fantasy-stone" style="opacity: 0.9;">Prepare-se para sua jornada, aventureiro!</p>
+      </div>
+      
+      <form id="login-form">
+        <div class="form-group">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" id="email" class="form-input" placeholder="seu.email@reino.com" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="password" class="form-label">Senha</label>
+          <input type="password" id="password" class="form-input" placeholder="Sua senha secreta" required>
+        </div>
+        
+        <div style="text-align: right; margin-bottom: 16px;">
+          <a href="#" class="text-fantasy-stone" style="font-size: 14px;">Esqueci minha senha</a>
+        </div>
+        
+        <button type="submit" class="btn btn-primary" style="width: 100%;">Entrar no Reino</button>
+      </form>
+      
+      <div class="social-buttons">
+        <button class="social-btn google-btn" id="google-login">Google</button>
+        <button class="social-btn facebook-btn" id="facebook-login">Facebook</button>
+      </div>
+      
+      <div class="links">
+        <p>Novo por aqui? <a href="#">Criar uma conta</a></p>
+        <p><a href="#" id="anonymous-login">Jogar sem conta</a></p>
+      </div>
+      
+      <div id="status-message" class="status-message" style="display: none;"></div>
+    </div>
+    
+    <div class="links" style="margin-top: 20px; text-align: center;">
+      <a href="/teste-supabase.html">Testar conexão Supabase</a> | 
+      <a href="/testes-index.html">Voltar para índice de testes</a>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const loginForm = document.getElementById('login-form');
+      const googleBtn = document.getElementById('google-login');
+      const facebookBtn = document.getElementById('facebook-login');
+      const anonymousBtn = document.getElementById('anonymous-login');
+      const statusMessage = document.getElementById('status-message');
+      
+      // Credenciais do Supabase (as mesmas do arquivo .env)
+      const supabaseUrl = 'https://iilbczoanafeqzjqovjb.supabase.co';
+      const supabaseKey = 'sbp_5bb4b8be35d5bebe8502a129e1a80f1f9a2c7125';
+      
+      // Inicializa o cliente Supabase
+      const { createClient } = window.supabase;
+      let supabaseClient;
+      
+      try {
+        supabaseClient = createClient(supabaseUrl, supabaseKey);
+        console.log('Cliente Supabase inicializado com sucesso');
+      } catch (error) {
+        showStatus(`Erro ao inicializar cliente Supabase: ${error.message}`, false);
+        console.error('Erro ao inicializar Supabase:', error);
+      }
+      
+      // Função para mostrar mensagens de status
+      function showStatus(message, isSuccess) {
+        statusMessage.textContent = message;
+        statusMessage.className = 'status-message ' + (isSuccess ? 'success' : 'error');
+        statusMessage.style.display = 'block';
+      }
+      
+      // Login com email/senha
+      loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        
+        try {
+          showStatus('Tentando fazer login...', true);
+          
+          const { data, error } = await supabaseClient.auth.signInWithPassword({
+            email,
+            password
+          });
+          
+          if (error) throw error;
+          
+          showStatus('Login bem-sucedido! Redirecionando...', true);
+          console.log('Login bem-sucedido:', data);
+          
+          // Simular redirecionamento após login bem-sucedido
+          setTimeout(() => {
+            window.location.href = '/';
+          }, 2000);
+          
+        } catch (error) {
+          showStatus(`Erro ao fazer login: ${error.message}`, false);
+          console.error('Erro de login:', error);
+        }
+      });
+      
+      // Login com Google
+      googleBtn.addEventListener('click', async () => {
+        try {
+          showStatus('Redirecionando para login do Google...', true);
+          
+          const { data, error } = await supabaseClient.auth.signInWithOAuth({
+            provider: 'google'
+          });
+          
+          if (error) throw error;
+          
+          // O redirecionamento é feito automaticamente pelo Supabase
+          console.log('Redirecionando para Google OAuth:', data);
+          
+        } catch (error) {
+          showStatus(`Erro ao iniciar login com Google: ${error.message}`, false);
+          console.error('Erro de login com Google:', error);
+        }
+      });
+      
+      // Login com Facebook
+      facebookBtn.addEventListener('click', async () => {
+        try {
+          showStatus('Redirecionando para login do Facebook...', true);
+          
+          const { data, error } = await supabaseClient.auth.signInWithOAuth({
+            provider: 'facebook'
+          });
+          
+          if (error) throw error;
+          
+          // O redirecionamento é feito automaticamente pelo Supabase
+          console.log('Redirecionando para Facebook OAuth:', data);
+          
+        } catch (error) {
+          showStatus(`Erro ao iniciar login com Facebook: ${error.message}`, false);
+          console.error('Erro de login com Facebook:', error);
+        }
+      });
+      
+      // Login anônimo
+      anonymousBtn.addEventListener('click', async () => {
+        try {
+          showStatus('Criando sessão anônima...', true);
+          
+          const { data, error } = await supabaseClient.auth.signUp({
+            email: `guest_${Date.now()}@example.com`,
+            password: `guest${Math.random().toString(36).substring(2, 10)}`,
+          });
+          
+          if (error) throw error;
+          
+          showStatus('Sessão anônima criada! Redirecionando...', true);
+          console.log('Sessão anônima criada:', data);
+          
+          // Simular redirecionamento após login bem-sucedido
+          setTimeout(() => {
+            window.location.href = '/';
+          }, 2000);
+          
+        } catch (error) {
+          showStatus(`Erro ao criar sessão anônima: ${error.message}`, false);
+          console.error('Erro de sessão anônima:', error);
+        }
+      });
+      
+      // Verificar se já existe uma sessão ativa
+      async function checkExistingSession() {
+        try {
+          const { data, error } = await supabaseClient.auth.getSession();
+          
+          if (error) throw error;
+          
+          if (data.session) {
+            showStatus('Você já está logado! Redirecionando...', true);
+            console.log('Sessão existente:', data.session);
+            
+            // Simular redirecionamento após detecção de sessão
+            setTimeout(() => {
+              window.location.href = '/';
+            }, 2000);
+          }
+          
+        } catch (error) {
+          console.error('Erro ao verificar sessão:', error);
+        }
+      }
+      
+      // Verificar sessão ao carregar a página
+      if (supabaseClient) {
+        checkExistingSession();
+      }
+    });
+  </script>
+</body>
+</html>

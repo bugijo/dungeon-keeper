@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dungeon Keeper - Loja</title>
+    <link rel="stylesheet" href="home_static.css"> <!-- Reutilizando o CSS da home por enquanto -->
+    <link rel="stylesheet" href="loja_static.css">
+    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Script para incluir os componentes (topbar e sidebar) -->
+    <script src="./include-all-components.js"></script>
+</head>
+<body>
+    <!-- A barra superior será carregada automaticamente pelo script include-topbar.js -->
+    <div class="page-container"> <!-- Container para o conteúdo principal -->
+        <div class="main-content">
+            <header class="main-header">
+                <h1>Mercado do Aventureiro</h1>
+            </header>
+
+tbm         <main class="dashboard">
+                <section class="dashboard-card">
+                    <h2>Itens à Venda</h2>
+                    <p>Adquira equipamentos, poções e artefatos para suas jornadas.</p>
+                    <div class="shop-items-grid">
+                        <article class="shop-item-card" data-id="potion-life" data-price="50" data-currency="gold">
+                            <div class="card-image-container-shop">
+                                <img src="https://via.placeholder.com/150/6a4c93/ffd700?text=Poção+Vida" alt="Poção de Vida" class="item-image">
+                                <div class="item-badge">Popular</div>
+                            </div>
+                            <div class="card-content-shop">
+                                <h3 class="item-name">Poção de Vida</h3>
+                                <p class="item-description">Restaura uma pequena quantidade de pontos de vida.</p>
+                                <p class="item-price"><i class="fas fa-coins"></i> 50 Ouro</p>
+                                <button class="btn btn-primary btn-buy">Comprar</button>
+                            </div>
+                        </article>
+                        <article class="shop-item-card" data-id="sword-iron" data-price="120" data-currency="gold">
+                            <div class="card-image-container-shop">
+                                <img src="https://via.placeholder.com/150/b45dd9/ffffff?text=Espada+Ferro" alt="Espada de Ferro" class="item-image">
+                            </div>
+                            <div class="card-content-shop">
+                                <h3 class="item-name">Espada de Ferro</h3>
+                                <p class="item-description">Uma espada básica, porém confiável, para aventureiros iniciantes.</p>
+                                <p class="item-price"><i class="fas fa-coins"></i> 120 Ouro</p>
+                                <button class="btn btn-primary btn-buy">Comprar</button>
+                            </div>
+                        </article>
+                        <article class="shop-item-card" data-id="amulet-luck" data-price="200" data-currency="gold">
+                            <div class="card-image-container-shop">
+                                <img src="https://via.placeholder.com/150/ffd700/2b1b36?text=Amuleto+Sorte" alt="Amuleto da Sorte" class="item-image">
+                            </div>
+                            <div class="card-content-shop">
+                                <h3 class="item-name">Amuleto da Sorte</h3>
+                                <p class="item-description">Dizem que este amuleto traz boa sorte ao seu portador.</p>
+                                <p class="item-price"><i class="fas fa-coins"></i> 200 Ouro</p>
+                                <button class="btn btn-primary btn-buy">Comprar</button>
+                            </div>
+                        </article>
+                        <article class="shop-item-card" data-id="scroll-fireball" data-price="5" data-currency="gem">
+                            <div class="card-image-container-shop">
+                                <img src="https://via.placeholder.com/150/ff4500/ffffff?text=Pergaminho" alt="Pergaminho de Bola de Fogo" class="item-image">
+                                <div class="item-badge premium">Premium</div>
+                            </div>
+                            <div class="card-content-shop">
+                                <h3 class="item-name">Pergaminho: Bola de Fogo</h3>
+                                <p class="item-description">Um pergaminho mágico que ensina o feitiço Bola de Fogo.</p>
+                                <p class="item-price"><i class="fas fa-gem"></i> 5 Gemas</p>
+                                <button class="btn btn-primary btn-buy">Comprar</button>
+                            </div>
+                        </article>
+                        <article class="shop-item-card" data-id="armor-leather" data-price="180" data-currency="gold">
+                            <div class="card-image-container-shop">
+                                <img src="https://via.placeholder.com/150/8B4513/ffffff?text=Armadura" alt="Armadura de Couro" class="item-image">
+                            </div>
+                            <div class="card-content-shop">
+                                <h3 class="item-name">Armadura de Couro</h3>
+                                <p class="item-description">Oferece proteção básica sem comprometer a mobilidade.</p>
+                                <p class="item-price"><i class="fas fa-coins"></i> 180 Ouro</p>
+                                <button class="btn btn-primary btn-buy">Comprar</button>
+                            </div>
+                        </article>
+                        <article class="shop-item-card" data-id="map-treasure" data-price="8" data-currency="gem">
+                            <div class="card-image-container-shop">
+                                <img src="https://via.placeholder.com/150/C19A6B/000000?text=Mapa" alt="Mapa do Tesouro" class="item-image">
+                                <div class="item-badge premium">Premium</div>
+                            </div>
+                            <div class="card-content-shop">
+                                <h3 class="item-name">Mapa do Tesouro</h3>
+                                <p class="item-description">Revela a localização de um tesouro escondido nas Montanhas Sombrias.</p>
+                                <p class="item-price"><i class="fas fa-gem"></i> 8 Gemas</p>
+                                <button class="btn btn-primary btn-buy">Comprar</button>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+                
+                <section class="dashboard-card">
+                    <h2>Serviços</h2>
+                    <p>Contrate mercenários, ferreiros ou encantadores para auxiliar em suas aventuras.</p>
+                    <div class="shop-items-grid">
+                        <article class="shop-item-card service-card" data-id="service-blacksmith" data-price="100" data-currency="gold">
+                            <div class="card-image-container-shop">
+                                <img src="https://via.placeholder.com/150/CD7F32/000000?text=Ferreiro" alt="Serviço de Ferreiro" class="item-image">
+                            </div>
+                            <div class="card-content-shop">
+                                <h3 class="item-name">Ferreiro</h3>
+                                <p class="item-description">Melhora uma arma ou armadura existente, aumentando seus atributos.</p>
+                                <p class="item-price"><i class="fas fa-coins"></i> 100 Ouro</p>
+                                <button class="btn btn-primary btn-buy">Contratar</button>
+                            </div>
+                        </article>
+                        <article class="shop-item-card service-card" data-id="service-enchanter" data-price="10" data-currency="gem">
+                            <div class="card-image-container-shop">
+                                <img src="https://via.placeholder.com/150/9370DB/ffffff?text=Encantador" alt="Serviço de Encantador" class="item-image">
+                                <div class="item-badge premium">Premium</div>
+                            </div>
+                            <div class="card-content-shop">
+                                <h3 class="item-name">Encantador</h3>
+                                <p class="item-description">Adiciona um efeito mágico a um item de sua escolha.</p>
+                                <p class="item-price"><i class="fas fa-gem"></i> 10 Gemas</p>
+                                <button class="btn btn-primary btn-buy">Contratar</button>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <!-- Barra de navegação inferior para Mobile -->
+        <nav class="bottom-nav">
+            <a href="home_static.html" class="bottom-nav-item"><i class="fas fa-home"></i><span>Home</span></a>
+            <a href="mesas.html" class="bottom-nav-item"><i class="fas fa-table-cells"></i><span>Mesas</span></a>
+            <a href="missoes.html" class="bottom-nav-item"><i class="fas fa-tasks"></i><span>Missões</span></a>
+            <a href="inventario.html" class="bottom-nav-item"><i class="fas fa-briefcase"></i><span>Inventário</span></a>
+            <a href="loja.html" class="bottom-nav-item active"><i class="fas fa-store"></i><span>Loja</span></a>
+            <a href="creations_static.html" class="bottom-nav-item"><i class="fas fa-magic"></i><span>Criações</span></a>
+        </nav>
+    </div>
+    <!-- Notificação de compra -->
+    <div id="purchase-notification" class="purchase-notification">
+        <i class="fas fa-check-circle"></i>
+        <span id="notification-message">Item adquirido com sucesso!</span>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Elementos do DOM
+            const buyButtons = document.querySelectorAll('.btn-buy');
+            const userGoldElement = document.getElementById('user-gold');
+            const userGemsElement = document.getElementById('user-gems');
+            const purchaseNotification = document.getElementById('purchase-notification');
+            const notificationMessage = document.getElementById('notification-message');
+            
+            // Estado do usuário (simulado)
+            let userGold = parseInt(userGoldElement.textContent);
+            let userGems = parseInt(userGemsElement.textContent);
+            
+            // Função para atualizar a exibição da moeda
+            function updateCurrencyDisplay() {
+                userGoldElement.textContent = userGold;
+                userGemsElement.textContent = userGems;
+            }
+            
+            // Função para mostrar notificação
+            function showNotification(message, isSuccess = true) {
+                notificationMessage.textContent = message;
+                purchaseNotification.className = 'purchase-notification';
+                
+                if (!isSuccess) {
+                    purchaseNotification.classList.add('error');
+                }
+                
+                purchaseNotification.classList.add('show');
+                
+                // Esconder a notificação após 3 segundos
+                setTimeout(() => {
+                    purchaseNotification.classList.remove('show');
+                }, 3000);
+            }
+            
+            // Adicionar evento de clique aos botões de compra
+            buyButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const itemCard = button.closest('.shop-item-card');
+                    const itemId = itemCard.dataset.id;
+                    const itemPrice = parseInt(itemCard.dataset.price);
+                    const itemCurrency = itemCard.dataset.currency;
+                    const itemName = itemCard.querySelector('.item-name').textContent;
+                    
+                    // Verificar se o usuário tem moeda suficiente
+                    let canPurchase = false;
+                    
+                    if (itemCurrency === 'gold' && userGold >= itemPrice) {
+                        userGold -= itemPrice;
+                        canPurchase = true;
+                    } else if (itemCurrency === 'gem' && userGems >= itemPrice) {
+                        userGems -= itemPrice;
+                        canPurchase = true;
+                    }
+                    
+                    if (canPurchase) {
+                        // Atualizar a exibição da moeda
+                        updateCurrencyDisplay();
+                        
+                        // Efeito visual de compra
+                        itemCard.classList.add('purchasing');
+                        setTimeout(() => {
+                            itemCard.classList.remove('purchasing');
+                        }, 600);
+                        
+                        // Mostrar notificação de sucesso
+                        showNotification(`${itemName} adquirido com sucesso!`);
+                        
+                        // Aqui seria o local para enviar a compra para o servidor
+                        console.log(`Item comprado: ${itemId}`);
+                    } else {
+                        // Mostrar notificação de erro
+                        showNotification(`Moedas insuficientes para comprar ${itemName}!`, false);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,185 @@
+/* forms_static.css */
+
+body {
+    font-family: 'MedievalSharp', cursive, sans-serif;
+    margin: 0;
+    padding: 0 0 0 250px; /* Adicionado padding-left para a sidebar */
+    background-color: #2b1b36; /* fantasy-dark */
+    background-image: url('./images/background-form.webp'); /* Imagem de fundo temática para formulários */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: #d4d4d8; /* fantasy-stone */
+    box-sizing: border-box; /* Para o padding não aumentar a largura total */
+}
+
+header {
+    background-color: rgba(26, 20, 35, 0.85); /* fantasy-scroll com transparência */
+    color: #ffd700; /* fantasy-gold */
+    padding: 1.5rem 0;
+    text-align: center;
+    border-bottom: 2px solid;
+    border-image-slice: 1;
+    border-image-source: linear-gradient(to right, #ffd700, #b45dd9, #6a4c93);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    backdrop-filter: blur(5px);
+}
+
+header h1 {
+    margin: 0;
+    font-family: 'MedievalSharp', cursive;
+    font-size: 2.2rem; /* Ajuste de tamanho para páginas internas */
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+}
+
+header nav a {
+    color: #d4d4d8; /* fantasy-stone */
+    margin: 0 15px;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-family: 'MedievalSharp', cursive;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+header nav a:hover {
+    color: #ffd700; /* fantasy-gold */
+    text-shadow: 0 0 5px #ffd700;
+    text-decoration: none;
+}
+
+.form-container {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 30px;
+    background-color: rgba(26, 20, 35, 0.85); /* fantasy-scroll com transparência */
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7), 0 0 15px rgba(106, 76, 147, 0.5);
+    border: 2px solid;
+    border-image-slice: 1;
+    border-image-source: linear-gradient(to bottom right, #b45dd9, #6a4c93);
+    backdrop-filter: blur(5px);
+}
+
+.form-section {
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #444466; /* Divisor de seção */
+}
+
+.form-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.form-section h2 {
+    font-family: 'MedievalSharp', cursive;
+    color: #ffd700; /* fantasy-gold */
+    font-size: 1.7rem;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+    padding-bottom: 10px;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #b45dd9; /* fantasy-accent */
+    font-weight: bold;
+    font-size: 1rem;
+    font-family: 'MedievalSharp', cursive;
+}
+
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group input[type="email"],
+.form-group input[type="password"],
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #6a4c93; /* fantasy-purple */
+    border-radius: 6px;
+    background-color: #2b1b36; /* fantasy-dark */
+    color: #d4d4d8; /* fantasy-stone */
+    font-size: 1em;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Manter uma fonte mais legível para inputs */
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="number"]:focus,
+.form-group input[type="email"]:focus,
+.form-group input[type="password"]:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #ffd700; /* fantasy-gold */
+    box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.3);
+}
+
+.form-group input[type="file"] {
+    padding: 8px;
+    background-color: #3a3a5a;
+    border-radius: 5px;
+    color: #e0e0e0;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.attribute-group {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 15px;
+}
+
+.btn-submit {
+    display: block;
+    width: 100%;
+    padding: 12px 20px;
+    background-color: #b45dd9; /* fantasy-accent */
+    color: #ffffff;
+    border: 1px solid #ffd700; /* Borda dourada */
+    border-radius: 6px;
+    font-size: 1.1em;
+    font-family: 'MedievalSharp', cursive;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    margin-top: 20px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2), inset 0 -2px 3px rgba(0,0,0,0.3);
+}
+
+.btn-submit:hover {
+    background-color: #c774e6; /* Mais claro no hover */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3), inset 0 -2px 3px rgba(0,0,0,0.2);
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: rgba(26, 20, 35, 0.85); /* fantasy-scroll com transparência */
+    color: #d4d4d8; /* fantasy-stone */
+    margin-top: 30px;
+    border-top: 2px solid;
+    border-image-slice: 1;
+    border-image-source: linear-gradient(to right, #6a4c93, #b45dd9, #ffd700);
+    font-family: 'MedievalSharp', cursive;
+    backdrop-filter: blur(5px);
+}
+
+/* --- Media Queries para Responsividade --- */
+@media (max-width: 768px) {
+    body {
+        padding-left: 0; /* Remove o espaço da sidebar em telas menores */
+    }
+}

@@ -1,0 +1,242 @@
+@import url('sidebar_static.css');
+
+/* Estilos específicos para a página de Mesas */
+body {
+    padding-left: 270px; /* Espaço para a sidebar */
+    font-family: 'MedievalSharp', cursive, sans-serif;
+    /* padding-left já ajustado acima */
+    box-sizing: border-box; /* Para o padding não aumentar a largura total */
+}
+
+.btn {
+    display: inline-block; /* Mudar para inline-block para botões lado a lado se necessário */
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-size: 1em;
+    font-family: 'MedievalSharp', cursive;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    margin-top: 10px;
+    border: none;
+    text-align: center;
+}
+
+.btn-primary {
+    background-color: #6a4c93; /* fantasy-purple */
+    color: white;
+    border: 1px solid #ffd700; /* fantasy-gold */
+}
+
+.btn-primary:hover {
+    background-color: #523977;
+}
+
+/* Adicionar mais estilos conforme necessário */
+
+.mesas-controls-top {
+    display: flex;
+    justify-content: space-between; /* Alinha a busca à esquerda e o botão à direita */
+    align-items: center;
+    margin-bottom: 30px;
+    padding: 15px;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.mesas-controls {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 30px;
+    padding: 15px;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.search-bar-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-grow: 1;
+    margin-right: 20px;
+}
+
+#searchMesas {
+    padding: 12px 15px;
+    border-radius: 6px;
+    border: 1px solid #4a4a4a; /* Darker border for input */
+    font-size: 1em;
+    background-color: #2c2c2c; /* Darker background for input */
+    color: #e0e0e0;
+    flex-grow: 1;
+    font-family: 'Arial', sans-serif; /* Using a more common font for input */
+}
+
+#searchMesas::placeholder {
+    color: #888;
+}
+
+.btn-search {
+    background-color: #7c59a5; /* A slightly different purple for search */
+    color: white;
+    padding: 12px 18px;
+}
+
+.btn-search:hover {
+    background-color: #6a4c93;
+}
+
+.btn-criar-mesa-grande {
+    padding: 12px 25px;
+    font-size: 1.1em;
+    background-color: #8a6db1; /* Prominent purple */
+    color: white;
+    border: 1px solid #c5b0e0; /* Lighter purple border */
+}
+
+.btn-criar-mesa-grande:hover {
+    background-color: #7c59a5;
+}
+
+.btn-criar-mesa-grande i {
+    margin-right: 8px;
+}
+
+.mesas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); /* Responsive grid */
+    gap: 25px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.mesa-card {
+    background-color: #1e1a24; /* Darker card background */
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #3a304d;
+}
+
+.mesa-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(106, 76, 147, 0.4);
+}
+
+.mesa-card img {
+    width: 100%;
+    height: 200px; /* Fixed height for images */
+    object-fit: cover; /* Ensures image covers the area, might crop */
+    border-bottom: 2px solid #6a4c93;
+}
+
+.mesa-card-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Allows content to fill space */
+}
+
+.mesa-card-content h3 {
+    font-family: 'MedievalSharp', cursive;
+    font-size: 1.6em;
+    color: #e0cff0; /* Light purple for title */
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.mesa-meta {
+    font-size: 0.9em;
+    color: #b0a0c0; /* Lighter text for meta */
+    margin-bottom: 12px;
+}
+
+.mesa-meta strong {
+    color: #c5b0e0;
+}
+
+.mesa-description {
+    font-size: 0.95em;
+    color: #c0b0d0;
+    line-height: 1.5;
+    margin-bottom: 15px;
+    flex-grow: 1; /* Pushes button to bottom */
+}
+
+.mesa-tags {
+    margin-bottom: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.mesa-tags span {
+    background-color: #4a3b5e; /* Darker tag background */
+    color: #e0cff0;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 0.8em;
+    border: 1px solid #6a4c93;
+}
+
+.mesa-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9em;
+    color: #b0a0c0;
+    margin-bottom: 15px;
+}
+
+.mesa-info span i {
+    margin-right: 5px;
+    color: #8a6db1;
+}
+
+.mesa-id {
+    font-size: 0.8em;
+    color: #776a88;
+    margin-bottom: 15px;
+    text-align: right;
+}
+
+.btn-detalhes {
+    background-color: #3a304d;
+    color: #e0cff0;
+    border: 1px solid #6a4c93;
+    padding: 10px 15px;
+    align-self: flex-start; /* Aligns button to the start if not full width */
+    width: 100%; /* Make button full width */
+    margin-top: auto; /* Pushes button to the bottom */
+}
+
+.btn-detalhes:hover {
+    background-color: #523977;
+    border-color: #8a6db1;
+}
+
+/* Ajustes gerais para a página de mesas */
+.main-content .main-header h1 {
+    color: #e0cff0;
+    font-size: 2.5em;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    margin-bottom: 20px;
+}
+
+.dashboard {
+    padding: 20px; /* Add some padding around the dashboard content */
+}
+
+/* --- Media Queries para Responsividade --- */
+@media (max-width: 768px) {
+    body {
+        padding-left: 0; /* Remove o espaço da sidebar em telas menores, já que a sidebar some */
+    }
+    /* .main-content ou similar precisaria de margin-left: 0; se a sidebar fosse escondida via CSS aqui */
+}

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teste de Servidor - Dungeon Kreeper</title>
+  <link rel="stylesheet" href="/teste-styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Teste de Conexão com o Servidor</h1>
+    <p>Esta página testa se o servidor está respondendo corretamente às requisições.</p>
+    
+    <div class="card" id="status-card">
+      <h2>Status do Servidor</h2>
+      <p id="server-status">Verificando conexão com o servidor...</p>
+      <div id="server-info"></div>
+    </div>
+    
+    <div class="card">
+      <h2>Informações de Diagnóstico</h2>
+      <ul>
+        <li><strong>URL atual:</strong> <span id="current-url"></span></li>
+        <li><strong>Porta do servidor:</strong> <span id="server-port"></span></li>
+        <li><strong>Protocolo:</strong> <span id="protocol"></span></li>
+        <li><strong>User Agent:</strong> <span id="user-agent"></span></li>
+      </ul>
+    </div>
+    
+    <div class="links">
+      <a href="/teste-html.html">Teste HTML</a>
+      <a href="/teste-css.html">Teste CSS</a>
+      <a href="/teste-react.html">Teste React</a>
+      <a href="/teste-supabase.html">Teste Supabase</a>
+      <a href="/testes-index.html">Índice de Testes</a>
+      <a href="/">Aplicação Principal</a>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const statusElement = document.getElementById('server-status');
+      const statusCard = document.getElementById('status-card');
+      const serverInfoElement = document.getElementById('server-info');
+      
+      // Preenche informações de diagnóstico
+      document.getElementById('current-url').textContent = window.location.href;
+      document.getElementById('server-port').textContent = window.location.port || '(porta padrão)';
+      document.getElementById('protocol').textContent = window.location.protocol;
+      document.getElementById('user-agent').textContent = navigator.userAgent;
+      
+      try {
+        // Tenta fazer uma requisição para o próprio servidor
+        const startTime = performance.now();
+        const response = await fetch('/teste-styles.css');
+        const endTime = performance.now();
+        const responseTime = Math.round(endTime - startTime);
+        
+        if (response.ok) {
+          statusElement.textContent = `Servidor respondendo corretamente! (${responseTime}ms)`;
+          statusCard.style.backgroundColor = '#2e5a3c'; // Verde escuro para sucesso
+          
+          // Adiciona informações sobre o servidor
+          serverInfoElement.innerHTML = `
+            <p><strong>Tempo de resposta:</strong> ${responseTime}ms</p>
+            <p><strong>Status HTTP:</strong> ${response.status} ${response.statusText}</p>
+            <p><strong>Tipo de conteúdo:</strong> ${response.headers.get('content-type') || 'Não disponível'}</p>
+          `;
+        } else {
+          throw new Error(`Erro HTTP: ${response.status} ${response.statusText}`);
+        }
+      } catch (error) {
+        // Erro na conexão
+        statusElement.textContent = `Erro na conexão com o servidor: ${error.message || 'Erro desconhecido'}`;
+        statusCard.style.backgroundColor = '#5a2e2e'; // Vermelho escuro para erro
+        console.error('Erro na conexão com o servidor:', error);
+        
+        // Adiciona sugestões de solução
+        serverInfoElement.innerHTML = `
+          <p><strong>Possíveis soluções:</strong></p>
+          <ul>
+            <li>Verifique se o servidor está rodando na porta correta (3000)</li>
+            <li>Verifique se há erros no console do servidor</li>
+            <li>Tente reiniciar o servidor com o script iniciar-servidor-melhorado.ps1</li>
+            <li>Verifique se há conflitos de porta com outros aplicativos</li>
+          </ul>
+        `;
+      }
+    });
+  </script>
+</body>
+</html>
