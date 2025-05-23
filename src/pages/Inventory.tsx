@@ -75,7 +75,7 @@ const Inventory = () => {
     fetchCharacters();
   }, [user]);
   
-  const handleItemDrop = (item: any, targetCharacterId: string) => {
+  const handleItemDrop = (item: InventoryItem, targetCharacterId: string) => {
     if (!item.id || !targetCharacterId) return;
     
     // Verifica se é uma transferência válida (não para o mesmo personagem)

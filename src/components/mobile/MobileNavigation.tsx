@@ -13,13 +13,13 @@ import {
 
 const navItems = [
   { 
-    path: "/", 
+    path: "/missions", 
     icon: MapPin, 
     label: "Missões",
     testId: "missions-tab"
   },
   { 
-    path: "/characters", 
+    path: "/creations/characters", 
     icon: Book, 
     label: "Personagens",
     testId: "characters-tab"

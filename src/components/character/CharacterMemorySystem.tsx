@@ -56,7 +56,7 @@ const CharacterMemorySystem: React.FC<CharacterMemorySystemProps> = ({
   isGM,
   onUpdate
 }) => {
-  const [character, setCharacter] = useState<any>(null);
+  const [character, setCharacter] = useState<Record<string, any> | null>(null);
   const [memoryAttributes, setMemoryAttributes] = useState<CharacterMemoryAttributes>({
     intelligence: 50,
     wisdom: 50,
@@ -250,7 +250,7 @@ const CharacterMemorySystem: React.FC<CharacterMemorySystemProps> = ({
   };
   
   // Atualizar um atributo
-  const updateAttribute = (attribute: keyof CharacterMemoryAttributes, value: any) => {
+  const updateAttribute = (attribute: keyof CharacterMemoryAttributes, value: string | number | boolean | null) => {
     setMemoryAttributes(prev => ({
       ...prev,
       [attribute]: value
@@ -355,12 +355,11 @@ const CharacterMemorySystem: React.FC<CharacterMemorySystemProps> = ({
     return backgroundModifiers[background] || 0;
   };
   
-  const calculateItemsModifier = (items: any[]): number => {
+  const calculateItemsModifier = (items: { effects?: { memory?: number } }[]): number => {
     if (!items || !Array.isArray(items)) return 0;
     
     // Calcular modificador com base nos itens equipados
     let totalModifier = 0;
-    
     items.forEach(item => {
       // Verificar se o item afeta a memória
       if (item.effects?.memory) {

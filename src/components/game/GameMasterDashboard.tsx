@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Dice, Map, Music, Users, BookOpen, MessageSquare } from 'lucide-react';
+import { Dices, Map, Music, Users, BookOpen, MessageSquare } from 'lucide-react';
 import TacticalMapWithFog from './TacticalMapWithFog';
 import GameAudioControls from './GameAudioControls';
 import { useAudioSystem } from '@/hooks/useAudioSystem';
@@ -113,7 +113,7 @@ const GameMasterDashboard: React.FC<GameMasterDashboardProps> = ({
             Jogadores
           </TabsTrigger>
           <TabsTrigger value="dice" className="flex items-center gap-2">
-            <Dice size={16} />
+            <Dices size={16} />
             Dados
           </TabsTrigger>
           <TabsTrigger value="notes" className="flex items-center gap-2">
@@ -201,9 +201,7 @@ const GameMasterDashboard: React.FC<GameMasterDashboardProps> = ({
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <p className="text-center py-8 text-muted-foreground">
-                Sistema de dados em desenvolvimento...
-              </p>
+              <DiceRoller sessionId={sessionId} />
             </CardContent>
           </Card>
         </TabsContent>
@@ -217,9 +215,21 @@ const GameMasterDashboard: React.FC<GameMasterDashboardProps> = ({
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <p className="text-center py-8 text-muted-foreground">
-                Sistema de notas em desenvolvimento...
-              </p>
+              <NotesTab sessionId={sessionId} />
+            </CardContent>
+          </Card>
+        </TabsContent>
+        
+        <TabsContent value="initiative">
+          <Card>
+            <CardHeader>
+              <CardTitle>Controle de Iniciativa</CardTitle>
+              <CardDescription>
+                Gerencie a ordem dos turnos de combate de forma simples e rápida.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <CombatTracker />
             </CardContent>
           </Card>
         </TabsContent>

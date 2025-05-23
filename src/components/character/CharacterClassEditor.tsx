@@ -24,7 +24,7 @@ const CharacterClassEditor: React.FC<CharacterClassEditorProps> = ({
 }) => {
   const [activeTab, setActiveTab] = useState('info');
   const [classDetails, setClassDetails] = useState<any>(null);
-  const [availableFeatures, setAvailableFeatures] = useState<any[]>([]);
+  const [availableFeatures, setAvailableFeatures] = useState<{ level: number; name: string; description: string }[]>([]);
 
   // Encontrar a classe selecionada nos dados de D&D 5e
   useEffect(() => {

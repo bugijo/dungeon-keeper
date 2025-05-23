@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Star, Plus, X, Edit, Save, Dice, Sword, Shield, Wand, Heart, Zap, Move, Eye, Settings } from 'lucide-react';
+import { Star, Plus, X, Edit, Save, Dices, Sword, Shield, Wand, Heart, Zap, Move, Eye, Settings } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -27,7 +27,7 @@ const ICON_OPTIONS = [
   { name: 'Espada', value: 'sword', component: <Sword className="h-4 w-4" /> },
   { name: 'Escudo', value: 'shield', component: <Shield className="h-4 w-4" /> },
   { name: 'Varinha', value: 'wand', component: <Wand className="h-4 w-4" /> },
-  { name: 'Dado', value: 'dice', component: <Dice className="h-4 w-4" /> },
+  { name: 'Dado', value: 'dice', component: <Dices className="h-4 w-4" /> },
   { name: 'Coração', value: 'heart', component: <Heart className="h-4 w-4" /> },
   { name: 'Raio', value: 'zap', component: <Zap className="h-4 w-4" /> },
   { name: 'Movimento', value: 'move', component: <Move className="h-4 w-4" /> },

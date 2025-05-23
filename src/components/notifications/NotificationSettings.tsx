@@ -126,7 +126,7 @@ export function NotificationSettings() {
   };
   
   // Atualizar uma preferência específica
-  const updatePreference = (key: keyof NotificationPreferences, value: any) => {
+  const updatePreference = (key: keyof NotificationPreferences, value: string | boolean | number | null) => {
     setPreferences(prev => ({
       ...prev,
       [key]: value

@@ -36,6 +36,7 @@ const ImageLoader: React.FC<ImageLoaderProps> = ({
   };
 
   const handleError = () => {
+    console.error(`Erro ao carregar imagem: ${imageSrc}`);
     setError(true);
     setLoading(false);
   };

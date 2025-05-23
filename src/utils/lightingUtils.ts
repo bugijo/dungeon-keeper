@@ -245,8 +245,9 @@ export const syncLightSources = async (
   mapId: string,
   userId: string,
   lightSources: LightSource[],
-  supabase: any
-) => {
+  // Substituir 'supabase: any' por 'supabase: SupabaseClient' (importar o tipo do supabase)
+  import { SupabaseClient } from '@supabase/supabase-js';
+  ) => {
   try {
     // Primeiro, excluir todas as fontes de luz existentes para este mapa
     const { error: deleteError } = await supabase

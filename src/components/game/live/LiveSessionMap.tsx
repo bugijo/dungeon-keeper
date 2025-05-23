@@ -20,7 +20,7 @@ interface LiveSessionMapProps {
   onTokenMove: (tokenId: string, x: number, y: number) => void;
   onAddToken: (token: any) => void;
   onDeleteToken: (tokenId: string) => void;
-  participants: any[];
+  participants: { id: string; user_id: string; role: string; profiles: { display_name: string } | null; characters?: { id: string; name: string; race: string; class: string } | null; }[];
   isPaused?: boolean;
   userId: string;
   sessionId: string; // ID da sessão para sincronização em tempo real

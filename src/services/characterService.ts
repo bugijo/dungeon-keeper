@@ -2,6 +2,7 @@
 
 import { toast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
+import { DbCharacter } from '@/types/database';
 import { v4 as uuidv4 } from 'uuid';
 
 // Tipo para personagem
@@ -18,13 +19,31 @@ export interface Character {
   ownerId: string;
   ownerName: string;
   thumbnail?: string;
-  attributes?: any;
-  equipment?: any[];
-  spells?: any[];
+  attributes?: Record<string, unknown>;
+  equipment?: Array<{
+    id: string;
+    name: string;
+    description?: string;
+    type?: string;
+    rarity?: string;
+    [key: string]: unknown;
+  }>;
+  spells?: Array<{
+    id: string;
+    name: string;
+    level?: number;
+    school?: string;
+    castingTime?: string;
+    range?: string;
+    components?: string[];
+    duration?: string;
+    description?: string;
+    [key: string]: unknown;
+  }>;
 }
 
 // Função auxiliar para converter dados do Supabase para o formato Character
-const mapDbCharacterToCharacter = (dbChar: any, ownerName?: string): Character => ({
+const mapDbCharacterToCharacter = (dbChar: DbCharacter, ownerName?: string): Character => ({
   id: dbChar.id,
   name: dbChar.name || 'Sem Nome',
   class: dbChar.class || 'Desconhecido',

@@ -36,7 +36,7 @@ const MainHeader = () => {
             <ul className="flex space-x-6">
               <li><Link to="/tables" className="text-fantasy-stone hover:text-white">Mesas</Link></li>
               <li><Link to="/characters" className="text-fantasy-stone hover:text-white">Personagens</Link></li>
-              <li><Link to="/tools" className="text-fantasy-stone hover:text-white">Ferramentas</Link></li>
+              {/* <li><Link to="/tools" className="text-fantasy-stone hover:text-white">Ferramentas</Link></li> */}
             </ul>
           </nav>
         </div>
@@ -71,7 +71,7 @@ const MainHeader = () => {
             </>
           )}
           {!user && (
-            <Link to="/signin">
+            <Link to="/login"> {/* Rota corrigida de /signin para /login */}
               <Button variant="outline" className="fantasy-button secondary">
                 Entrar
               </Button>

@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagnóstico de Redirecionamento - Keeper of Realms</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+  <!-- Meta tags para evitar cache -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <style>
+    body {
+      background-color: #2b1b36;
+      color: #e0e0e0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background-color: #3c2a47;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      margin-bottom: 20px;
+    }
+    
+    h1, h2 {
+      color: #ff9d00;
+      margin-top: 0;
+    }
+    
+    .code {
+      font-family: monospace;
+      background-color: #1e1225;
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: #d4af37;
+    }
+    
+    .status {
+      padding: 10px;
+      border-radius: 4px;
+      margin: 10px 0;
+    }
+    
+    .status-ok {
+      background-color: rgba(0, 128, 0, 0.2);
+      border-left: 4px solid green;
+    }
+    
+    .status-error {
+      background-color: rgba(220, 53, 69, 0.2);
+      border-left: 4px solid #dc3545;
+    }
+    
+    .status-warning {
+      background-color: rgba(255, 193, 7, 0.2);
+      border-left: 4px solid #ffc107;
+    }
+    
+    .button {
+      display: inline-block;
+      background-color: #8a6d3b;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 4px;
+      text-decoration: none;
+      margin: 10px 5px;
+      transition: background-color 0.3s;
+      cursor: pointer;
+      border: none;
+      font-size: 16px;
+    }
+    
+    .button:hover {
+      background-color: #d4af37;
+    }
+    
+    #status, #redirectStatus, #routeStatus {
+      padding: 10px;
+      border-radius: 4px;
+      margin: 10px 0;
+    }
+    
+    .log-container {
+      background-color: #1e1225;
+      border-radius: 4px;
+      padding: 10px;
+      max-height: 200px;
+      overflow-y: auto;
+      font-family: monospace;
+      margin: 10px 0;
+    }
+    
+    .log-entry {
+      margin: 5px 0;
+      border-bottom: 1px solid #3c2a47;
+      padding-bottom: 5px;
+    }
+    
+    .success {
+      color: #4caf50;
+    }
+    
+    .error {
+      color: #f44336;
+    }
+    
+    .warning {
+      color: #ff9800;
+    }
+    
+    .info {
+      color: #2196f3;
+    }
+    
+    .progress-container {
+      width: 100%;
+      height: 20px;
+      background-color: #1e1225;
+      border-radius: 10px;
+      margin: 15px 0;
+      overflow: hidden;
+    }
+    
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #8a6d3b, #d4af37);
+      border-radius: 10px;
+      width: 0%;
+      transition: width 2s ease-in-out;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Diagnóstico de Redirecionamento - Keeper of Realms</h1>
+    <p>Esta página ajuda a diagnosticar problemas de redirecionamento e carregamento da aplicação React.</p>
+    
+    <div class="progress-container">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+    
+    <div id="status" class="status status-warning">
+      Verificando status da aplicação...
+    </div>
+    
+    <div class="button-container">
+      <a href="/" class="button" id="goToReactApp">Ir para Aplicação React</a>
+      <button class="button" id="clearCacheBtn">Limpar Cache</button>
+      <button class="button" id="forceReloadBtn">Forçar Recarga</button>
+    </div>
+  </div>
+  
+  <div class="container">
+    <h2>Informações de Diagnóstico</h2>
+    
+    <div id="diagnosticInfo">
+      <p><strong>URL atual:</strong> <span id="currentUrl" class="code"></span></p>
+      <p><strong>Pathname:</strong> <span id="currentPathname" class="code"></span></p>
+      <p><strong>User Agent:</strong> <span id="userAgent" class="code"></span></p>
+      <p><strong>Timestamp:</strong> <span id="timestamp" class="code"></span></p>
+    </div>
+    
+    <h3>Status de Redirecionamento</h3>
+    <div id="redirectStatus" class="status status-warning">
+      Verificando redirecionamento...
+    </div>
+    
+    <h3>Status de Roteamento</h3>
+    <div id="routeStatus" class="status status-warning">
+      Verificando roteamento...
+    </div>
+    
+    <h3>Log de Diagnóstico</h3>
+    <div class="log-container" id="logContainer">
+      <div class="log-entry info">Iniciando diagnóstico...</div>
+    </div>
+  </div>
+  
+  <div class="container">
+    <h2>Solução de Problemas</h2>
+    
+    <div id="troubleshooting">
+      <h3>Problemas Comuns</h3>
+      <ul>
+        <li><strong>Página em branco:</strong> Geralmente causada por acesso direto a arquivos HTML estáticos em vez da aplicação React.</li>
+        <li><strong>Erro de roteamento:</strong> O React Router pode não estar configurado corretamente.</li>
+        <li><strong>Problemas de cache:</strong> O navegador pode estar usando versões em cache de arquivos antigos.</li>
+      </ul>
+      
+      <h3>Recomendações</h3>
+      <ol>
+        <li>Sempre acesse a aplicação pela URL base: <span class="code">http://localhost:3000/</span></li>
+        <li>Evite acessar diretamente arquivos HTML como <span class="code">/home.html</span>, <span class="code">/shop.html</span>, etc.</li>
+        <li>Se encontrar problemas, tente limpar o cache do navegador e recarregar a página.</li>
+      </ol>
+    </div>
+  </div>
+
+  <script>
+    // Função para adicionar entrada de log
+    function addLog(message, type = 'info') {
+      const logContainer = document.getElementById('logContainer');
+      const logEntry = document.createElement('div');
+      logEntry.className = `log-entry ${type}`;
+      logEntry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+      logContainer.appendChild(logEntry);
+      logContainer.scrollTop = logContainer.scrollHeight;
+    }
+    
+    // Função para atualizar status
+    function updateStatus(elementId, message, type) {
+      const element = document.getElementById(elementId);
+      element.textContent = message;
+      element.className = `status status-${type}`;
+    }
+    
+    // Função para verificar a aplicação React
+    function checkReactApp() {
+      addLog('Verificando aplicação React...');
+      
+      fetch('/')
+        .then(response => {
+          addLog(`Resposta do servidor: ${response.status} ${response.statusText}`, 'info');
+          return response.text();
+        })
+        .then(html => {
+          // Verificar se o HTML contém elementos da aplicação React
+          const hasRootElement = html.includes('id="root"');
+          const hasReactScript = html.includes('main.tsx') || html.includes('main.jsx');
+          
+          if (hasRootElement && hasReactScript) {
+            addLog('Aplicação React detectada corretamente', 'success');
+            updateStatus('status', 'Aplicação React detectada corretamente', 'ok');
+          } else {
+            addLog('Aplicação React não detectada corretamente', 'error');
+            updateStatus('status', 'Aplicação React não detectada corretamente', 'error');
+          }
+          
+          // Verificar redirecionamento
+          checkRedirection();
+        })
+        .catch(error => {
+          addLog(`Erro ao verificar aplicação React: ${error.message}`, 'error');
+          updateStatus('status', `Erro ao verificar aplicação React: ${error.message}`, 'error');
+        });
+    }
+    
+    // Função para verificar redirecionamento
+    function checkRedirection() {
+      addLog('Verificando redirecionamento...');
+      
+      // Simular verificação de redirecionamento
+      const isRedirectPage = window.location.pathname.includes('redirect');
+      
+      if (isRedirectPage) {
+        addLog('Página de redirecionamento detectada', 'info');
+        updateStatus('redirectStatus', 'Página de redirecionamento funcionando corretamente', 'ok');
+        
+        // Iniciar redirecionamento automático após 3 segundos
+        setTimeout(() => {
+          addLog('Iniciando redirecionamento automático...', 'info');
+          window.location.href = '/';
+        }, 3000);
+      } else {
+        addLog('Esta não é uma página de redirecionamento', 'warning');
+        updateStatus('redirectStatus', 'Esta não é uma página de redirecionamento', 'warning');
+      }
+      
+      // Verificar roteamento
+      checkRouting();
+    }
+    
+    // Função para verificar roteamento
+    function checkRouting() {
+      addLog('Verificando configuração de roteamento...');
+      
+      // Verificar se o vite.config.ts está configurado corretamente
+      fetch('/vite.config.ts')
+        .then(response => {
+          if (response.ok) {
+            return response.text();
+          } else {
+            throw new Error(`Não foi possível acessar vite.config.ts: ${response.status}`);
+          }
+        })
+        .then(config => {
+          const hasHistoryFallback = config.includes('historyApiFallback');
+          
+          if (hasHistoryFallback) {
+            addLog('Configuração de historyApiFallback detectada', 'success');
+            updateStatus('routeStatus', 'Configuração de roteamento correta', 'ok');
+          } else {
+            addLog('Configuração de historyApiFallback não detectada', 'warning');
+            updateStatus('routeStatus', 'Possível problema na configuração de roteamento', 'warning');
+          }
+        })
+        .catch(error => {
+          addLog(`Erro ao verificar configuração: ${error.message}`, 'error');
+          updateStatus('routeStatus', 'Não foi possível verificar configuração de roteamento', 'error');
+        });
+    }
+    
+    // Função para limpar cache
+    function clearCache() {
+      addLog('Limpando cache do navegador...');
+      
+      // Limpar localStorage
+      try {
+        localStorage.clear();
+        addLog('localStorage limpo com sucesso', 'success');
+      } catch (e) {
+        addLog(`Erro ao limpar localStorage: ${e.message}`, 'error');
+      }
+      
+      // Limpar sessionStorage
+      try {
+        sessionStorage.clear();
+        addLog('sessionStorage limpo com sucesso', 'success');
+      } catch (e) {
+        addLog(`Erro ao limpar sessionStorage: ${e.message}`, 'error');
+      }
+      
+      addLog('Cache limpo. Recarregando página em 2 segundos...', 'info');
+      setTimeout(() => {
+        window.location.reload(true);
+      }, 2000);
+    }
+    
+    // Função para forçar recarga
+    function forceReload() {
+      addLog('Forçando recarga da página...', 'info');
+      window.location.href = '/?nocache=' + new Date().getTime();
+    }
+    
+    // Função para atualizar a barra de progresso
+    function updateProgressBar() {
+      const progressBar = document.getElementById('progressBar');
+      let width = 0;
+      const interval = setInterval(() => {
+        if (width >= 100) {
+          clearInterval(interval);
+        } else {
+          width += 1;
+          progressBar.style.width = width + '%';
+        }
+      }, 30);
+    }
+    
+    // Inicializar quando a página carregar
+    window.onload = function() {
+      // Atualizar informações de diagnóstico
+      document.getElementById('currentUrl').textContent = window.location.href;
+      document.getElementById('currentPathname').textContent = window.location.pathname;
+      document.getElementById('userAgent').textContent = navigator.userAgent;
+      document.getElementById('timestamp').textContent = new Date().toLocaleString();
+      
+      // Iniciar barra de progresso
+      updateProgressBar();
+      
+      // Adicionar logs iniciais
+      addLog('Página de diagnóstico carregada', 'info');
+      addLog(`URL: ${window.location.href}`, 'info');
+      
+      // Verificar aplicação React
+      checkReactApp();
+      
+      // Configurar botões
+      document.getElementById('clearCacheBtn').addEventListener('click', clearCache);
+      document.getElementById('forceReloadBtn').addEventListener('click', forceReload);
+    };
+  </script>
+</body>
+</html>

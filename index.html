@@ -2,12 +2,28 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Keeper of Realms</title>
+    <!-- Garante que a base URL esteja correta para o React Router -->
+    <base href="/" />
+    <!-- Meta tag para garantir que o navegador não armazene em cache as páginas -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <!-- Script para garantir que o React Router funcione corretamente -->
+    <script>
+      // Registra a rota atual para depuração
+      console.log('Rota atual:', window.location.pathname);
+      
+      // Verifica se estamos em uma rota que não é a raiz e não é um arquivo estático
+      if (window.location.pathname !== '/' && !window.location.pathname.includes('.')) {
+        console.log('Aplicação React iniciada na rota:', window.location.pathname);
+      }
+    </script>
   </body>
 </html>

@@ -24,9 +24,11 @@ export const isPortuguese = (text: string): boolean => {
     }
   }
   
-  // Verificar por palavras comuns
+  // Verificar por palavras comuns (agora aceita início/fim/frase isolada)
+  const lowerText = text.toLowerCase();
   for (const word of ptWords) {
-    if (text.toLowerCase().includes(` ${word} `)) {
+    const regex = new RegExp(`(^|\s)${word}(\s|$)`);
+    if (regex.test(lowerText)) {
       return true;
     }
   }

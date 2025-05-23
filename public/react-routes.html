@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="refresh" content="0;url=/">
+  <title>Redirecionando para Keeper of Realms</title>
+  <style>
+    body {
+      background-color: #2b1b36;
+      color: #e0e0e0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCIgdmlld0JveD0iMCAwIDUwIDUwIj48ZyBmaWxsPSJub25lIiBzdHJva2U9IiM0ZTNhNWEiIHN0cm9rZS13aWR0aD0iMSI+PHBhdGggZD0iTTI1IDI1IEwwIDI1IE0yNSAyNSBMMjUgMCBNMjUgMjUgTDUwIDI1IE0yNSAyNSBMMjUgNTAiLz48L2c+PC9zdmc+');
+      background-repeat: repeat;
+      background-size: 50px;
+    }
+    
+    .container {
+      max-width: 450px;
+      width: 90%;
+      padding: 2rem;
+      background-color: #3c2a47;
+      border-radius: 8px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+      position: relative;
+      overflow: hidden;
+      border: 2px solid #8a6d3b;
+    }
+    
+    .container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #8a6d3b, #d4af37, #8a6d3b);
+    }
+    
+    h1 {
+      color: #d4af37;
+      margin-top: 0;
+      text-align: center;
+    }
+    
+    p {
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+    
+    .loading {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(212, 175, 55, 0.3);
+      border-radius: 50%;
+      border-top-color: #d4af37;
+      animation: spin 1s ease-in-out infinite;
+      margin-right: 10px;
+      vertical-align: middle;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    a {
+      color: #d4af37;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+    
+    a:hover {
+      color: #ff9d00;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Redirecionando...</h1>
+    <p>
+      <span class="loading"></span>
+      Você está sendo redirecionado para a aplicação principal do Keeper of Realms.
+    </p>
+    <p>
+      Se o redirecionamento não funcionar, <a href="/">clique aqui</a>.
+    </p>
+    <p>
+      <strong>Nota:</strong> Para acessar a aplicação React completa, sempre use a URL base <code>http://localhost:3000/</code> e navegue usando os links internos da aplicação.
+    </p>
+  </div>
+  
+  <script>
+    // Redirecionar para a aplicação React principal
+    window.location.href = '/';
+    
+    // Registrar no console para fins de diagnóstico
+    console.log('Redirecionando para a aplicação React principal...');
+    
+    // Adicionar evento para o caso do redirecionamento automático falhar
+    document.querySelector('a').addEventListener('click', function(e) {
+      e.preventDefault();
+      console.log('Redirecionamento manual acionado');
+      window.location.href = '/';
+    });
+  </script>
+</body>
+</html>

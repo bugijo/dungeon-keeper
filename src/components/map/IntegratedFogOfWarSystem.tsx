@@ -42,7 +42,7 @@ interface IntegratedFogOfWarSystemProps {
   width: number;
   height: number;
   onVisibleAreaChange?: (areas: RevealedArea[]) => void;
-  onMemoryUpdate?: (memoryAreas: any[]) => void;
+  onMemoryUpdate?: (memoryAreas: { x: number; y: number; radius: number; timestamp: number }[]) => void;
 }
 
 const IntegratedFogOfWarSystem: React.FC<IntegratedFogOfWarSystemProps> = ({
@@ -79,7 +79,7 @@ const IntegratedFogOfWarSystem: React.FC<IntegratedFogOfWarSystemProps> = ({
   
   // Estados para armazenar áreas calculadas
   const [visibleAreas, setVisibleAreas] = useState<RevealedArea[]>([]);
-  const [memoryAreas, setMemoryAreas] = useState<any[]>([]);
+  const [memoryAreas, setMemoryAreas] = useState<{ x: number; y: number; radius: number; timestamp: number }[]>([]);
   const [combinedAreas, setCombinedAreas] = useState<RevealedArea[]>([]);
   const [dynamicObstacles, setDynamicObstacles] = useState<Obstacle[]>([]);
   const [dynamicLights, setDynamicLights] = useState<LightSource[]>([]);
@@ -145,7 +145,7 @@ const IntegratedFogOfWarSystem: React.FC<IntegratedFogOfWarSystemProps> = ({
     };
   }, [mapId, userId, syncEnabled]);
   
-  // Efeito para atualização de obstáculos dinâmicos
+  // Efeito para atualizar obstáculos dinâmicos
   useEffect(() => {
     if (!dynamicLightingEnabled) return;
     

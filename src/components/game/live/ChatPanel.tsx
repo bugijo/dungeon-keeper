@@ -11,7 +11,7 @@ import { ptBR } from 'date-fns/locale';
 interface ChatPanelProps {
   sessionId: string;
   userId: string;
-  participants: any[];
+  participants: { id: string; user_id: string; role: string; profiles: { display_name: string } | null; characters?: { id: string; name: string; race: string; class: string } | null; }[];
 }
 
 interface ChatMessage {

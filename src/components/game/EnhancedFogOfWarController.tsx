@@ -301,7 +301,7 @@ const EnhancedFogOfWarController: React.FC<EnhancedFogOfWarControllerProps> = ({
   };
 
   // Atualizar configurações
-  const updateSettings = (key: keyof FogSettings, value: any) => {
+  const updateSettings = (key: keyof FogSettings, value: string | number | boolean | null) => {
     setSettings(prev => ({
       ...prev,
       [key]: value

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Send, Dice, Image, Smile, Settings, Volume2, VolumeX, MessageSquare, Bookmark, BookmarkCheck, History, Search } from 'lucide-react';
+import { Send, Dices, Image, Smile, Settings, Volume2, VolumeX, MessageSquare, Bookmark, BookmarkCheck, History, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';

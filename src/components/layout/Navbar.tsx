@@ -3,7 +3,7 @@ import React from 'react';
 import NotificationsDropdown from '@/components/notifications/NotificationsDropdown';
 import { useAuth } from '@/contexts/SupabaseAuthContext';
 import { Link } from 'react-router-dom';
-import { Book, Dice, Users } from 'lucide-react';
+import { Book, Dices, Users } from 'lucide-react';
 
 const Navbar: React.FC = () => {
   const { user } = useAuth();
@@ -24,11 +24,11 @@ const Navbar: React.FC = () => {
                 <Book className="h-4 w-4" />
                 <span>Personagens</span>
               </Link>
-              <Link to="/dice" className="text-fantasy-stone hover:text-fantasy-gold transition-colors flex items-center gap-1">
-                <Dice className="h-4 w-4" />
+              {/* <Link to="/dice" className="text-fantasy-stone hover:text-fantasy-gold transition-colors flex items-center gap-1">
+                <Dices className="h-4 w-4" />
                 <span>Dados</span>
-              </Link>
-              <Link to="/mesas" className="text-fantasy-stone hover:text-fantasy-gold transition-colors flex items-center gap-1">
+              </Link> */}
+              <Link to="/tables" className="text-fantasy-stone hover:text-fantasy-gold transition-colors flex items-center gap-1">
                 <Users className="h-4 w-4" />
                 <span>Mesas</span>
               </Link>

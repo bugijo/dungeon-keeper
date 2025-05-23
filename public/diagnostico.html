@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagnóstico - Keeper of Realms</title>
+  <style>
+    body {
+      background-color: #2b1b36;
+      color: #e0e0e0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    
+    .container {
+      max-width: 800px;
+      width: 90%;
+      padding: 2rem;
+      background-color: #3c2a47;
+      border-radius: 8px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+      position: relative;
+      overflow: hidden;
+      border: 2px solid #8a6d3b;
+      margin-bottom: 20px;
+    }
+    
+    .title {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: #ff9d00;
+      text-align: center;
+    }
+
+    .subtitle {
+      font-size: 1.4rem;
+      margin: 1.5rem 0 1rem;
+      color: #ff9d00;
+      border-bottom: 1px solid #8a6d3b;
+      padding-bottom: 0.5rem;
+    }
+
+    .info-box {
+      background-color: #2b1b36;
+      border: 1px solid #8a6d3b;
+      border-radius: 4px;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+
+    .warning {
+      background-color: rgba(255, 157, 0, 0.1);
+      border-left: 4px solid #ff9d00;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+
+    .solution {
+      background-color: rgba(100, 255, 100, 0.1);
+      border-left: 4px solid #64ff64;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+
+    .button {
+      display: inline-block;
+      background-color: #8a6d3b;
+      color: #e0e0e0;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      text-decoration: none;
+      margin: 0.5rem 0.5rem 0.5rem 0;
+      transition: background-color 0.3s;
+    }
+
+    .button:hover {
+      background-color: #ff9d00;
+    }
+
+    .code {
+      font-family: monospace;
+      background-color: #2b1b36;
+      padding: 0.2rem 0.4rem;
+      border-radius: 3px;
+      font-size: 0.9rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+    }
+
+    th, td {
+      padding: 0.5rem;
+      text-align: left;
+      border-bottom: 1px solid #8a6d3b;
+    }
+
+    th {
+      background-color: #2b1b36;
+      color: #ff9d00;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="title">Diagnóstico do Keeper of Realms</h1>
+    
+    <h2 class="subtitle">Problema Identificado</h2>
+    <p>Identificamos que você está tentando acessar páginas HTML estáticas diretamente, mas o projeto atual é uma aplicação React que utiliza roteamento do lado do cliente.</p>
+    
+    <div class="warning">
+      <p><strong>Atenção:</strong> Acessar diretamente arquivos como <span class="code">/home.html</span>, <span class="code">/shop.html</span>, etc. não carregará a aplicação React completa, resultando em telas em branco ou comportamento inesperado.</p>
+    </div>
+    
+    <h2 class="subtitle">Explicação do Problema</h2>
+    <p>O projeto Keeper of Realms Forge tem duas abordagens diferentes:</p>
+    <ol>
+      <li><strong>Páginas HTML estáticas</strong> na pasta <span class="code">public/</span> - estas são páginas simples que não fazem parte da aplicação React principal.</li>
+      <li><strong>Aplicação React</strong> com sistema de rotas - esta é a aplicação principal que deve ser acessada pela URL base.</li>
+    </ol>
+    
+    <div class="info-box">
+      <p>O servidor Vite está configurado para servir a aplicação React na raiz (<span class="code">http://localhost:3000/</span>) e os arquivos estáticos diretamente de seus caminhos (<span class="code">http://localhost:3000/arquivo.html</span>).</p>
+    </div>
+    
+    <h2 class="subtitle">Solução</h2>
+    <div class="solution">
+      <p><strong>Para acessar a aplicação React completa:</strong> Use sempre a URL base <span class="code">http://localhost:3000/</span> e navegue usando os links internos da aplicação.</p>
+    </div>
+    
+    <p>A aplicação React utiliza o React Router para gerenciar as rotas. Quando você acessa diretamente uma URL como <span class="code">http://localhost:3000/shop.html</span>, você está tentando acessar um arquivo estático, não uma rota da aplicação React.</p>
+    
+    <h2 class="subtitle">Rotas Disponíveis na Aplicação React</h2>
+    <table>
+      <tr>
+        <th>Rota</th>
+        <th>Descrição</th>
+      </tr>
+      <tr>
+        <td><span class="code">/</span></td>
+        <td>Página Inicial</td>
+      </tr>
+      <tr>
+        <td><span class="code">/login</span></td>
+        <td>Página de Login</td>
+      </tr>
+      <tr>
+        <td><span class="code">/register</span></td>
+        <td>Página de Registro</td>
+      </tr>
+      <tr>
+        <td><span class="code">/shop</span></td>
+        <td>Loja</td>
+      </tr>
+      <tr>
+        <td><span class="code">/missions</span></td>
+        <td>Missões</td>
+      </tr>
+      <tr>
+        <td><span class="code">/inventory</span></td>
+        <td>Inventário</td>
+      </tr>
+      <tr>
+        <td><span class="code">/tables</span></td>
+        <td>Mesas de Jogo</td>
+      </tr>
+      <tr>
+        <td><span class="code">/teste</span></td>
+        <td>Página de Teste (nova)</td>
+      </tr>
+    </table>
+    
+    <div class="warning">
+      <p><strong>Importante:</strong> Não confunda as rotas da aplicação React (<span class="code">/shop</span>) com os arquivos HTML estáticos (<span class="code">/shop.html</span>).</p>
+    </div>
+  </div>
+  
+  <div class="container" style="text-align: center;">
+    <h2 class="subtitle">Ações Recomendadas</h2>
+    <a href="/" class="button">Ir para a Aplicação React</a>
+    <a href="/teste" class="button">Ir para a Página de Teste</a>
+    <a href="/teste.html" class="button">Ver Página de Teste HTML</a>
+    
+    <p style="margin-top: 2rem;">Se o problema persistir, verifique se o servidor Vite está rodando corretamente com <span class="code">npm run dev</span> na raiz do projeto.</p>
+  </div>
+
+  <script>
+    // Script para verificar se a aplicação React está carregada
+    console.log('Página de diagnóstico carregada');
+    
+    // Verificar se o servidor está respondendo
+    fetch('/')
+      .then(response => {
+        console.log('Servidor respondendo:', response.status);
+      })
+      .catch(error => {
+        console.error('Erro ao conectar com o servidor:', error);
+      });
+  </script>
+</body>
+</html>

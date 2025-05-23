@@ -1,4 +1,5 @@
 import React from 'react';
+import { AvailableTablesGrid } from '@/components/tables/AvailableTablesGrid';
 
 const GameTablesPage: React.FC = () => {
   return (
@@ -7,9 +8,9 @@ const GameTablesPage: React.FC = () => {
       <p className="text-center text-amber-100 mb-12 text-lg max-w-3xl mx-auto">
         Encontre, crie e gerencie suas mesas de RPG aqui.
       </p>
-      {/* TODO: Adicionar barra de busca e filtros */}
-      {/* TODO: Adicionar botão para criar nova mesa */}
-      {/* TODO: Adicionar listagem de mesas */}
+      
+      {/* Componente de grade de mesas disponíveis com barra de busca, filtros e botão de criação */}
+      <AvailableTablesGrid />
     </div>
   );
 };

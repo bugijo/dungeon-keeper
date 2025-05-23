@@ -2,6 +2,7 @@
 
 import { toast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
+import { DbTable, DbTableParticipant } from '@/types/database';
 import { v4 as uuidv4 } from 'uuid';
 
 // Tipo para mesa de RPG
@@ -23,7 +24,7 @@ export interface GameTable {
   time?: string; // Horário para sessões recorrentes (formato HH:MM)
   nextSessionDate?: string; // Data da próxima sessão
   status: 'active' | 'inactive' | 'completed';
-  customRules?: any;
+  customRules?: Record<string, unknown>;
 }
 
 // Tipo para participante de mesa
@@ -40,7 +41,7 @@ export interface TableParticipant {
 }
 
 // Função auxiliar para converter dados do Supabase para o formato GameTable
-const mapDbTableToGameTable = (dbTable: any): GameTable => ({
+const mapDbTableToGameTable = (dbTable: DbTable): GameTable => ({
   id: dbTable.id,
   name: dbTable.name || 'Mesa sem nome',
   description: dbTable.description || '',
@@ -62,7 +63,7 @@ const mapDbTableToGameTable = (dbTable: any): GameTable => ({
 });
 
 // Função auxiliar para converter dados do Supabase para o formato TableParticipant
-const mapDbParticipantToTableParticipant = (dbParticipant: any): TableParticipant => ({
+const mapDbParticipantToTableParticipant = (dbParticipant: DbTableParticipant): TableParticipant => ({
   id: dbParticipant.id,
   tableId: dbParticipant.table_id,
   userId: dbParticipant.user_id,
@@ -239,24 +240,37 @@ export class TableService {
   }
 
   // Atualizar uma mesa existente
-  static async updateTable(tableId: string, updates: Partial<GameTable>): Promise<GameTable> {
+  static async updateTable(tableId: string, updates: Partial<GameTable>, userId: string): Promise<GameTable> {
     try {
-      // Preparar dados para o Supabase
-      const updateData: any = {
+      // Verificar se o usuário é o dono da mesa
+      const { data: tableData, error: tableError } = await supabase
+        .from('tables')
+        .select('owner_id')
+        .eq('id', tableId)
+        .single();
+
+      if (tableError) throw tableError;
+      if (tableData.owner_id !== userId) {
+        throw new Error('Apenas o dono da mesa pode atualizá-la');
+      }
+
+      // Preparar dados para atualização
+      const updateData: Record<string, unknown> = {
         updated_at: new Date().toISOString()
       };
-
+      
+      // Mapear campos do GameTable para o formato do banco de dados
       if (updates.name) updateData.name = updates.name;
-      if (updates.description !== undefined) updateData.description = updates.description;
+      if (updates.description) updateData.description = updates.description;
       if (updates.system) updateData.system = updates.system;
       if (updates.difficulty) updateData.difficulty = updates.difficulty;
-      if (updates.imageUrl !== undefined) updateData.image_url = updates.imageUrl;
+      if (updates.imageUrl) updateData.image_url = updates.imageUrl;
       if (updates.isPublic !== undefined) updateData.is_public = updates.isPublic;
       if (updates.maxPlayers) updateData.max_players = updates.maxPlayers;
       if (updates.tags) updateData.tags = updates.tags;
-      if (updates.weekday !== undefined) updateData.weekday = updates.weekday;
-      if (updates.time !== undefined) updateData.time = updates.time;
-      if (updates.nextSessionDate !== undefined) updateData.next_session_date = updates.nextSessionDate;
+      if (updates.weekday) updateData.weekday = updates.weekday;
+      if (updates.time) updateData.time = updates.time;
+      if (updates.nextSessionDate) updateData.next_session_date = updates.nextSessionDate;
       if (updates.status) updateData.status = updates.status;
       if (updates.customRules) updateData.custom_rules = updates.customRules;
 
@@ -498,12 +512,17 @@ export class TableService {
 
       if (sessionError) throw sessionError;
 
+      // Definir o tipo para a sessão agendada
+      type ScheduledSessionWithDate = { scheduled_date: string };
+
       // Atualizar mesa com contagem e próxima sessão
       await supabase
         .from('tables')
         .update({ 
           current_players: count || 0,
-          next_session_date: nextSession && nextSession.length > 0 ? nextSession[0].scheduled_date : null,
+          next_session_date: nextSession && nextSession.length > 0 
+            ? (nextSession[0] as ScheduledSessionWithDate).scheduled_date 
+            : null,
           updated_at: new Date().toISOString()
         })
         .eq('id', tableId);

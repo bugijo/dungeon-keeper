@@ -273,7 +273,7 @@ export function QuickNotes({
   };
   
   // Função para processar mudanças de notas vindas do Supabase
-  const handleSupabaseNoteChange = (noteData: any) => {
+  const handleSupabaseNoteChange = (noteData: NoteData) => {
     const formattedNote: Note = {
       id: noteData.note_id,
       title: noteData.title,

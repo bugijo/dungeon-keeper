@@ -13,12 +13,12 @@ const TablePlayerView = () => {
   const { id } = useParams();
   const { user } = useAuth();
   const [loading, setLoading] = React.useState(true);
-  const [tableData, setTableData] = React.useState<any>(null);
-  const [character, setCharacter] = React.useState<any>(null);
-  const [otherPlayers, setOtherPlayers] = React.useState<any[]>([]);
-  const [profiles, setProfiles] = React.useState<Record<string, any>>({});
+  const [tableData, setTableData] = React.useState<TableDataType | null>(null);
+  const [character, setCharacter] = React.useState<CharacterType | null>(null);
+  const [otherPlayers, setOtherPlayers] = React.useState<PlayerType[]>([]);
+  const [profiles, setProfiles] = React.useState<Record<string, ProfileType>>({});
   const [focusMode, setFocusMode] = React.useState(false);
-  const [quickViewItem, setQuickViewItem] = React.useState<any>(null);
+  const [quickViewItem, setQuickViewItem] = React.useState<QuickViewItemType | null>(null);
 
   React.useEffect(() => {
     const fetchData = async () => {
@@ -123,7 +123,7 @@ const TablePlayerView = () => {
   };
 
   // Função para mostrar visualização rápida de um item
-  const showQuickView = (item: any) => {
+  const showQuickView = (item: QuickViewItemType) => {
     setQuickViewItem(item);
   };
 

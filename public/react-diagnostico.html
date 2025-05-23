@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagnóstico React - Keeper of Realms</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+  <style>
+    body {
+      background-color: #2b1b36;
+      color: #e0e0e0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background-color: rgba(43, 27, 54, 0.8);
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      margin-bottom: 20px;
+    }
+    h1 {
+      color: #9c64ff;
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 2.5rem;
+    }
+    h2 {
+      color: #ff9c64;
+      border-bottom: 1px solid #4e3a5a;
+      padding-bottom: 10px;
+      margin-top: 30px;
+    }
+    .code {
+      background-color: #1a1225;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #64ff9c;
+    }
+    .button {
+      display: inline-block;
+      background-color: #9c64ff;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 4px;
+      text-decoration: none;
+      margin: 10px 5px;
+      transition: background-color 0.3s;
+    }
+    .button:hover {
+      background-color: #7c44df;
+    }
+    .info-box {
+      background-color: #3a2b46;
+      border-left: 4px solid #9c64ff;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 0 4px 4px 0;
+    }
+    .warning-box {
+      background-color: #463a2b;
+      border-left: 4px solid #ffcc00;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 0 4px 4px 0;
+    }
+    .solution {
+      background-color: #2b463a;
+      border-left: 4px solid #64ff9c;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 0 4px 4px 0;
+    }
+    .important {
+      color: #ff6464;
+      font-weight: bold;
+    }
+    #status {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 4px;
+    }
+    .status-ok {
+      background-color: rgba(100, 255, 156, 0.2);
+      border: 1px solid #64ff9c;
+    }
+    .status-error {
+      background-color: rgba(255, 100, 100, 0.2);
+      border: 1px solid #ff6464;
+    }
+    .test-button {
+      background-color: #64ff9c;
+      color: #1a1225;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Diagnóstico da Aplicação React</h1>
+    <p>Esta página ajudará a diagnosticar problemas com a aplicação React do Keeper of Realms Forge.</p>
+    
+    <div id="status"></div>
+  </div>
+  
+  <div class="container">
+    <h2>Problema: Página em Branco</h2>
+    <p>Se você está vendo uma página em branco ao acessar a aplicação, isso pode ocorrer por vários motivos:</p>
+    <ol>
+      <li><strong>Acesso incorreto:</strong> Você pode estar acessando um arquivo HTML estático em vez da aplicação React.</li>
+      <li><strong>Problemas de roteamento:</strong> O React Router pode não estar configurado corretamente.</li>
+      <li><strong>Erros JavaScript:</strong> Pode haver erros no código que impedem a renderização.</li>
+      <li><strong>Servidor não iniciado:</strong> O servidor de desenvolvimento Vite pode não estar rodando.</li>
+    </ol>
+    
+    <div class="warning-box">
+      <p><strong>Atenção:</strong> Acessar diretamente arquivos como <span class="code">/home.html</span>, <span class="code">/shop.html</span>, etc. não carregará a aplicação React completa, resultando em telas em branco ou comportamento inesperado.</p>
+    </div>
+  </div>
+  
+  <div class="container">
+    <h2>Solução Recomendada</h2>
+    <div class="solution">
+      <p><strong>Para acessar a aplicação React completa:</strong> Use sempre a URL base <span class="code">http://localhost:3000/</span> e navegue usando os links internos da aplicação.</p>
+    </div>
+    
+    <div class="info-box">
+      <p>O projeto Keeper of Realms Forge tem duas abordagens diferentes:</p>
+      <ol>
+        <li><strong>Páginas HTML estáticas</strong> na pasta <span class="code">public/</span> - estas são páginas simples que não fazem parte da aplicação React principal.</li>
+        <li><strong>Aplicação React</strong> com sistema de rotas - esta é a aplicação principal que deve ser acessada pela URL base.</li>
+      </ol>
+    </div>
+    
+    <h2>Passos para Resolver</h2>
+    <ol>
+      <li>Certifique-se de que o servidor Vite está rodando com <span class="code">npm run dev</span></li>
+      <li>Acesse <a href="http://localhost:3000/" class="code">http://localhost:3000/</a> (não adicione /home.html ou outros arquivos)</li>
+      <li>Se o problema persistir, verifique os erros no console do navegador (F12)</li>
+      <li>Tente limpar o cache do navegador ou usar uma janela anônima</li>
+    </ol>
+  </div>
+  
+  <div class="container" style="text-align: center;">
+    <h2>Ações Rápidas</h2>
+    <a href="/" class="button">Ir para a Aplicação React</a>
+    <a href="/teste" class="button">Ir para a Página de Teste</a>
+    <a href="javascript:void(0)" class="button test-button" id="testReactBtn">Testar Conexão React</a>
+  </div>
+
+  <script>
+    // Função para verificar se a aplicação React está acessível
+    function checkReactApp() {
+      const statusDiv = document.getElementById('status');
+      
+      // Tenta acessar a raiz da aplicação
+      fetch('/')
+        .then(response => {
+          if (response.ok) {
+            statusDiv.className = 'status-ok';
+            statusDiv.innerHTML = '<strong>✅ Servidor Vite está respondendo!</strong> A aplicação React deve estar acessível em <a href="http://localhost:3000/" class="code">http://localhost:3000/</a>';
+            
+            // Verifica se o documento retornado contém a div root
+            return response.text();
+          } else {
+            throw new Error(`Servidor respondeu com status ${response.status}`);
+          }
+        })
+        .then(html => {
+          if (html.includes('id="root"')) {
+            statusDiv.innerHTML += '<br><strong>✅ Elemento root encontrado!</strong> A estrutura básica da aplicação React está presente.';
+          } else {
+            statusDiv.innerHTML += '<br><strong>⚠️ Elemento root não encontrado!</strong> O HTML retornado não parece ser da aplicação React.';
+          }
+        })
+        .catch(error => {
+          statusDiv.className = 'status-error';
+          statusDiv.innerHTML = `<strong>❌ Erro ao acessar a aplicação:</strong> ${error.message}<br>Verifique se o servidor Vite está rodando com <span class="code">npm run dev</span>`;
+        });
+      
+      // Registra informações de diagnóstico no console
+      console.log('Diagnóstico React iniciado');
+      console.log('URL atual:', window.location.href);
+      console.log('Pathname:', window.location.pathname);
+    }
+    
+    // Executa a verificação quando a página carrega
+    window.onload = checkReactApp;
+    
+    // Adiciona evento ao botão de teste
+    document.getElementById('testReactBtn').addEventListener('click', function() {
+      checkReactApp();
+      alert('Teste iniciado! Verifique o resultado na parte superior da página.');
+    });
+  </script>
+</body>
+</html>

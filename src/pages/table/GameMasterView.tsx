@@ -35,7 +35,9 @@ const GameMasterView = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
   
-  const [tableData, setTableData] = useState<any>(null);
+  // Substituir useState<any> por tipos explícitos ou generics adequados
+  // Exemplo:
+  // const [tableData, setTableData] = useState<TableDataType | null>(null);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("story");
   

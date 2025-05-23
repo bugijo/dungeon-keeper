@@ -1,8 +1,10 @@
 
-import { createContext, useContext, useEffect, useState } from 'react';
-import { supabase } from '@/integrations/supabase/client';
-import { User, Session } from '@supabase/supabase-js';
+import React, { createContext, useContext, useEffect, useState } from 'react';
+import { Session, User } from '@supabase/supabase-js';
+import { supabase } from '../lib/supabaseClient';
 import { toast } from 'sonner';
+import LoadingScreen from '../components/common/LoadingScreen';
+import SupabaseFallback from '../components/common/SupabaseFallback'; // Importando o componente de fallback
 
 interface AuthContextType {
   user: User | null;
@@ -45,40 +47,59 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
     console.log("Setting up auth state listener");
     
     // Primeiro configuramos o listener de mudanças de autenticação
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event, session) => {
-        console.log("Auth state changed:", event, session?.user?.email);
-        setSession(session);
-        setUser(session?.user ?? null);
-        
-        if (event === 'SIGNED_IN' && session) {
-          toast.success(messages.loginSuccess(session.user?.user_metadata?.name || ''));
+    let subscription: { unsubscribe: () => void } | null = null;
+    
+    try {
+      const { data } = supabase.auth.onAuthStateChange(
+        (event, session) => {
+          console.log("Auth state changed:", event, session?.user?.email);
+          setSession(session);
+          setUser(session?.user ?? null);
+          
+          if (event === 'SIGNED_IN' && session) {
+            toast.success(messages.loginSuccess(session.user?.user_metadata?.name || ''));
+          }
+          
+          if (event === 'SIGNED_OUT') {
+            toast.success(messages.logoutSuccess);
+          }
         }
-        
-        if (event === 'SIGNED_OUT') {
-          toast.success(messages.logoutSuccess);
-        }
-      }
-    );
+      );
+      
+      subscription = data.subscription;
+    } catch (err) {
+      console.error("Erro ao configurar listener de autenticação:", err);
+      setError(err instanceof Error ? err : new Error('Erro desconhecido ao configurar autenticação'));
+      // Não bloqueia a renderização da aplicação
+      setLoading(false);
+    }
 
     // Depois verificamos a sessão atual
     const checkCurrentSession = async () => {
       try {
-        const { data: { session } } = await supabase.auth.getSession();
-        console.log("Got initial session:", session?.user?.email);
+        const { data, error } = await supabase.auth.getSession();
+        console.log("Got initial session:", data?.session?.user?.email);
         
-        if (session) {
-          setSession(session);
-          setUser(session.user);
+        if (error) {
+          throw error;
         }
-      } catch (error) {
-        console.error("Erro ao buscar sessão:", error);
+        
+        if (data?.session) {
+          setSession(data.session);
+          setUser(data.session.user);
+        }
+      } catch (err) {
+        console.error("Erro ao buscar sessão:", err);
+        setError(err instanceof Error ? err : new Error('Erro desconhecido ao buscar sessão'));
+        // Não bloqueia a renderização da aplicação mesmo com erro
       } finally {
+        // Sempre finaliza o carregamento para evitar tela em branco
         setLoading(false);
       }
     };
@@ -87,9 +108,23 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     return () => {
       console.log("Cleaning up auth state listener");
-      subscription.unsubscribe();
+      if (subscription) {
+        subscription.unsubscribe();
+      }
     };
   }, []);
+  
+  // Componente de fallback para erros de conexão
+  if (error && !loading) {
+    console.warn("Renderizando fallback UI devido a erro de conexão com Supabase");
+    // Usando o novo componente SupabaseFallback
+    return <SupabaseFallback error={error} onRetry={() => window.location.reload()} />;
+  }
+  
+  // Exibe tela de carregamento enquanto inicializa a autenticação
+  if (loading) {
+    return <LoadingScreen message="Preparando sua jornada..." />;
+  }
 
   const signUp = async (email: string, password: string) => {
     try {

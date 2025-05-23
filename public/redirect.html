@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="refresh" content="0;url=/">
+  <title>Redirecionando para a Aplicação Principal</title>
+  <style>
+    body {
+      background-color: #2b1b36;
+      color: #e0e0e0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    
+    .container {
+      max-width: 450px;
+      width: 90%;
+      padding: 2rem;
+      background-color: #3c2a47;
+      border-radius: 8px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+      position: relative;
+      overflow: hidden;
+      border: 2px solid #8a6d3b;
+      text-align: center;
+    }
+    
+    .title {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: #ff9d00;
+    }
+
+    .message {
+      margin: 20px 0;
+    }
+
+    .manual-link {
+      color: #ff9d00;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="title">Redirecionando para a Aplicação Principal</div>
+    <p class="message">Você está sendo redirecionado para a aplicação React principal do Keeper of Realms.</p>
+    <p>Se o redirecionamento automático não funcionar, <a href="/" class="manual-link">clique aqui</a>.</p>
+    <p class="message">Nota: Para acessar a aplicação React completa, sempre use a URL base (http://localhost:3000/) em vez das páginas HTML estáticas.</p>
+  </div>
+
+  <script>
+    // Registra no console para fins de depuração
+    console.log('Redirecionando para a aplicação React principal...');
+    
+    // Redirecionamento via JavaScript como fallback
+    setTimeout(function() {
+      window.location.href = '/';
+    }, 1500);
+  </script>
+</body>
+</html>

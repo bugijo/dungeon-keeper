@@ -3,7 +3,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
-import { useAuth } from '@/contexts/AuthContext';
+import { useAuth } from '@/contexts/SupabaseAuthContext';
 
 // Definir um tipo para os dados da mesa pode ser útil
 interface GameTable {
@@ -26,7 +26,7 @@ type UserTableStatus = 'loading' | 'isMaster' | 'isPlayer' | 'requestPending' | 
 
 const GameTableDetailPage: React.FC = () => {
   const { id: tableIdParams } = useParams<{ id: string }>();
-  const { session, loadingAuth } = useAuth();
+  const { session, loading: loadingAuth } = useAuth();
   const [table, setTable] = useState<GameTable | null>(null);
   const [loadingTable, setLoadingTable] = useState(true);
   const [userTableStatus, setUserTableStatus] = useState<UserTableStatus>('loading');

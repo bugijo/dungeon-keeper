@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200" fill="none">
+  <rect width="200" height="200" rx="10" fill="#4A2E6A"/>
+  <path d="M50 50 L150 50 L150 150 L50 150 Z" stroke="#FFD700" stroke-width="8" fill="none"/>
+  <path d="M75 75 L125 75 L125 125 L75 125 Z" stroke="#FFD700" stroke-width="4" fill="none"/>
+  <text x="100" y="110" font-family="serif" font-size="24" fill="#FFD700" text-anchor="middle">RPG</text>
+  <text x="100" y="135" font-family="serif" font-size="16" fill="#FFD700" text-anchor="middle">MASTER</text>
+</svg>

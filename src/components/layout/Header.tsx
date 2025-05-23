@@ -49,91 +49,89 @@ const Header: React.FC = () => {
     setIsSettingsModalOpen(true);
   };
   return (
-    <header className="bg-stone-800 text-amber-50 p-4 fixed top-0 left-0 right-0 z-50 h-24 flex items-center justify-between shadow-lg border-b-2 border-amber-700" style={{ backgroundImage: "url('/textures/wood-pattern.png')" }}>
-      {/* Lado Esquerdo: Foto de Perfil, Nível e XP */}
-      <div className="flex items-center space-x-4">
-        <img 
-          src={userData.profilePic} 
-          alt="Foto de Perfil"
-          className="w-16 h-16 rounded-full border-4 border-amber-500 shadow-md hover:opacity-90 transition-opacity duration-200 cursor-pointer"
-          onClick={handleProfileClick} 
-        />
-        <div className="ml-3">
-          <div className="text-lg font-bold text-amber-200 font-serif tracking-wider">{userData.name}</div>
-          <div className="text-sm text-amber-100">Nível {userData.level} - {userData.title}</div>
-          <div className="w-40 h-3 bg-stone-700 rounded-full mt-1 border border-amber-700">
-            <div 
-              className="h-full bg-green-600 rounded-full transition-all duration-500 ease-out"
-              style={{ width: `${(userData.currentXp / userData.xpToNextLevel) * 100}%` }} 
-            ></div>
+    <>
+      <header className="bg-stone-800 text-amber-50 p-4 fixed top-0 left-0 right-0 z-50 h-24 flex items-center justify-between shadow-lg border-b-2 border-amber-700" style={{ backgroundImage: "url('/textures/wood-pattern.png')" }}>
+        {/* Lado Esquerdo: Foto de Perfil, Nível e XP */}
+        <div className="flex items-center space-x-4">
+          <img 
+            src={userData.profilePic} 
+            alt="Foto de Perfil"
+            className="w-16 h-16 rounded-full border-4 border-amber-500 shadow-md hover:opacity-90 transition-opacity duration-200 cursor-pointer"
+            onClick={handleProfileClick} 
+          />
+          <div className="ml-3">
+            <div className="text-lg font-bold text-amber-200 font-serif tracking-wider">{userData.name}</div>
+            <div className="text-sm text-amber-100">Nível {userData.level} - {userData.title}</div>
+            <div className="w-40 h-3 bg-stone-700 rounded-full mt-1 border border-amber-700">
+              <div 
+                className="h-full bg-green-600 rounded-full transition-all duration-500 ease-out"
+                style={{ width: `${(userData.currentXp / userData.xpToNextLevel) * 100}%` }} 
+              ></div>
+            </div>
+            <div className="text-xs text-amber-100 mt-0.5">XP: {userData.currentXp} / {userData.xpToNextLevel}</div>
           </div>
-          <div className="text-xs text-amber-100 mt-0.5">XP: {userData.currentXp} / {userData.xpToNextLevel}</div>
         </div>
-      </div>
-
-      {/* Centro: Logo (Opcional, pode ser removido se não houver espaço) */}
-      <div className="absolute left-1/2 transform -translate-x-1/2 hidden md:block">
-        <img src="/logo/logo-keeper-of-realms-textura-madeira.png" alt="Logo Keeper of Realms" className="h-16" />
-      </div>
-      {/* <div className="absolute left-1/2 transform -translate-x-1/2">
-        <img src="/logo-medieval.png" alt="Logo" className="h-12" />
-      </div> */}
-
-      {/* Lado Direito: Moedas, Notificações, Configurações */}
-      <div className="flex items-center space-x-4 md:space-x-6">
-        {/* Gemas */}
-        <div className="flex items-center space-x-2 bg-black bg-opacity-30 p-2 rounded-lg border border-amber-600">
-          <img src="/icons/gem-icon-medieval.png" alt="Gemas" className="w-8 h-8" />
-          <span className="font-bold text-lg text-yellow-300">{userData.gems}</span>
+    
+        {/* Centro: Logo (Opcional, pode ser removido se não houver espaço) */}
+        <div className="absolute left-1/2 transform -translate-x-1/2 hidden md:block">
+          <img src="/logo/logo-keeper-of-realms-textura-madeira.png" alt="Logo Keeper of Realms" className="h-16" />
         </div>
-        {/* Diamantes */}
-        <div className="flex items-center space-x-2 bg-black bg-opacity-30 p-2 rounded-lg border border-amber-600">
-          <img src="/icons/diamond-icon-medieval.png" alt="Diamantes" className="w-8 h-8" />
-          <span className="font-bold text-lg text-sky-300">{userData.diamonds}</span>
+        {/* <div className="absolute left-1/2 transform -translate-x-1/2">
+          <img src="/logo-medieval.png" alt="Logo" className="h-12" />
+        </div> */}
+    
+        {/* Lado Direito: Moedas, Notificações, Configurações */}
+        <div className="flex items-center space-x-4 md:space-x-6">
+          {/* Gemas */}
+          <div className="flex items-center space-x-2 bg-black bg-opacity-30 p-2 rounded-lg border border-amber-600">
+            <img src="/icons/gem-icon-medieval.png" alt="Gemas" className="w-8 h-8" />
+            <span className="font-bold text-lg text-yellow-300">{userData.gems}</span>
+          </div>
+          {/* Diamantes */}
+          <div className="flex items-center space-x-2 bg-black bg-opacity-30 p-2 rounded-lg border border-amber-600">
+            <img src="/icons/diamond-icon-medieval.png" alt="Diamantes" className="w-8 h-8" />
+            <span className="font-bold text-lg text-sky-300">{userData.diamonds}</span>
+          </div>
+          {/* Ouro */}
+          <div className="flex items-center space-x-2 bg-black bg-opacity-30 p-2 rounded-lg border border-amber-600">
+            <img src="/icons/gold-icon-medieval.png" alt="Ouro" className="w-8 h-8" />
+            <span className="font-bold text-lg text-orange-300">{userData.gold}</span>
+          </div>
+          {/* Ícone de Notificações */}
+          <button className="relative p-1 rounded-full hover:bg-amber-700 transition-colors duration-200" onClick={handleNotificationsClick} aria-label="Abrir notificações">
+            <img src="/icons/notification-bell-medieval.png" alt="Notificações" className="w-9 h-9" />
+            {unreadNotificationsCount > 0 && (
+              <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-600 rounded-full border-2 border-stone-800 text-xs flex items-center justify-center text-white font-bold">
+                {unreadNotificationsCount}
+              </span>
+            )}
+          </button>
+          {/* Ícone de Configurações */}
+          <button className="p-1 rounded-full hover:bg-amber-700 transition-colors duration-200" onClick={handleSettingsClick} aria-label="Abrir configurações">
+            <img src="/icons/settings-cog-medieval.png" alt="Configurações" className="w-9 h-9" />
+          </button>
         </div>
-        {/* Ouro */}
-        <div className="flex items-center space-x-2 bg-black bg-opacity-30 p-2 rounded-lg border border-amber-600">
-          <img src="/icons/gold-icon-medieval.png" alt="Ouro" className="w-8 h-8" />
-          <span className="font-bold text-lg text-orange-300">{userData.gold}</span>
-        </div>
-        
-        {/* Ícone de Notificações */}
-        <button className="relative p-1 rounded-full hover:bg-amber-700 transition-colors duration-200" onClick={handleNotificationsClick}>
-          <img src="/icons/notification-bell-medieval.png" alt="Notificações" className="w-9 h-9" />
-          {unreadNotificationsCount > 0 && (
-            <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-600 rounded-full border-2 border-stone-800 text-xs flex items-center justify-center text-white font-bold">
-              {unreadNotificationsCount}
-            </span>
-          )}
-        </button>
-
-        {/* Ícone de Configurações */}
-        <button className="p-1 rounded-full hover:bg-amber-700 transition-colors duration-200" onClick={handleSettingsClick}>
-          <img src="/icons/settings-cog-medieval.png" alt="Configurações" className="w-9 h-9" />
-        </button>
-      </div>
-    </header>
-
-    {/* Modal de Perfil */}
-    <ProfileModal 
-      isOpen={isProfileModalOpen} 
-      onClose={() => setIsProfileModalOpen(false)} 
-    />
-
-    {/* Modal de Notificações */}
-    <NotificationsModal
-      isOpen={isNotificationsModalOpen}
-      onClose={() => setIsNotificationsModalOpen(false)}
-      notifications={notifications}
-      onMarkAsRead={handleMarkAsRead}
-      onMarkAllAsRead={handleMarkAllAsRead}
-    />
-
-    {/* Modal de Configurações */}
-    <SettingsModal
-      isOpen={isSettingsModalOpen}
-      onClose={() => setIsSettingsModalOpen(false)}
-    />
+      </header>
+    
+      {/* Modal de Perfil */}
+      <ProfileModal 
+        isOpen={isProfileModalOpen} 
+        onClose={() => setIsProfileModalOpen(false)} 
+      />
+      {/* Modal de Notificações */}
+      <NotificationsModal
+        isOpen={isNotificationsModalOpen}
+        onClose={() => setIsNotificationsModalOpen(false)}
+        notifications={notifications}
+        onMarkAsRead={handleMarkAsRead}
+        onMarkAllAsRead={handleMarkAllAsRead}
+      />
+      {/* Modal de Configurações */}
+      <SettingsModal
+        isOpen={isSettingsModalOpen}
+        onClose={() => setIsSettingsModalOpen(false)}
+      />
+    </>
   );
 };
 

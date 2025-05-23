@@ -6,7 +6,7 @@ import { Save, Trash2, Download, Upload } from 'lucide-react';
 interface FogPreset {
   id: string;
   name: string;
-  areas: any[];
+  areas: { x: number; y: number; radius: number; timestamp: number }[];
   created_at?: string;
 }
 
@@ -15,8 +15,8 @@ interface FogPresetManagerProps {
   gameId: string;
   userId: string;
   isGameMaster: boolean;
-  currentAreas: any[];
-  onPresetLoad: (areas: any[]) => void;
+  currentAreas: { x: number; y: number; radius: number; timestamp: number }[];
+  onPresetLoad: (areas: { x: number; y: number; radius: number; timestamp: number }[]) => void;
 }
 
 const FogPresetManager: React.FC<FogPresetManagerProps> = ({
