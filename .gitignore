@@ -35,6 +35,10 @@ ThumbsJL.db
 !.vscode/extensions.json
 *.sublime-project
 *.sublime-workspace
+
+# Garantir versionamento dos arquivos ideias.md e tarefas.md
+!ideias.md
+!tarefas.md
 *.suo
 *.ntvs*
 *.njsproj
